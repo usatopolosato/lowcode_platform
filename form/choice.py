@@ -12,9 +12,9 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Platform(object):
     def setupUi(self, Platform):
         Platform.setObjectName("Platform")
-        Platform.resize(1124, 724)
+        Platform.resize(1358, 848)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("./resource/icon.png"), QtGui.QIcon.Mode.Normal,
+        icon.addPixmap(QtGui.QPixmap("resource/icon.png"), QtGui.QIcon.Mode.Normal,
                        QtGui.QIcon.State.Off)
         Platform.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(parent=Platform)
@@ -109,11 +109,12 @@ class Ui_Platform(object):
         self.verticalLayout_2.addWidget(self.label_3)
         self.stats_label = QtWidgets.QLabel(parent=self.right_panel)
         self.stats_label.setStyleSheet("color: #2c5282;\n"
-                                       "font-size: 12px;\n"
-                                       "margin: 5px;\n"
-                                       "padding: 8px;\n"
+                                       "font-size: 18px;\n"
+                                       "margin: 8px;\n"
+                                       "padding: 12px;\n"
                                        "background-color: #e2e8f0;\n"
-                                       "border-radius: 5px;")
+                                       "border-radius: 8px;\n"
+                                       "font-weight: bold;")
         self.stats_label.setObjectName("stats_label")
         self.verticalLayout_2.addWidget(self.stats_label)
         self.file_list = QtWidgets.QListWidget(parent=self.right_panel)
@@ -121,18 +122,20 @@ class Ui_Platform(object):
                                      "                background-color: white;\n"
                                      "                color: #1a202c;\n"
                                      "                border: 2px solid #3182ce;\n"
-                                     "                border-radius: 8px;\n"
-                                     "                font-size: 13px;\n"
-                                     "                font-family: Consolas;\n"
+                                     "                border-radius: 10px;\n"
+                                     "                font-size: 16px;\n"
+                                     "                font-family: \"Segoe UI\", Arial, sans-serif;\n"
                                      "            }\n"
                                      " QListWidget::item {\n"
-                                     "                padding: 10px;\n"
-                                     "                border-bottom: 1px solid #e2e8f0;\n"
+                                     "                padding: 15px;\n"
+                                     "                border-bottom: 2px solid #e2e8f0;\n"
+                                     "                font-size: 15px;\n"
                                      "            }\n"
                                      "QListWidget::item:selected {\n"
                                      "                background-color: #3182ce;\n"
                                      "                color: white;\n"
-                                     "                border-radius: 5px;\n"
+                                     "                border-radius: 8px;\n"
+                                     "                font-weight: bold;\n"
                                      "            }")
         self.file_list.setObjectName("file_list")
         self.verticalLayout_2.addWidget(self.file_list)
@@ -143,10 +146,10 @@ class Ui_Platform(object):
                                       "                    background-color: #48bb78;\n"
                                       "                    color: white;\n"
                                       "                    border: none;\n"
-                                      "                    padding: 10px 15px;\n"
-                                      "                    border-radius: 6px;\n"
+                                      "                    padding: 15px 20px;\n"
+                                      "                    border-radius: 8px;\n"
                                       "                    font-weight: bold;\n"
-                                      "                    font-size: 12px;\n"
+                                      "                    font-size: 20px;\n"
                                       "                }\n"
                                       "QPushButton:hover {\n"
                                       "                    background-color: #3c9e65;\n"
@@ -161,10 +164,10 @@ class Ui_Platform(object):
                                        "                    background-color: #3182ce;\n"
                                        "                    color: white;\n"
                                        "                    border: none;\n"
-                                       "                    padding: 10px 15px;\n"
-                                       "                    border-radius: 6px;\n"
+                                       "                    padding: 15px 20px;\n"
+                                       "                    border-radius: 8px;\n"
                                        "                    font-weight: bold;\n"
-                                       "                    font-size: 12px;\n"
+                                       "                    font-size: 20px;\n"
                                        "                }\n"
                                        "QPushButton:hover {\n"
                                        "                    background-color: rgb(37, 100, 159);\n"
@@ -179,10 +182,10 @@ class Ui_Platform(object):
                                          "                    background-color: #ed8936;\n"
                                          "                    color: white;\n"
                                          "                    border: none;\n"
-                                         "                    padding: 10px 15px;\n"
-                                         "                    border-radius: 6px;\n"
+                                         "                    padding: 15px 20px;\n"
+                                         "                    border-radius: 8px;\n"
                                          "                    font-weight: bold;\n"
-                                         "                    font-size: 12px;\n"
+                                         "                    font-size: 20px;\n"
                                          "                }\n"
                                          "QPushButton:hover {\n"
                                          "                    background-color: rgb(195, 112, 44);\n"
@@ -197,10 +200,10 @@ class Ui_Platform(object):
                                          "                    background-color: rgb(170, 85, 255);\n"
                                          "                    color: white;\n"
                                          "                    border: none;\n"
-                                         "                    padding: 10px 15px;\n"
-                                         "                    border-radius: 6px;\n"
+                                         "                    padding: 15px 20px;\n"
+                                         "                    border-radius: 8px;\n"
                                          "                    font-weight: bold;\n"
-                                         "                    font-size: 12px;\n"
+                                         "                    font-size: 20px;\n"
                                          "                }\n"
                                          "QPushButton:hover {\n"
                                          "                    background-color: rgb(121, 0, 182);\n"
@@ -226,7 +229,7 @@ class Ui_Platform(object):
         self.frame.setSizePolicy(sizePolicy)
         self.frame.setStyleSheet("QFrame {\n"
                                  "    background-color: #ffffff;\n"
-                                 "    border-radius: 10px;\n"
+                                 "    border-radius: 12px;\n"
                                  "}")
         self.frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
@@ -240,16 +243,16 @@ class Ui_Platform(object):
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
         self.preprocessing_button = QtWidgets.QPushButton(parent=self.frame)
-        self.preprocessing_button.setMinimumSize(QtCore.QSize(200, 120))
+        self.preprocessing_button.setMinimumSize(QtCore.QSize(250, 140))
         self.preprocessing_button.setStyleSheet("QPushButton {\n"
                                                 "    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
                                                 "                                stop: 0 #4CAF50, stop: 1 #45a049);\n"
                                                 "    color: white;\n"
                                                 "    border: none;\n"
-                                                "    border-radius: 15px;\n"
+                                                "    border-radius: 18px;\n"
                                                 "    font-weight: bold;\n"
-                                                "    font-size: 16px;\n"
-                                                "    padding: 20px;\n"
+                                                "    font-size: 20px;\n"
+                                                "    padding: 25px;\n"
                                                 "}\n"
                                                 "QPushButton:hover {\n"
                                                 "    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
@@ -262,16 +265,16 @@ class Ui_Platform(object):
         self.preprocessing_button.setObjectName("preprocessing_button")
         self.gridLayout.addWidget(self.preprocessing_button, 0, 0, 1, 1)
         self.visualization_button = QtWidgets.QPushButton(parent=self.frame)
-        self.visualization_button.setMinimumSize(QtCore.QSize(200, 120))
+        self.visualization_button.setMinimumSize(QtCore.QSize(250, 140))
         self.visualization_button.setStyleSheet("QPushButton {\n"
                                                 "    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
                                                 "                                stop: 0 #2196F3, stop: 1 #1976D2);\n"
                                                 "    color: white;\n"
                                                 "    border: none;\n"
-                                                "    border-radius: 15px;\n"
+                                                "    border-radius: 18px;\n"
                                                 "    font-weight: bold;\n"
-                                                "    font-size: 16px;\n"
-                                                "    padding: 20px;\n"
+                                                "    font-size: 20px;\n"
+                                                "    padding: 25px;\n"
                                                 "}\n"
                                                 "QPushButton:hover {\n"
                                                 "    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
@@ -284,16 +287,16 @@ class Ui_Platform(object):
         self.visualization_button.setObjectName("visualization_button")
         self.gridLayout.addWidget(self.visualization_button, 0, 1, 1, 1)
         self.modeling_button = QtWidgets.QPushButton(parent=self.frame)
-        self.modeling_button.setMinimumSize(QtCore.QSize(200, 120))
+        self.modeling_button.setMinimumSize(QtCore.QSize(250, 140))
         self.modeling_button.setStyleSheet("QPushButton {\n"
                                            "    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
                                            "                                stop: 0 #FF9800, stop: 1 #F57C00);\n"
                                            "    color: white;\n"
                                            "    border: none;\n"
-                                           "    border-radius: 15px;\n"
+                                           "    border-radius: 18px;\n"
                                            "    font-weight: bold;\n"
-                                           "    font-size: 16px;\n"
-                                           "    padding: 20px;\n"
+                                           "    font-size: 20px;\n"
+                                           "    padding: 25px;\n"
                                            "}\n"
                                            "QPushButton:hover {\n"
                                            "    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
@@ -306,16 +309,16 @@ class Ui_Platform(object):
         self.modeling_button.setObjectName("modeling_button")
         self.gridLayout.addWidget(self.modeling_button, 1, 0, 1, 1)
         self.back_button = QtWidgets.QPushButton(parent=self.frame)
-        self.back_button.setMinimumSize(QtCore.QSize(200, 120))
+        self.back_button.setMinimumSize(QtCore.QSize(250, 140))
         self.back_button.setStyleSheet("QPushButton {\n"
                                        "    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
                                        "                                stop: 0 #9C27B0, stop: 1 #7B1FA2);\n"
                                        "    color: white;\n"
                                        "    border: none;\n"
-                                       "    border-radius: 15px;\n"
+                                       "    border-radius: 18px;\n"
                                        "    font-weight: bold;\n"
-                                       "    font-size: 16px;\n"
-                                       "    padding: 20px;\n"
+                                       "    font-size: 20px;\n"
+                                       "    padding: 25px;\n"
                                        "}\n"
                                        "QPushButton:hover {\n"
                                        "    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
@@ -335,7 +338,7 @@ class Ui_Platform(object):
         self.horizontalLayout.setStretch(1, 1)
         Platform.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=Platform)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1124, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1358, 26))
         self.menubar.setObjectName("menubar")
         Platform.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(parent=Platform)
@@ -349,121 +352,121 @@ class Ui_Platform(object):
     def retranslateUi(self, Platform):
         _translate = QtCore.QCoreApplication.translate
         Platform.setWindowTitle(_translate("Platform", "DataLite"))
-        self.label.setText(
-            _translate("Platform", "<h1 style=\'color: #ffffff\'> <b> DataLite <b> </h1>"))
+        self.label.setText(_translate("Platform",
+                                      "<h1 style=\'color: #ffffff; font-size: 28px;\'> <b> DataLite <b> </h1>"))
         self.label_2.setText(_translate("Platform",
-                                        "<div style=\'color: #ffffff; font-size: 14px; line-height: 1.5; margin: 20px; font-family: \"Segoe UI\", Arial, sans-serif;\'>\n"
+                                        "<div style=\'color: #ffffff; font-size: 16px; line-height: 1.6; margin: 20px; font-family: \"Segoe UI\", Arial, sans-serif;\'>\n"
                                         "    <!-- Заголовок -->\n"
-                                        "    <div style=\"background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 15px; border-radius: 10px; margin-bottom: 20px;\">\n"
-                                        "        <h2 style=\"color: #ffffff; font-size: 20px; font-weight: 600; margin: 0; text-align: center;\">\n"
+                                        "    <div style=\"background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 12px; margin-bottom: 25px;\">\n"
+                                        "        <h2 style=\"color: #ffffff; font-size: 24px; font-weight: 600; margin: 0; text-align: center;\">\n"
                                         "            🚀 Профессиональная платформа аналитики\n"
                                         "        </h2>\n"
                                         "    </div>\n"
                                         "\n"
                                         "    <!-- Возможности системы -->\n"
-                                        "    <div style=\"background: rgba(30, 58, 95, 0.9); padding: 20px; border-radius: 10px; margin-bottom: 15px; border-left: 4px solid #3182ce;\">\n"
-                                        "        <h3 style=\"color: #90cdf4; font-size: 16px; font-weight: 600; margin: 0 0 15px 0; display: flex; align-items: center;\">\n"
-                                        "            <span style=\"margin-right: 8px;\">📊</span>Возможности системы\n"
+                                        "    <div style=\"background: rgba(30, 58, 95, 0.9); padding: 25px; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid #3182ce;\">\n"
+                                        "        <h3 style=\"color: #90cdf4; font-size: 20px; font-weight: 600; margin: 0 0 20px 0; display: flex; align-items: center;\">\n"
+                                        "            <span style=\"margin-right: 10px;\">📊</span>Возможности системы\n"
                                         "        </h3>\n"
                                         "\n"
-                                        "        <div style=\"display: grid; gap: 10px;\">\n"
-                                        "            <div style=\"display: flex; align-items: flex-start; gap: 10px;\">\n"
-                                        "                <span style=\"color: #48bb78; font-size: 16px;\">📈</span>\n"
+                                        "        <div style=\"display: grid; gap: 15px;\">\n"
+                                        "            <div style=\"display: flex; align-items: flex-start; gap: 15px;\">\n"
+                                        "                <span style=\"color: #48bb78; font-size: 20px;\">📈</span>\n"
                                         "                <div>\n"
-                                        "                    <div style=\"color: #bee3f8; font-weight: 600; font-size: 14px;\">Разведочный анализ (EDA)</div>\n"
-                                        "                    <div style=\"color: #a0aec0; font-size: 12px;\">Исследование данных и выявление аномалий</div>\n"
+                                        "                    <div style=\"color: #bee3f8; font-weight: 600; font-size: 18px;\">Разведочный анализ (EDA)</div>\n"
+                                        "                    <div style=\"color: #a0aec0; font-size: 15px;\">Исследование данных и выявление аномалий</div>\n"
                                         "                </div>\n"
                                         "            </div>\n"
                                         "\n"
-                                        "            <div style=\"display: flex; align-items: flex-start; gap: 10px;\">\n"
-                                        "                <span style=\"color: #4299e1; font-size: 16px;\">📊</span>\n"
+                                        "            <div style=\"display: flex; align-items: flex-start; gap: 15px;\">\n"
+                                        "                <span style=\"color: #4299e1; font-size: 20px;\">📊</span>\n"
                                         "                <div>\n"
-                                        "                    <div style=\"color: #bee3f8; font-weight: 600; font-size: 14px;\">Визуализация данных</div>\n"
-                                        "                    <div style=\"color: #a0aec0; font-size: 12px;\">Интерактивные дашборды и отчеты</div>\n"
+                                        "                    <div style=\"color: #bee3f8; font-weight: 600; font-size: 18px;\">Визуализация данных</div>\n"
+                                        "                    <div style=\"color: #a0aec0; font-size: 15px;\">Интерактивные дашборды и отчеты</div>\n"
                                         "                </div>\n"
                                         "            </div>\n"
                                         "\n"
-                                        "            <div style=\"display: flex; align-items: flex-start; gap: 10px;\">\n"
-                                        "                <span style=\"color: #ed8936; font-size: 16px;\">🔍</span>\n"
+                                        "            <div style=\"display: flex; align-items: flex-start; gap: 15px;\">\n"
+                                        "                <span style=\"color: #ed8936; font-size: 20px;\">🔍</span>\n"
                                         "                <div>\n"
-                                        "                    <div style=\"color: #bee3f8; font-weight: 600; font-size: 14px;\">ML моделирование</div>\n"
-                                        "                    <div style=\"color: #a0aec0; font-size: 12px;\">Прогнозирование и анализ паттернов</div>\n"
+                                        "                    <div style=\"color: #bee3f8; font-weight: 600; font-size: 18px;\">ML моделирование</div>\n"
+                                        "                    <div style=\"color: #a0aec0; font-size: 15px;\">Прогнозирование и анализ паттернов</div>\n"
                                         "                </div>\n"
                                         "            </div>\n"
                                         "\n"
-                                        "            <div style=\"display: flex; align-items: flex-start; gap: 10px;\">\n"
-                                        "                <span style=\"color: #9f7aea; font-size: 16px;\">📁</span>\n"
+                                        "            <div style=\"display: flex; align-items: flex-start; gap: 15px;\">\n"
+                                        "                <span style=\"color: #9f7aea; font-size: 20px;\">📁</span>\n"
                                         "                <div>\n"
-                                        "                    <div style=\"color: #bee3f8; font-weight: 600; font-size: 14px;\">Управление датасетами</div>\n"
-                                        "                    <div style=\"color: #a0aec0; font-size: 12px;\">Хранение и каталогизация данных</div>\n"
+                                        "                    <div style=\"color: #bee3f8; font-weight: 600; font-size: 18px;\">Управление датасетами</div>\n"
+                                        "                    <div style=\"color: #a0aec0; font-size: 15px;\">Хранение и каталогизация данных</div>\n"
                                         "                </div>\n"
                                         "            </div>\n"
                                         "        </div>\n"
                                         "    </div>\n"
                                         "    <br>\n"
                                         "    <!-- Форматы и Workflow в одной строке -->\n"
-                                        "    <div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;\">\n"
+                                        "    <div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;\">\n"
                                         "        <!-- Поддерживаемые форматы -->\n"
-                                        "        <div style=\"background: rgba(30, 58, 95, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid #48bb78;\">\n"
-                                        "            <h3 style=\"color: #90cdf4; font-size: 16px; font-weight: 600; margin: 0 0 12px 0; display: flex; align-items: center;\">\n"
-                                        "                <span style=\"margin-right: 8px;\">📋</span>Форматы\n"
+                                        "        <div style=\"background: rgba(30, 58, 95, 0.9); padding: 20px; border-radius: 12px; border-left: 5px solid #48bb78;\">\n"
+                                        "            <h3 style=\"color: #90cdf4; font-size: 20px; font-weight: 600; margin: 0 0 15px 0; display: flex; align-items: center;\">\n"
+                                        "                <span style=\"margin-right: 10px;\">📋</span>Форматы\n"
                                         "            </h3>\n"
                                         "\n"
-                                        "            <div style=\"display: flex; flex-direction: column; gap: 8px;\">\n"
-                                        "                <div style=\"display: flex; align-items: center; gap: 8px; padding: 8px; background: rgba(72, 187, 120, 0.1); border-radius: 6px;\">\n"
-                                        "                    <span style=\"color: #68d391; font-size: 14px;\">📄</span>\n"
-                                        "                    <span style=\"color: #bee3f8; font-weight: 600; font-size: 13px;\">CSV</span>\n"
-                                        "                    <span style=\"color: #a0aec0; font-size: 12px; margin-left: auto;\">Табличные</span>\n"
+                                        "            <div style=\"display: flex; flex-direction: column; gap: 12px;\">\n"
+                                        "                <div style=\"display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(72, 187, 120, 0.1); border-radius: 8px;\">\n"
+                                        "                    <span style=\"color: #68d391; font-size: 18px;\">📄</span>\n"
+                                        "                    <span style=\"color: #bee3f8; font-weight: 600; font-size: 16px;\">CSV</span>\n"
+                                        "                    <span style=\"color: #a0aec0; font-size: 14px; margin-left: auto;\">Табличные</span>\n"
                                         "                </div>\n"
                                         "\n"
-                                        "                <div style=\"display: flex; align-items: center; gap: 8px; padding: 8px; background: rgba(66, 153, 225, 0.1); border-radius: 6px;\">\n"
-                                        "                    <span style=\"color: #90cdf4; font-size: 14px;\">📑</span>\n"
-                                        "                    <span style=\"color: #bee3f8; font-weight: 600; font-size: 13px;\">JSON</span>\n"
-                                        "                    <span style=\"color: #a0aec0; font-size: 12px; margin-left: auto;\">Структурированные</span>\n"
+                                        "                <div style=\"display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(66, 153, 225, 0.1); border-radius: 8px;\">\n"
+                                        "                    <span style=\"color: #90cdf4; font-size: 18px;\">📑</span>\n"
+                                        "                    <span style=\"color: #bee3f8; font-weight: 600; font-size: 16px;\">JSON</span>\n"
+                                        "                    <span style=\"color: #a0aec0; font-size: 14px; margin-left: auto;\">Структурированные</span>\n"
                                         "                </div>\n"
                                         "            </div>\n"
                                         "        </div>\n"
                                         "    <br>\n"
                                         "\n"
                                         "        <!-- Workflow -->\n"
-                                        "        <div style=\"background: linear-gradient(135deg, #2c5282 0%, #1a365d 100%); padding: 15px; border-radius: 10px;\">\n"
-                                        "            <h3 style=\"color: #90cdf4; font-size: 16px; font-weight: 600; margin: 0 0 12px 0; display: flex; align-items: center;\">\n"
-                                        "                <span style=\"margin-right: 8px;\">💡</span>Workflow\n"
+                                        "        <div style=\"background: linear-gradient(135deg, #2c5282 0%, #1a365d 100%); padding: 20px; border-radius: 12px;\">\n"
+                                        "            <h3 style=\"color: #90cdf4; font-size: 20px; font-weight: 600; margin: 0 0 15px 0; display: flex; align-items: center;\">\n"
+                                        "                <span style=\"margin-right: 10px;\">💡</span>Workflow\n"
                                         "            </h3>\n"
                                         "\n"
-                                        "            <div style=\"display: flex; flex-direction: column; gap: 8px;\">\n"
-                                        "                <div style=\"display: flex; align-items: center; gap: 8px;\">\n"
-                                        "                    <div style=\"width: 20px; height: 20px; background: #3182ce; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 11px;\">1</div>\n"
-                                        "                    <div style=\"color: #bee3f8; font-size: 13px;\">Импорт данных</div>\n"
+                                        "            <div style=\"display: flex; flex-direction: column; gap: 12px;\">\n"
+                                        "                <div style=\"display: flex; align-items: center; gap: 12px;\">\n"
+                                        "                    <div style=\"width: 28px; height: 28px; background: #3182ce; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 14px;\">1</div>\n"
+                                        "                    <div style=\"color: #bee3f8; font-size: 16px;\">Импорт данных</div>\n"
                                         "                </div>\n"
                                         "\n"
-                                        "                <div style=\"display: flex; align-items: center; gap: 8px;\">\n"
-                                        "                    <div style=\"width: 20px; height: 20px; background: #4299e1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 11px;\">2</div>\n"
-                                        "                    <div style=\"color: #bee3f8; font-size: 13px;\">Выбор датасета</div>\n"
+                                        "                <div style=\"display: flex; align-items: center; gap: 12px;\">\n"
+                                        "                    <div style=\"width: 28px; height: 28px; background: #4299e1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 14px;\">2</div>\n"
+                                        "                    <div style=\"color: #bee3f8; font-size: 16px;\">Выбор датасета</div>\n"
                                         "                </div>\n"
                                         "\n"
-                                        "                <div style=\"display: flex; align-items: center; gap: 8px;\">\n"
-                                        "                    <div style=\"width: 20px; height: 20px; background: #38b2ac; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 11px;\">3</div>\n"
-                                        "                    <div style=\"color: #bee3f8; font-size: 13px;\">Анализ данных</div>\n"
+                                        "                <div style=\"display: flex; align-items: center; gap: 12px;\">\n"
+                                        "                    <div style=\"width: 28px; height: 28px; background: #38b2ac; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 14px;\">3</div>\n"
+                                        "                    <div style=\"color: #bee3f8; font-size: 16px;\">Анализ данных</div>\n"
                                         "                </div>\n"
                                         "\n"
-                                        "                <div style=\"display: flex; align-items: center; gap: 8px;\">\n"
-                                        "                    <div style=\"width: 20px; height: 20px; background: #9f7aea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 11px;\">4</div>\n"
-                                        "                    <div style=\"color: #bee3f8; font-size: 13px;\">Управление данными</div>\n"
+                                        "                <div style=\"display: flex; align-items: center; gap: 12px;\">\n"
+                                        "                    <div style=\"width: 28px; height: 28px; background: #9f7aea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 14px;\">4</div>\n"
+                                        "                    <div style=\"color: #bee3f8; font-size: 16px;\">Управление данными</div>\n"
                                         "                </div>\n"
                                         "            </div>\n"
                                         "        </div>\n"
                                         "    </div>\n"
                                         "</div>"))
         self.label_3.setText(_translate("Platform",
-                                        "<h1 style=\'color: #1e3a5f; margin: 15px;\'> 🗂️ Управление датасетами <h1>"))
+                                        "<h1 style=\'color: #1e3a5f; margin: 20px; font-size: 32px;\'> 🗂️ Управление датасетами <h1>"))
         self.stats_label.setText(_translate("Platform", "Загрузка..."))
         self.add_button.setText(_translate("Platform", "Добавить датасет"))
         self.open_button.setText(_translate("Platform", "Анализировать"))
         self.delete_button.setText(_translate("Platform", "Удалить"))
         self.update_button.setText(_translate("Platform", "Обновить"))
         self.label_4.setText(_translate("Platform",
-                                        "<h1 style=\'color: #1e3a5f; margin: 15px; text-align: center;\'> 🔧 Инструменты анализа </h1>"))
+                                        "<h1 style=\'color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;\'> 🔧 Инструменты анализа </h1>"))
         self.preprocessing_button.setText(_translate("Platform", "Предобработка данных"))
         self.visualization_button.setText(_translate("Platform", "Визуализация"))
         self.modeling_button.setText(_translate("Platform", "Моделирование"))

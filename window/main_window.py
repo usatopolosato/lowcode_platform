@@ -63,6 +63,8 @@ class MainWindow(QMainWindow):
         self.ui.back_button.clicked.connect(self.go_back_to_main)
         self.ui.visualization_button.setEnabled(False)
         self.ui.modeling_button.setEnabled(False)
+        self.ui.file_list.clearSelection()
+        self.ui.add_button.setFocus()
 
     def update_file_stats(self):
         """Обновление статистики файлов"""
@@ -90,6 +92,7 @@ class MainWindow(QMainWindow):
 
             self.update_file_stats()
             self.cleanup_orphaned_states()
+            self.ui.file_list.setCurrentItem(None)
 
         except FileNotFoundError:
             QMessageBox.warning(self, "Ошибка", f"Папка {self.data_folder} не найдена!")
@@ -196,7 +199,7 @@ class MainWindow(QMainWindow):
         self.ui.modeling_button.setEnabled(modeling_enabled)
 
         # Визуально показываем состояние кнопок
-        style_disabled = "background-color: #cccccc; color: #666666; border: none; border-radius: 15px; font-weight: bold; font-size: 16px; padding: 20px;"
+        style_disabled = "background-color: #cccccc; color: #666666; border: none; border-radius: 15px; font-weight: bold; font-size: 22px; padding: 20px;"
 
         if not preprocessing_enabled:
             self.ui.preprocessing_button.setStyleSheet(style_disabled)
@@ -209,7 +212,7 @@ class MainWindow(QMainWindow):
                     border: none;
                     border-radius: 15px;
                     font-weight: bold;
-                    font-size: 16px;
+                    font-size: 20px;
                     padding: 20px;
                 }
                 QPushButton:hover {
@@ -233,7 +236,7 @@ class MainWindow(QMainWindow):
                     border: none;
                     border-radius: 15px;
                     font-weight: bold;
-                    font-size: 16px;
+                    font-size: 20px;
                     padding: 20px;
                 }
                 QPushButton:hover {
@@ -257,7 +260,7 @@ class MainWindow(QMainWindow):
                     border: none;
                     border-radius: 15px;
                     font-weight: bold;
-                    font-size: 16px;
+                    font-size: 20px;
                     padding: 20px;
                 }
                 QPushButton:hover {
