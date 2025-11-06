@@ -1,0 +1,2003 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>860</width>
+    <height>818</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="styleSheet">
+       <string notr="true">QWidget {
+background-color: white;
+border-radius: 12px;
+}</string>
+      </property>
+      <property name="currentIndex">
+       <number>6</number>
+      </property>
+      <widget class="QWidget" name="page">
+       <property name="styleSheet">
+        <string notr="true">background-color: white;
+border-radius: 12px;</string>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QFrame" name="frame">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt; 📄 Просмотр файла &lt;/h1&gt;</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="file_info_label">
+             <property name="styleSheet">
+              <string notr="true">color: #2c5282;
+font-size: 16px;
+margin: 8px;
+padding: 12px;
+background-color: #e2e8f0;
+border-radius: 8px;
+font-weight: bold;
+border: 1px solid #3182ce;</string>
+             </property>
+             <property name="text">
+              <string>Информация о файле...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="content_text_edit">
+             <property name="styleSheet">
+              <string notr="true">QTextEdit {
+    background-color: #ffffff;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 10px;
+    font-family: &quot;Consolas&quot;, &quot;Monaco&quot;, monospace;
+    font-size: 13px;
+    color: #1a202c;
+    line-height: 1.4;
+    selection-background-color: #90cdf4;
+}
+QTextEdit:focus {
+    border-color: #4299e1;
+    background-color: #f7fafc;
+}
+QScrollBar:vertical {
+    background-color: #e2e8f0;
+    width: 15px;
+    border-radius: 7px;
+}
+QScrollBar::handle:vertical {
+    background-color: #3182ce;
+    border-radius: 7px;
+    min-height: 20px;
+}
+QScrollBar::handle:vertical:hover {
+    background-color: #2c5282;
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    border: none;
+    background: none;
+}</string>
+             </property>
+             <property name="html">
+              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Consolas,Monaco,monospace'; font-size:13px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="placeholderText">
+              <string>Содержимое файла будет отображено здесь...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="delimiter_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 10px;
+}</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_5">
+              <item>
+               <widget class="QLabel" name="label_7">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 16px;
+font-weight: bold;
+padding: 5px;
+min-width: 120px;</string>
+                </property>
+                <property name="text">
+                 <string>Разделитель:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="delimiter_edit">
+                <property name="styleSheet">
+                 <string notr="true">QLineEdit {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #1a202c;
+    selection-background-color: #3182ce;
+    min-width: 60px;
+    max-width: 80px;
+    text-align: center;
+    font-family: &quot;Consolas&quot;, monospace;
+}
+QLineEdit:focus {
+    border-color: #3182ce;
+    background-color: #f0f8ff;
+}
+QLineEdit::placeholder {
+    color: #a0aec0;
+    font-style: italic;
+}</string>
+                </property>
+                <property name="text">
+                 <string>,</string>
+                </property>
+                <property name="maxLength">
+                 <number>3</number>
+                </property>
+                <property name="placeholderText">
+                 <string>,</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="comma_button">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    background-color: #e2e8f0;
+    color: #2c5282;
+    border: 2px solid #cbd5e0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    min-width: 40px;
+}
+QPushButton:hover {
+    background-color: #3182ce;
+    color: white;
+    border-color: #3182ce;
+}
+QPushButton:pressed {
+    background-color: #2c5282;
+    color: white;
+}
+QPushButton:checked {
+    background-color: #3182ce;
+    color: white;
+    border-color: #3182ce;
+}</string>
+                </property>
+                <property name="text">
+                 <string>,</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="semicolon_button">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    background-color: #e2e8f0;
+    color: #2c5282;
+    border: 2px solid #cbd5e0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    min-width: 40px;
+}
+QPushButton:hover {
+    background-color: #3182ce;
+    color: white;
+    border-color: #3182ce;
+}
+QPushButton:pressed {
+    background-color: #2c5282;
+    color: white;
+}
+QPushButton:checked {
+    background-color: #3182ce;
+    color: white;
+    border-color: #3182ce;
+}</string>
+                </property>
+                <property name="text">
+                 <string>;</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="tab_button">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    background-color: #e2e8f0;
+    color: #2c5282;
+    border: 2px solid #cbd5e0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    min-width: 60px;
+}
+QPushButton:hover {
+    background-color: #3182ce;
+    color: white;
+    border-color: #3182ce;
+}
+QPushButton:pressed {
+    background-color: #2c5282;
+    color: white;
+}
+QPushButton:checked {
+    background-color: #3182ce;
+    color: white;
+    border-color: #3182ce;
+}</string>
+                </property>
+                <property name="text">
+                 <string>TAB</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="apply_delimiter_button">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    min-width: 80px;
+}
+QPushButton:hover {
+    background-color: #3c9e65;
+}
+QPushButton:pressed {
+    background-color: #286a43;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Применить</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_2">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QFrame" name="analysis_frame">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #ffffff;
+    border-radius: 12px;
+}</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_9">
+           <item>
+            <widget class="QLabel" name="label_8">
+             <property name="text">
+              <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt; 📊 Анализ столбцов &lt;/h1&gt;</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="dataset_info_label">
+             <property name="styleSheet">
+              <string notr="true">color: #2c5282;
+font-size: 16px;
+margin: 8px;
+padding: 12px;
+background-color: #e2e8f0;
+border-radius: 8px;
+font-weight: bold;
+border: 1px solid #3182ce;</string>
+             </property>
+             <property name="text">
+              <string>Информация о файле...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="column_select_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 10px;
+}</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <item>
+               <widget class="QLabel" name="label_9">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 16px;
+font-weight: bold;
+padding: 5px;
+min-width: 150px;</string>
+                </property>
+                <property name="text">
+                 <string>Выберите столбец:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="column_combo">
+                <property name="styleSheet">
+                 <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #1a202c;
+    min-width: 200px;
+}
+QComboBox:focus {
+    border-color: #3182ce;
+    background-color: #f0f8ff;
+}
+QComboBox::drop-down {
+    border: none;
+    width: 30px;
+}
+QComboBox::down-arrow {
+    image: none;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #3182ce;
+    width: 0px;
+    height: 0px;
+}
+QComboBox QAbstractItemView {
+    background-color: white;
+    border: 2px solid #3182ce;
+    border-radius: 6px;
+    selection-background-color: #3182ce;
+    selection-color: white;
+    font-size: 14px;
+}</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="column_stats_label">
+             <property name="styleSheet">
+              <string notr="true">color: #2d3748;
+font-size: 14px;
+margin: 5px;
+padding: 10px;
+background-color: #edf2f7;
+border-radius: 6px;
+border-left: 4px solid #48bb78;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Тип данных: Не выбран | Уникальных значений: 0 | Пустых: 0</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="horizontal_content_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: transparent;
+    border: none;
+}</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_8">
+              <item>
+               <widget class="QFrame" name="values_frame">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>1</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 10px;
+}</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_10">
+                 <item>
+                  <widget class="QLabel" name="label_10">
+                   <property name="styleSheet">
+                    <string notr="true">color: #1e3a5f;
+font-size: 16px;
+font-weight: bold;
+padding: 5px;
+text-align: center;</string>
+                   </property>
+                   <property name="text">
+                    <string>📋 Уникальные значения</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QTextEdit" name="unique_values_text">
+                   <property name="styleSheet">
+                    <string notr="true">QTextEdit {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+    font-family: &quot;Consolas&quot;, &quot;Monaco&quot;, monospace;
+    font-size: 12px;
+    color: #1a202c;
+    line-height: 1.4;
+    selection-background-color: #90cdf4;
+}
+QTextEdit:focus {
+    border-color: #3182ce;
+    background-color: #f7fafc;
+}</string>
+                   </property>
+                   <property name="readOnly">
+                    <bool>true</bool>
+                   </property>
+                   <property name="html">
+                    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Consolas,Monaco,monospace'; font-size:12px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Выберите столбец для просмотра уникальных значений...</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="values_count_label">
+                   <property name="styleSheet">
+                    <string notr="true">color: #4a5568;
+font-size: 12px;
+padding: 5px;
+text-align: center;
+font-style: italic;</string>
+                   </property>
+                   <property name="text">
+                    <string>Показано: 0 из 0 значений</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QFrame" name="dtype_frame">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>1</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>356</width>
+                  <height>317</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 10px;
+}</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_11">
+                 <item>
+                  <widget class="QLabel" name="label_11">
+                   <property name="styleSheet">
+                    <string notr="true">color: #1e3a5f;
+font-size: 16px;
+font-weight: bold;
+padding: 5px;
+text-align: center;</string>
+                   </property>
+                   <property name="text">
+                    <string>🎯 Выбор типа данных</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QListWidget" name="dtype_listwidget">
+                   <property name="styleSheet">
+                    <string notr="true">QListWidget {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #1a202c;
+    outline: none;
+}
+QListWidget::item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 14px;
+}
+QListWidget::item:selected {
+    background-color: #3182ce;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+}
+QListWidget::item:hover:!selected {
+    background-color: #e2e8f0;
+    border-radius: 4px;
+}</string>
+                   </property>
+                   <property name="selectionMode">
+                    <enum>QAbstractItemView::SingleSelection</enum>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>Integer(Целочисленный)</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Float(Вещественный)</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Object(Категориальные данные,  булевые)</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_9">
+                   <item>
+                    <widget class="QPushButton" name="auto_detect_button">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton {
+    background-color: #ed8936;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 13px;
+}
+QPushButton:hover {
+    background-color: #dd7724;
+}
+QPushButton:pressed {
+    background-color: #c0651f;
+}</string>
+                     </property>
+                     <property name="text">
+                      <string>Авто-определение</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="apply_dtype_button">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 13px;
+}
+QPushButton:hover {
+    background-color: #3c9e65;
+}
+QPushButton:pressed {
+    background-color: #286a43;
+}</string>
+                     </property>
+                     <property name="text">
+                      <string>Применить тип</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="styleSheet">
+              <string notr="true">color: #2d3748;
+font-size: 14px;
+margin: 5px;
+padding: 10px;
+background-color: #edf2f7;
+border-radius: 6px;
+border-left: 4px solid rgb(255, 237, 37);
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Совет: поставьте тип данных ,,Вещественный&quot;, если нужно разобраться с пропусками в количественных данных, потом при необходимости смените его на нужный</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_3">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QFrame" name="choice_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #ffffff;
+    border-radius: 12px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_13">
+           <item>
+            <widget class="QLabel" name="label_12">
+             <property name="text">
+              <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt; 🧹 Обработка пропусков &lt;/h1&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="column_choice_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_10">
+              <item>
+               <widget class="QLabel" name="label_13">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 16px;
+font-weight: bold;
+min-width: 150px;</string>
+                </property>
+                <property name="text">
+                 <string>Выберите столбец:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="missing_column_combo">
+                <property name="styleSheet">
+                 <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #1a202c;
+    min-width: 250px;
+}</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="column_type_label">
+                <property name="styleSheet">
+                 <string notr="true">color: #2c5282;
+font-size: 14px;
+font-weight: bold;
+padding: 8px 12px;
+background-color: #e2e8f0;
+border-radius: 6px;
+min-width: 120px;
+text-align: center;</string>
+                </property>
+                <property name="text">
+                 <string>Тип: ...</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="missing_stats_label">
+             <property name="styleSheet">
+              <string notr="true">color: #2d3748;
+font-size: 14px;
+margin: 10px;
+padding: 12px;
+background-color: #edf2f7;
+border-radius: 8px;
+border-left: 4px solid #48bb78;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Пропусков: 0/0 (0%)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_11">
+             <item>
+              <widget class="QPushButton" name="numeric_missing_button">
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #3182ce, stop: 1 #2c5282);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 15px 25px;
+    min-width: 200px;
+}
+QPushButton:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #2c5282, stop: 1 #1e3a5f);
+}
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+               </property>
+               <property name="text">
+                <string>Количественные данные</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="categorical_missing_button">
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #ed8936, stop: 1 #dd7724);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 15px 25px;
+    min-width: 200px;
+}
+QPushButton:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #dd7724, stop: 1 #c0651f);
+}
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+               </property>
+               <property name="text">
+                <string>Категориальные данные</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_4">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QFrame" name="numeric_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #ffffff;
+    border-radius: 12px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_15">
+           <item>
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt; 📈 Обработка числовых пропусков &lt;/h1&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="numeric_info_label">
+             <property name="styleSheet">
+              <string notr="true">color: #2c5282;
+font-size: 14px;
+margin: 8px;
+padding: 10px;
+background-color: #e2e8f0;
+border-radius: 8px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Столбец: ... | Тип: ... | Пропусков: ...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="numeric_content_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: transparent;
+    border: none;
+}</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_13">
+              <item>
+               <widget class="QFrame" name="numeric_table_frame">
+                <property name="styleSheet">
+                 <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 10px;
+}</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_16">
+                 <item>
+                  <widget class="QLabel" name="label_15">
+                   <property name="styleSheet">
+                    <string notr="true">color: #1e3a5f;
+font-size: 16px;
+font-weight: bold;
+text-align: center;</string>
+                   </property>
+                   <property name="text">
+                    <string>🔍 Пропущенные значения и контекст</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QTableWidget" name="numeric_table">
+                   <property name="styleSheet">
+                    <string notr="true">QTableWidget {
+    background-color: white;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    gridline-color: #e2e8f0;
+}
+QTableWidget::item {
+    padding: 6px;
+    border-bottom: 1px solid #e2e8f0;
+}
+QTableWidget::item:selected {
+    background-color: #3182ce;
+    color: white;
+}
+QHeaderView::section {
+    background-color: #3182ce;
+    color: white;
+    padding: 6px;
+    border: none;
+    font-weight: bold;
+}</string>
+                   </property>
+                   <property name="alternatingRowColors">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QFrame" name="numeric_methods_frame">
+                <property name="styleSheet">
+                 <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 10px;
+}</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_17">
+                 <item>
+                  <widget class="QLabel" name="label_16">
+                   <property name="styleSheet">
+                    <string notr="true">color: #1e3a5f;
+font-size: 16px;
+font-weight: bold;
+text-align: center;</string>
+                   </property>
+                   <property name="text">
+                    <string>📊 Статистика</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QTextEdit" name="numeric_stats_text">
+                   <property name="styleSheet">
+                    <string notr="true">QTextEdit {
+    background-color: white;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+    font-family: &quot;Consolas&quot;, monospace;
+    font-size: 12px;
+    max-height: 150px;
+}</string>
+                   </property>
+                   <property name="readOnly">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_17">
+                   <property name="styleSheet">
+                    <string notr="true">color: #1e3a5f;
+font-size: 16px;
+font-weight: bold;
+text-align: center;
+margin-top: 10px;</string>
+                   </property>
+                   <property name="text">
+                    <string>🎯 Метод замены</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QListWidget" name="numeric_methods_list">
+                   <property name="styleSheet">
+                    <string notr="true">QListWidget {
+    background-color: white;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 14px;
+}
+QListWidget::item {
+    padding: 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+QListWidget::item:selected {
+    background-color: #3182ce;
+    color: white;
+}</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="custom_numeric_frame">
+                   <property name="styleSheet">
+                    <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px;
+}</string>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_14">
+                    <item>
+                     <widget class="QLabel" name="label_18">
+                      <property name="text">
+                       <string>Свое значение:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="custom_numeric_edit">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QLineEdit {
+    background-color: white;
+    border: 1px solid #a0aec0;
+    border-radius: 4px;
+    padding: 6px;
+}
+QLineEdit:disabled {
+    background-color: #f7fafc;
+    color: #a0aec0;
+}</string>
+                      </property>
+                      <property name="placeholderText">
+                       <string>Введите число...</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_15">
+                   <item>
+                    <widget class="QPushButton" name="apply_numeric_button">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #3c9e65;
+}
+QPushButton:pressed {
+    background-color: #286a43;
+}</string>
+                     </property>
+                     <property name="text">
+                      <string> Применить</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="back_numeric_button">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton {
+    background-color: #9C27B0;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #7B1FA2;
+}
+QPushButton:pressed {
+    background-color: #6A1B9A;
+}</string>
+                     </property>
+                     <property name="text">
+                      <string>Назад</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_5">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QFrame" name="categorical_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #ffffff;
+    border-radius: 12px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_19">
+           <item>
+            <widget class="QLabel" name="label_19">
+             <property name="text">
+              <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt; 📊 Обработка категориальных пропусков &lt;/h1&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="categorical_info_label">
+             <property name="styleSheet">
+              <string notr="true">color: #2c5282;
+font-size: 14px;
+margin: 8px;
+padding: 10px;
+background-color: #e2e8f0;
+border-radius: 8px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Столбец: ... | Тип: ... | Пропусков: ...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="categorical_content_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: transparent;
+    border: none;
+}</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_16">
+              <item>
+               <widget class="QFrame" name="categories_frame">
+                <property name="styleSheet">
+                 <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #ed8936;
+    border-radius: 8px;
+    padding: 10px;
+}</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_20">
+                 <item>
+                  <widget class="QLabel" name="label_20">
+                   <property name="styleSheet">
+                    <string notr="true">color: #1e3a5f;
+font-size: 16px;
+font-weight: bold;
+text-align: center;</string>
+                   </property>
+                   <property name="text">
+                    <string>📋 Уникальные значения</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QTextEdit" name="categories_text">
+                   <property name="styleSheet">
+                    <string notr="true">QTextEdit {
+    background-color: white;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+    font-family: &quot;Consolas&quot;, monospace;
+    font-size: 12px;
+}</string>
+                   </property>
+                   <property name="readOnly">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_21">
+                   <property name="styleSheet">
+                    <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+text-align: center;
+margin-top: 10px;</string>
+                   </property>
+                   <property name="text">
+                    <string>📊 Распределение (круговая диаграмма)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="chart_placeholder">
+                   <property name="styleSheet">
+                    <string notr="true">QLabel {
+    background-color: white;
+    border: 2px dashed #cbd5e0;
+    border-radius: 8px;
+    min-height: 200px;
+    color: #a0aec0;
+    font-style: italic;
+}</string>
+                   </property>
+                   <property name="text">
+                    <string>Здесь будет круговая диаграмма</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QFrame" name="categorical_methods_frame">
+                <property name="styleSheet">
+                 <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #ed8936;
+    border-radius: 8px;
+    padding: 10px;
+}</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_21">
+                 <item>
+                  <widget class="QLabel" name="label_22">
+                   <property name="styleSheet">
+                    <string notr="true">color: #1e3a5f;
+font-size: 16px;
+font-weight: bold;
+text-align: center;</string>
+                   </property>
+                   <property name="text">
+                    <string>🎯 Замена пропусков</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="categorical_stats_label">
+                   <property name="styleSheet">
+                    <string notr="true">color: #2d3748;
+font-size: 13px;
+padding: 8px;
+background-color: #edf2f7;
+border-radius: 6px;
+border-left: 4px solid #ed8936;</string>
+                   </property>
+                   <property name="text">
+                    <string>Всего значений: 0
+Уникальных: 0
+Самое частое: ...</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_23">
+                   <property name="text">
+                    <string>Введите значение, которым заполним пропуск:</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="custom_category_frame">
+                   <property name="styleSheet">
+                    <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px;
+}</string>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_22">
+                    <item>
+                     <widget class="QLineEdit" name="custom_category_edit">
+                      <property name="styleSheet">
+                       <string notr="true">QLineEdit {
+    background-color: white;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 14px;
+}
+QLineEdit:focus {
+    border-color: #ed8936;
+}</string>
+                      </property>
+                      <property name="placeholderText">
+                       <string>Например: Unknown, Not specified...</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_17">
+                   <item>
+                    <widget class="QPushButton" name="apply_category_button">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #3c9e65;
+}
+QPushButton:pressed {
+    background-color: #286a43;
+}</string>
+                     </property>
+                     <property name="text">
+                      <string> Применить</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="back_category_button">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton {
+    background-color: #9C27B0;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #7B1FA2;
+}
+QPushButton:pressed {
+    background-color: #6A1B9A;
+}</string>
+                     </property>
+                     <property name="text">
+                      <string>Назад</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_6"/>
+      <widget class="QWidget" name="page_7">
+       <layout class="QVBoxLayout" name="verticalLayout_14">
+        <item>
+         <widget class="QFrame" name="main_frame_missing">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #ffffff;
+    border-radius: 12px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_12">
+           <item>
+            <widget class="QLabel" name="title_label_missing">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt; font-weight:700; color:#1e3a5f;&quot;&gt;🧹 Удаление пропусков&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="stats_label_missing">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    background-color: #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #2c5282;
+}</string>
+             </property>
+             <property name="text">
+              <string>Статистика пропусков в данных</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="missing_info_text">
+             <property name="styleSheet">
+              <string notr="true">QTextEdit {
+    background-color: white;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 12px;
+    font-family: &quot;Consolas&quot;, monospace;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+QTextEdit:focus {
+    border-color: #4299e1;
+}</string>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="placeholderText">
+              <string>Информация о пропусках по столбцам будет отображена здесь...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="column_select_frame_2">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_7">
+              <item>
+               <widget class="QLabel" name="label_column_select">
+                <property name="styleSheet">
+                 <string notr="true">QLabel {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1e3a5f;
+    min-width: 200px;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Выберите столбец для очистки:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="column_combo_missing">
+                <property name="styleSheet">
+                 <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #1a202c;
+    min-width: 250px;
+}
+
+QComboBox:focus {
+    border-color: #3182ce;
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: 30px;
+}
+
+QComboBox::down-arrow {
+    image: none;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #3182ce;
+    width: 0px;
+    height: 0px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: white;
+    border: 2px solid #3182ce;
+    border-radius: 6px;
+    selection-background-color: #3182ce;
+    selection-color: white;
+    font-size: 14px;
+}</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="clear_column_btn">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #3182ce, stop:1 #2c5282);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px 20px;
+    min-width: 180px;
+}
+
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #2c5282, stop:1 #1e3a5f);
+}
+
+QPushButton:pressed {
+    background: #1e3a5f;
+}
+
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Очистить столбец</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="clear_all_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_12">
+              <item>
+               <widget class="QLabel" name="label_clear_all">
+                <property name="styleSheet">
+                 <string notr="true">QLabel {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1e3a5f;
+    min-width: 200px;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Очистить все пропуски:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="clear_all_btn">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #48bb78, stop:1 #3c9e65);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 12px 25px;
+    min-width: 200px;
+}
+
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #3c9e65, stop:1 #286a43);
+}
+
+QPushButton:pressed {
+    background: #286a43;
+}
+
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Очистить все пропуски</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_18"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_8">
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <widget class="QFrame" name="main_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #ffffff;
+    border-radius: 12px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_7">
+           <item>
+            <widget class="QLabel" name="title_label">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt; font-weight:700; color:#1e3a5f;&quot;&gt;🔍 Обработка дубликатов&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="stats_label">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    background-color: #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #2c5282;
+}</string>
+             </property>
+             <property name="text">
+              <string>Таблица полных дубликатов</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="duplicates_table">
+             <property name="styleSheet">
+              <string notr="true">QTableWidget {
+    background-color: white;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    alternate-background-color: #f7fafc;
+    gridline-color: #e2e8f0;
+    font-size: 11px;
+}
+
+QTableWidget::item {
+    padding: 4px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+QTableWidget::item:selected {
+    background-color: #3182ce;
+    color: white;
+}
+
+QHeaderView::section {
+    background-color: #3182ce;
+    color: white;
+    padding: 8px;
+    border: none;
+    font-weight: bold;
+    font-size: 12px;
+}</string>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::ExtendedSelection</enum>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
+             <property name="showGrid">
+              <bool>true</bool>
+             </property>
+             <property name="rowCount">
+              <number>0</number>
+             </property>
+             <property name="columnCount">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="table_info_label">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    color: #4a5568;
+    font-size: 12px;
+    padding: 5px;
+    font-style: italic;
+}</string>
+             </property>
+             <property name="text">
+              <string>Показано 0 строк</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QPushButton" name="remove_duplicates_btn">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #48bb78, stop:1 #3c9e65);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 12px 20px;
+    min-width: 200px;
+}
+
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #3c9e65, stop:1 #286a43);
+}
+
+QPushButton:pressed {
+    background: #286a43;
+}
+
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+               </property>
+               <property name="text">
+                <string>Исключить дубликаты</string>
+               </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="keep_duplicates_btn">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #ed8936, stop:1 #dd7724);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 12px 20px;
+    min-width: 200px;
+}
+
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #dd7724, stop:1 #c0651f);
+}
+
+QPushButton:pressed {
+    background: #c0651f;
+}
+
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+               </property>
+               <property name="text">
+                <string>Оставить дубликаты</string>
+               </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_9"/>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="go_back">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #9C27B0;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    min-width: 120px;
+}
+QPushButton:hover {
+    background-color: #7B1FA2;
+}
+QPushButton:pressed {
+    background-color: #6A1B9A;
+}</string>
+        </property>
+        <property name="text">
+         <string>Закрыть</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="back_button">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #3182ce;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    min-width: 120px;
+}
+QPushButton:hover {
+    background-color: #2c5282;
+}
+QPushButton:pressed {
+    background-color: #1e3a5f;
+}</string>
+        </property>
+        <property name="text">
+         <string>Назад</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="next_button">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #ed8936;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    min-width: 120px;
+}
+QPushButton:hover {
+    background-color: #dd7724;
+}
+QPushButton:pressed {
+    background-color: #c0651f;
+}</string>
+        </property>
+        <property name="text">
+         <string>Продолжить</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="compete_button">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    min-width: 120px;
+}
+QPushButton:hover {
+    background-color: #3c9e65;
+}
+QPushButton:pressed {
+    background-color: #286a43;
+}</string>
+        </property>
+        <property name="text">
+         <string>Завершить</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>860</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
