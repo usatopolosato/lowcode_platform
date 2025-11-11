@@ -1,0 +1,2386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Visualization</class>
+ <widget class="QMainWindow" name="Visualization">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>942</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DataLite - Визуализация</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>resource/icon.png</normaloff>resource/icon.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="styleSheet">
+       <string notr="true">QWidget {
+background-color: white;
+border-radius: 12px;
+}
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+      </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="charts_setup_page">
+       <layout class="QHBoxLayout" name="horizontalLayout_main">
+        <item>
+         <widget class="QFrame" name="left_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_left">
+           <item>
+            <widget class="QLabel" name="label_charts_list">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 18px;
+font-weight: bold;
+text-align: center;
+margin-bottom: 10px;</string>
+             </property>
+             <property name="text">
+              <string>📊 Созданные графики</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="charts_listwidget">
+             <property name="styleSheet">
+              <string notr="true">QListWidget {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 14px;
+    min-height: 300px;
+}
+QListWidget::item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 14px;
+}
+QListWidget::item:selected {
+    background-color: #3182ce;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+}
+QListWidget::item:hover:!selected {
+    background-color: #e2e8f0;
+    border-radius: 4px;
+}</string>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::SingleSelection</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_actions">
+             <item>
+              <widget class="QPushButton" name="btn_edit_chart">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background-color: #3182ce;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+QPushButton:hover {
+    background-color: #2c5282;
+}
+QPushButton:pressed {
+    background-color: #1e3a5f;
+}
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+               </property>
+               <property name="text">
+                <string>Редактировать</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_remove_chart">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background-color: #e53e3e;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+QPushButton:hover {
+    background-color: #c53030;
+}
+QPushButton:pressed {
+    background-color: #9b2c2c;
+}
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+               </property>
+               <property name="text">
+                <string>Удалить</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="right_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #ed8936;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_right">
+           <item>
+            <widget class="QLabel" name="label_chart_setup">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 18px;
+font-weight: bold;
+text-align: center;
+margin-bottom: 10px;</string>
+             </property>
+             <property name="text">
+              <string>🎯 Создание нового графика</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="chart_type_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+}</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_chart_type">
+              <item>
+               <widget class="QLabel" name="label_chart_type">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-bottom: 8px;</string>
+                </property>
+                <property name="text">
+                 <string>Тип графика:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="chart_type_combo">
+                <property name="styleSheet">
+                 <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #1a202c;
+}
+QComboBox:focus {
+    border-color: #3182ce;
+    background-color: #f0f8ff;
+}</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Линейный график</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Столбчатая диаграмма</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Круговая диаграмма</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Гистограмма</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Диаграмма рассеяния</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Box Plot</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="basic_settings_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+}</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_basic">
+              <item>
+               <widget class="QLabel" name="label_chart_title">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-bottom: 5px;</string>
+                </property>
+                <property name="text">
+                 <string>Название графика:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="chart_title_edit">
+                <property name="styleSheet">
+                 <string notr="true">QLineEdit {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #1a202c;
+}
+QLineEdit:focus {
+    border-color: #3182ce;
+    background-color: #f0f8ff;
+}</string>
+                </property>
+                <property name="placeholderText">
+                 <string>Введите название графика...</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_configure_chart">
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    background-color: #ed8936;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+}
+QPushButton:hover {
+    background-color: #dd7724;
+}
+QPushButton:pressed {
+    background-color: #c0651f;
+}</string>
+             </property>
+             <property name="text">
+              <string>Настроить параметры графика</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="line_chart_page">
+       <layout class="QVBoxLayout" name="verticalLayout_line">
+        <item>
+         <widget class="QLabel" name="label_line_title">
+          <property name="text">
+           <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt;📈 Настройка линейного графика&lt;/h1&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="line_data_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_line_data">
+           <item>
+            <widget class="QLabel" name="label_line_x">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Ось X (категории/время):</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="line_x_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_line_y">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Ось Y (значения):</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="line_y_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="line_style_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_line_style">
+           <item>
+            <widget class="QLabel" name="label_line_style">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Стиль линии:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="line_style_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>Сплошная</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Пунктирная</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Штрих-пунктирная</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_line_width">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Толщина линии:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="line_width_spin">
+             <property name="styleSheet">
+              <string notr="true">QSpinBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>10</number>
+             </property>
+             <property name="value">
+              <number>2</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_markers">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Маркеры точек:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="markers_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>Нет</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Круги</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Квадраты</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Треугольники</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_line_buttons">
+          <item>
+           <widget class="QPushButton" name="btn_line_back">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #9C27B0;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+QPushButton:hover {
+    background-color: #7B1FA2;
+}
+QPushButton:pressed {
+    background-color: #6A1B9A;
+}</string>
+            </property>
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_line_save">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+QPushButton:hover {
+    background-color: #3c9e65;
+}
+QPushButton:pressed {
+    background-color: #286a43;
+}</string>
+            </property>
+            <property name="text">
+             <string>Сохранить настройки</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pie_chart_page">
+       <layout class="QVBoxLayout" name="verticalLayout_pie">
+        <item>
+         <widget class="QLabel" name="label_pie_title">
+          <property name="text">
+           <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt;📊 Настройка круговой диаграммы&lt;/h1&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="pie_data_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #ed8936;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_pie_data">
+           <item>
+            <widget class="QLabel" name="label_pie_labels">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Категории (метки):</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="pie_labels_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_pie_values">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Значения:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="pie_values_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="pie_style_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #ed8936;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_pie_style">
+           <item>
+            <widget class="QLabel" name="label_pie_start_angle">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Начальный угол (градусы):</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="pie_start_angle_spin">
+             <property name="styleSheet">
+              <string notr="true">QSpinBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+             <property name="minimum">
+              <number>0</number>
+             </property>
+             <property name="maximum">
+              <number>360</number>
+             </property>
+             <property name="value">
+              <number>90</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_pie_explode">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Выделение сегментов:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="pie_explode_checkbox">
+             <property name="styleSheet">
+              <string notr="true">QCheckBox {
+    font-size: 14px;
+    color: #2d3748;
+}</string>
+             </property>
+             <property name="text">
+              <string>Выделить первый сегмент</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_pie_legend">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Отображение легенды:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="pie_legend_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>Справа</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Снизу</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Слева</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Сверху</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Нет</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_pie_buttons">
+          <item>
+           <widget class="QPushButton" name="btn_pie_back">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #9C27B0;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+QPushButton:hover {
+    background-color: #7B1FA2;
+}
+QPushButton:pressed {
+    background-color: #6A1B9A;
+}</string>
+            </property>
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_pie_save">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+QPushButton:hover {
+    background-color: #3c9e65;
+}
+QPushButton:pressed {
+    background-color: #286a43;
+}</string>
+            </property>
+            <property name="text">
+             <string>Сохранить настройки</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="histogram_page">
+       <layout class="QVBoxLayout" name="verticalLayout_hist">
+        <item>
+         <widget class="QLabel" name="label_hist_title">
+          <property name="text">
+           <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt;📊 Настройка гистограммы&lt;/h1&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="hist_data_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #9C27B0;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_hist_data">
+           <item>
+            <widget class="QLabel" name="label_hist_column">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Числовой столбец:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="hist_column_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="hist_params_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #9C27B0;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_hist_params">
+           <item>
+            <widget class="QLabel" name="label_bins">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Количество интервалов (bins):</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="bins_spinbox">
+             <property name="styleSheet">
+              <string notr="true">QSpinBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+             <property name="minimum">
+              <number>5</number>
+             </property>
+             <property name="maximum">
+              <number>50</number>
+             </property>
+             <property name="value">
+              <number>10</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_hist_color">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Цвет столбцов:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="hist_color_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>Синий</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Зеленый</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Красный</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Фиолетовый</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_hist_alpha">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Прозрачность:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="hist_alpha_spin">
+             <property name="styleSheet">
+              <string notr="true">QDoubleSpinBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+             <property name="minimum">
+              <double>0.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>0.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+             <property name="value">
+              <double>0.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_hist_buttons">
+          <item>
+           <widget class="QPushButton" name="btn_hist_back">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #9C27B0;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+QPushButton:hover {
+    background-color: #7B1FA2;
+}
+QPushButton:pressed {
+    background-color: #6A1B9A;
+}</string>
+            </property>
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_hist_save">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+QPushButton:hover {
+    background-color: #3c9e65;
+}
+QPushButton:pressed {
+    background-color: #286a43;
+}</string>
+            </property>
+            <property name="text">
+             <string>Сохранить настройки</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="scatter_page">
+       <layout class="QVBoxLayout" name="verticalLayout_scatter">
+        <item>
+         <widget class="QLabel" name="label_scatter_title">
+          <property name="text">
+           <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt;🔵 Настройка диаграммы рассеяния&lt;/h1&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="scatter_data_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_scatter_data">
+           <item>
+            <widget class="QLabel" name="label_scatter_x">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Ось X:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="scatter_x_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_scatter_y">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Ось Y:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="scatter_y_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_scatter_color">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Цветовая категория (опционально):</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="scatter_color_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="scatter_style_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_scatter_style">
+           <item>
+            <widget class="QLabel" name="label_point_size">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Размер точек:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="point_size_spin">
+             <property name="styleSheet">
+              <string notr="true">QSpinBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+             <property name="minimum">
+              <number>10</number>
+             </property>
+             <property name="maximum">
+              <number>100</number>
+             </property>
+             <property name="value">
+              <number>30</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_point_alpha">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Прозрачность точек:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="point_alpha_spin">
+             <property name="styleSheet">
+              <string notr="true">QDoubleSpinBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+             <property name="minimum">
+              <double>0.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>0.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+             <property name="value">
+              <double>0.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_regression">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Линия регрессии:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="regression_checkbox">
+             <property name="styleSheet">
+              <string notr="true">QCheckBox {
+    font-size: 14px;
+    color: #2d3748;
+}</string>
+             </property>
+             <property name="text">
+              <string>Показать линию тренда</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_scatter_buttons">
+          <item>
+           <widget class="QPushButton" name="btn_scatter_back">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #9C27B0;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+QPushButton:hover {
+    background-color: #7B1FA2;
+}
+QPushButton:pressed {
+    background-color: #6A1B9A;
+}</string>
+            </property>
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_scatter_save">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+QPushButton:hover {
+    background-color: #3c9e65;
+}
+QPushButton:pressed {
+    background-color: #286a43;
+}</string>
+            </property>
+            <property name="text">
+             <string>Сохранить настройки</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="boxplot_page">
+       <layout class="QVBoxLayout" name="verticalLayout_box">
+        <item>
+         <widget class="QLabel" name="label_box_title">
+          <property name="text">
+           <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt;📦 Настройка Box Plot&lt;/h1&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="box_data_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #ed8936;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_box_data">
+           <item>
+            <widget class="QLabel" name="label_box_category">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Категории (X):</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="box_category_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_box_values">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Значения (Y):</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="box_values_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="box_style_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #ed8936;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_box_style">
+           <item>
+            <widget class="QLabel" name="label_box_orientation">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Ориентация:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="box_orientation_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>Вертикальная</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Горизонтальная</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_box_show_points">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Отображение точек:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="box_show_points_checkbox">
+             <property name="styleSheet">
+              <string notr="true">QCheckBox {
+    font-size: 14px;
+    color: #2d3748;
+}</string>
+             </property>
+             <property name="text">
+              <string>Показать выбросы</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_box_notch">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Выемка (notch):</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="box_notch_checkbox">
+             <property name="styleSheet">
+              <string notr="true">QCheckBox {
+    font-size: 14px;
+    color: #2d3748;
+}</string>
+             </property>
+             <property name="text">
+              <string>Показать доверительный интервал медианы</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_box_buttons">
+          <item>
+           <widget class="QPushButton" name="btn_box_back">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #9C27B0;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+QPushButton:hover {
+    background-color: #7B1FA2;
+}
+QPushButton:pressed {
+    background-color: #6A1B9A;
+}</string>
+            </property>
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_box_save">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+QPushButton:hover {
+    background-color: #3c9e65;
+}
+QPushButton:pressed {
+    background-color: #286a43;
+}</string>
+            </property>
+            <property name="text">
+             <string>Сохранить настройки</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="barchart_page">
+       <layout class="QVBoxLayout" name="verticalLayout_bar">
+        <item>
+         <widget class="QLabel" name="label_bar_title">
+          <property name="text">
+           <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt;📊 Настройка столбчатой диаграммы&lt;/h1&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="bar_data_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_bar_data">
+           <item>
+            <widget class="QLabel" name="label_bar_categories">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Категории (X):</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="bar_categories_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_bar_values">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Значения (Y):</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="bar_values_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="bar_style_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_bar_style">
+           <item>
+            <widget class="QLabel" name="label_bar_orientation">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Ориентация:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="bar_orientation_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>Вертикальная</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Горизонтальная</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_bar_color">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Цвет столбцов:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="bar_color_combo">
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>Синий</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Зеленый</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Красный</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Оранжевый</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_bar_edge">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Обводка столбцов:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="bar_edge_checkbox">
+             <property name="styleSheet">
+              <string notr="true">QCheckBox {
+    font-size: 14px;
+    color: #2d3748;
+}</string>
+             </property>
+             <property name="text">
+              <string>Показать границы столбцов</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_bar_buttons">
+          <item>
+           <widget class="QPushButton" name="btn_bar_back">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #9C27B0;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+QPushButton:hover {
+    background-color: #7B1FA2;
+}
+QPushButton:pressed {
+    background-color: #6A1B9A;
+}</string>
+            </property>
+            <property name="text">
+             <string>Назад</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_bar_save">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+QPushButton:hover {
+    background-color: #3c9e65;
+}
+QPushButton:pressed {
+    background-color: #286a43;
+}</string>
+            </property>
+            <property name="text">
+             <string>Сохранить настройки</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layout_page">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_layout_title">
+          <property name="text">
+           <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt; 🎨 Компоновка графиков &lt;/h1&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="layout_options_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 20px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_layout_options">
+           <item>
+            <widget class="QLabel" name="label_layout_choice">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 18px;
+font-weight: bold;
+text-align: center;
+margin-bottom: 15px;</string>
+             </property>
+             <property name="text">
+              <string>Выберите компоновку графиков:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QGridLayout" name="gridLayout_radio">
+             <item row="0" column="0">
+              <widget class="QRadioButton" name="radio_1x1">
+               <property name="styleSheet">
+                <string notr="true">QRadioButton {
+    font-size: 14px;
+    color: #2d3748;
+    padding: 10px;
+}
+QRadioButton::indicator {
+    width: 18px;
+    height: 18px;
+}
+QRadioButton::indicator:checked {
+    background-color: #3182ce;
+    border: 2px solid #3182ce;
+}</string>
+               </property>
+               <property name="text">
+                <string>1 × 1 (Один график)</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QRadioButton" name="radio_2x2">
+               <property name="styleSheet">
+                <string notr="true">QRadioButton {
+    font-size: 14px;
+    color: #2d3748;
+    padding: 10px;
+}</string>
+               </property>
+               <property name="text">
+                <string>2 × 2 (4 графика)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QRadioButton" name="radio_3x3">
+               <property name="styleSheet">
+                <string notr="true">QRadioButton {
+    font-size: 14px;
+    color: #2d3748;
+    padding: 10px;
+}</string>
+               </property>
+               <property name="text">
+                <string>3 × 3 (9 графиков)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QRadioButton" name="radio_2x3">
+               <property name="styleSheet">
+                <string notr="true">QRadioButton {
+    font-size: 14px;
+    color: #2d3748;
+    padding: 10px;
+}</string>
+               </property>
+               <property name="text">
+                <string>2 × 3 (6 графиков)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QRadioButton" name="radio_3x2">
+               <property name="styleSheet">
+                <string notr="true">QRadioButton {
+    font-size: 14px;
+    color: #2d3748;
+    padding: 10px;
+}</string>
+               </property>
+               <property name="text">
+                <string>3 × 2 (6 графиков)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QRadioButton" name="radio_4x4">
+               <property name="styleSheet">
+                <string notr="true">QRadioButton {
+    font-size: 14px;
+    color: #2d3748;
+    padding: 10px;
+}</string>
+               </property>
+               <property name="text">
+                <string>4 × 4 (16 графиков)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QRadioButton" name="radio_4x5">
+               <property name="styleSheet">
+                <string notr="true">QRadioButton {
+    font-size: 14px;
+    color: #2d3748;
+    padding: 10px;
+}</string>
+               </property>
+               <property name="text">
+                <string>4 × 5 (20 графиков)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QRadioButton" name="radio_5x4">
+               <property name="styleSheet">
+                <string notr="true">QRadioButton {
+    font-size: 14px;
+    color: #2d3748;
+    padding: 10px;
+}</string>
+               </property>
+               <property name="text">
+                <string>5 × 4 (20 графиков)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QRadioButton" name="radio_custom">
+               <property name="styleSheet">
+                <string notr="true">QRadioButton {
+    font-size: 14px;
+    color: #2d3748;
+    padding: 10px;
+}</string>
+               </property>
+               <property name="text">
+                <string>Произвольная</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QFrame" name="custom_layout_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 10px;
+}</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_custom">
+              <item>
+               <widget class="QLabel" name="label_custom_rows">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+min-width: 80px;</string>
+                </property>
+                <property name="text">
+                 <string>Строки:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="custom_rows_spin">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QSpinBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 4px;
+    padding: 6px;
+    font-size: 14px;
+    min-width: 60px;
+}
+QSpinBox:focus {
+    border-color: #3182ce;
+}</string>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>10</number>
+                </property>
+                <property name="value">
+                 <number>2</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_custom_cols">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+min-width: 80px;
+margin-left: 15px;</string>
+                </property>
+                <property name="text">
+                 <string>Колонки:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="custom_cols_spin">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QSpinBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 4px;
+    padding: 6px;
+    font-size: 14px;
+    min-width: 60px;
+}
+QSpinBox:focus {
+    border-color: #3182ce;
+}</string>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>10</number>
+                </property>
+                <property name="value">
+                 <number>2</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="layout_info_label">
+          <property name="styleSheet">
+           <string notr="true">color: #2d3748;
+font-size: 14px;
+margin: 15px;
+padding: 12px;
+background-color: #edf2f7;
+border-radius: 8px;
+border-left: 4px solid #9C27B0;
+font-weight: bold;</string>
+          </property>
+          <property name="text">
+           <string>Выберите компоновку для отображения графиков. Максимальное количество графиков: 20.</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_generate_layout">
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #ed8936, stop:1 #dd7724);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 15px 30px;
+    min-width: 200px;
+    margin: 20px;
+}
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #dd7724, stop:1 #c0651f);
+}
+QPushButton:pressed {
+    background: #c0651f;
+}</string>
+          </property>
+          <property name="text">
+           <string>Построить графики</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="charts_display_page">
+       <layout class="QVBoxLayout" name="verticalLayout_display">
+        <item>
+         <widget class="QLabel" name="label_display_title">
+          <property name="text">
+           <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt; 📈 Визуализация данных &lt;/h1&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="current_layout_label">
+          <property name="styleSheet">
+           <string notr="true">color: #2c5282;
+font-size: 16px;
+margin: 8px;
+padding: 12px;
+background-color: #e2e8f0;
+border-radius: 8px;
+font-weight: bold;
+border: 1px solid #3182ce;</string>
+          </property>
+          <property name="text">
+           <string>Компоновка: 1 × 1 | Графиков: 1</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="charts_container_frame">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: white;
+    border: 2px dashed #cbd5e0;
+    border-radius: 8px;
+    min-height: 500px;
+}</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_charts"/>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_back_to_setup">
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background-color: #9C27B0;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    margin: 15px;
+}
+QPushButton:hover {
+    background-color: #7B1FA2;
+}
+QPushButton:pressed {
+    background-color: #6A1B9A;
+}</string>
+          </property>
+          <property name="text">
+           <string>Вернуться к настройке</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_buttons">
+      <item>
+       <spacer name="horizontalSpacer_left">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_prev">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #3182ce;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    min-width: 120px;
+}
+QPushButton:hover {
+    background-color: #2c5282;
+}
+QPushButton:pressed {
+    background-color: #1e3a5f;
+}
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+        </property>
+        <property name="text">
+         <string>Назад</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_next">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #ed8936;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    min-width: 120px;
+}
+QPushButton:hover {
+    background-color: #dd7724;
+}
+QPushButton:pressed {
+    background-color: #c0651f;
+}
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+        </property>
+        <property name="text">
+         <string>Далее</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_finish">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    min-width: 120px;
+}
+QPushButton:hover {
+    background-color: #3c9e65;
+}
+QPushButton:pressed {
+    background-color: #286a43;
+}
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+        </property>
+        <property name="text">
+         <string>Завершить</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

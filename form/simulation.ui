@@ -1,0 +1,858 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ModelingWindow</class>
+ <widget class="QMainWindow" name="ModelingWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1400</width>
+    <height>1194</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DataLite - Моделирование</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="modeling_main_page">
+       <layout class="QHBoxLayout" name="horizontalLayout_main">
+        <item>
+         <widget class="QFrame" name="left_panel">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_left">
+           <item>
+            <widget class="QLabel" name="label_modeling_title">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 18px;
+font-weight: bold;
+text-align: center;
+margin-bottom: 10px;</string>
+             </property>
+             <property name="text">
+              <string>🎯 Настройка модели</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="target_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+}</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_target">
+              <item>
+               <widget class="QLabel" name="label_target">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-bottom: 8px;</string>
+                </property>
+                <property name="text">
+                 <string>Целевая переменная:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QListWidget" name="target_listwidget">
+                <property name="styleSheet">
+                 <string notr="true">QListWidget {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 14px;
+    min-height: 120px;
+    max-height: 120px;
+}
+QListWidget::item {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e2e8f0;
+}
+QListWidget::item:selected {
+    background-color: #3182ce;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+}
+QListWidget::item:hover:!selected {
+    background-color: #e2e8f0;
+    border-radius: 4px;
+}</string>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::SingleSelection</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="features_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+}</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_features">
+              <item>
+               <widget class="QLabel" name="label_features">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-bottom: 8px;</string>
+                </property>
+                <property name="text">
+                 <string>Признаки (можно выбрать несколько):</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QListWidget" name="features_listwidget">
+                <property name="styleSheet">
+                 <string notr="true">QListWidget {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 14px;
+    min-height: 200px;
+}
+QListWidget::item {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e2e8f0;
+}
+QListWidget::item:selected {
+    background-color: #3182ce;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+}
+QListWidget::item:hover:!selected {
+    background-color: #e2e8f0;
+    border-radius: 4px;
+}</string>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::MultiSelection</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_features_buttons">
+                <item>
+                 <widget class="QPushButton" name="btn_select_all">
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {
+    background-color: #3182ce;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 12px;
+}
+QPushButton:hover {
+    background-color: #2c5282;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>Выбрать все</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btn_clear_all">
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {
+    background-color: #a0aec0;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 12px;
+}
+QPushButton:hover {
+    background-color: #718096;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>Очистить</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="model_settings_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+}</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_model_settings">
+              <item>
+               <widget class="QLabel" name="label_model_type">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-bottom: 5px;</string>
+                </property>
+                <property name="text">
+                 <string>Тип модели:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="model_type_combo">
+                <property name="styleSheet">
+                 <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Random Forest</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Logistic Regression</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>SVM</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>XGBoost</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Neural Network</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_test_size">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+                </property>
+                <property name="text">
+                 <string>Размер тестовой выборки (%):</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="test_size_spin">
+                <property name="styleSheet">
+                 <string notr="true">QSpinBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+                </property>
+                <property name="minimum">
+                 <number>10</number>
+                </property>
+                <property name="maximum">
+                 <number>50</number>
+                </property>
+                <property name="value">
+                 <number>20</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_train_model">
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+}
+QPushButton:hover {
+    background-color: #3c9e65;
+}
+QPushButton:pressed {
+    background-color: #286a43;
+}</string>
+             </property>
+             <property name="text">
+              <string>🚀 Обучить модель</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="right_panel">
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #ed8936;
+    border-radius: 8px;
+    padding: 15px;
+}</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_right">
+           <item>
+            <widget class="QLabel" name="label_results_title">
+             <property name="styleSheet">
+              <string notr="true">color: #1e3a5f;
+font-size: 18px;
+font-weight: bold;
+text-align: center;
+margin-bottom: 10px;</string>
+             </property>
+             <property name="text">
+              <string>📊 Результаты моделирования</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="heatmap_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+}</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_heatmap">
+              <item>
+               <widget class="QLabel" name="label_heatmap">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-bottom: 8px;</string>
+                </property>
+                <property name="text">
+                 <string>Тепловая карта корреляций:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="heatmap_placeholder">
+                <property name="styleSheet">
+                 <string notr="true">QLabel {
+    background-color: white;
+    border: 2px dashed #cbd5e0;
+    border-radius: 6px;
+    min-height: 200px;
+    color: #a0aec0;
+    font-style: italic;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Здесь будет тепловая карта корреляций</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="metrics_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+}</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_metrics">
+              <item>
+               <widget class="QLabel" name="label_metrics">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-bottom: 8px;</string>
+                </property>
+                <property name="text">
+                 <string>Матрица ошибок:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTableWidget" name="confusion_matrix_table">
+                <property name="rowCount">
+                 <number>2</number>
+                </property>
+                <property name="columnCount">
+                 <number>2</number>
+                </property>
+                <row/>
+                <row/>
+                <column/>
+                <column/>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="main_metrics_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+}</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_metrics">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_accuracy">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 13px;
+font-weight: bold;</string>
+                </property>
+                <property name="text">
+                 <string>Точность (Accuracy):</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="accuracy_value">
+                <property name="styleSheet">
+                 <string notr="true">color: #2c5282;
+font-size: 13px;
+font-weight: bold;
+background-color: white;
+padding: 4px 8px;
+border-radius: 4px;
+border: 1px solid #cbd5e0;</string>
+                </property>
+                <property name="text">
+                 <string>0.000</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_precision">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 13px;
+font-weight: bold;</string>
+                </property>
+                <property name="text">
+                 <string>Precision:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLabel" name="precision_value">
+                <property name="styleSheet">
+                 <string notr="true">color: #2c5282;
+font-size: 13px;
+font-weight: bold;
+background-color: white;
+padding: 4px 8px;
+border-radius: 4px;
+border: 1px solid #cbd5e0;</string>
+                </property>
+                <property name="text">
+                 <string>0.000</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_recall">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 13px;
+font-weight: bold;</string>
+                </property>
+                <property name="text">
+                 <string>Recall:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLabel" name="recall_value">
+                <property name="styleSheet">
+                 <string notr="true">color: #2c5282;
+font-size: 13px;
+font-weight: bold;
+background-color: white;
+padding: 4px 8px;
+border-radius: 4px;
+border: 1px solid #cbd5e0;</string>
+                </property>
+                <property name="text">
+                 <string>0.000</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_f1">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 13px;
+font-weight: bold;</string>
+                </property>
+                <property name="text">
+                 <string>F1-Score:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLabel" name="f1_value">
+                <property name="styleSheet">
+                 <string notr="true">color: #2c5282;
+font-size: 13px;
+font-weight: bold;
+background-color: white;
+padding: 4px 8px;
+border-radius: 4px;
+border: 1px solid #cbd5e0;</string>
+                </property>
+                <property name="text">
+                 <string>0.000</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLabel" name="label_mae">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 13px;
+font-weight: bold;</string>
+                </property>
+                <property name="text">
+                 <string>MAE:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QLabel" name="mae_value">
+                <property name="styleSheet">
+                 <string notr="true">color: #2c5282;
+font-size: 13px;
+font-weight: bold;
+background-color: white;
+padding: 4px 8px;
+border-radius: 4px;
+border: 1px solid #cbd5e0;</string>
+                </property>
+                <property name="text">
+                 <string>0.000</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QLabel" name="label_mse">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 13px;
+font-weight: bold;</string>
+                </property>
+                <property name="text">
+                 <string>MSE:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="3">
+               <widget class="QLabel" name="mse_value">
+                <property name="styleSheet">
+                 <string notr="true">color: #2c5282;
+font-size: 13px;
+font-weight: bold;
+background-color: white;
+padding: 4px 8px;
+border-radius: 4px;
+border: 1px solid #cbd5e0;</string>
+                </property>
+                <property name="text">
+                 <string>0.000</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QLabel" name="label_rmse">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 13px;
+font-weight: bold;</string>
+                </property>
+                <property name="text">
+                 <string>RMSE:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="3">
+               <widget class="QLabel" name="rmse_value">
+                <property name="styleSheet">
+                 <string notr="true">color: #2c5282;
+font-size: 13px;
+font-weight: bold;
+background-color: white;
+padding: 4px 8px;
+border-radius: 4px;
+border: 1px solid #cbd5e0;</string>
+                </property>
+                <property name="text">
+                 <string>0.000</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="2">
+               <widget class="QLabel" name="label_mape">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 13px;
+font-weight: bold;</string>
+                </property>
+                <property name="text">
+                 <string>MAPE:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="3">
+               <widget class="QLabel" name="mape_value">
+                <property name="styleSheet">
+                 <string notr="true">color: #2c5282;
+font-size: 13px;
+font-weight: bold;
+background-color: white;
+padding: 4px 8px;
+border-radius: 4px;
+border: 1px solid #cbd5e0;</string>
+                </property>
+                <property name="text">
+                 <string>0.000%</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="info_frame">
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+}</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_info">
+              <item>
+               <widget class="QLabel" name="label_model_info">
+                <property name="styleSheet">
+                 <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-bottom: 5px;</string>
+                </property>
+                <property name="text">
+                 <string>Информация о модели:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTextEdit" name="model_info_text">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+                <property name="placeholderText">
+                 <string>После обучения модели здесь появится информация...</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_buttons">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_prev">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #3182ce;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    min-width: 120px;
+}
+QPushButton:hover {
+    background-color: #2c5282;
+}
+QPushButton:pressed {
+    background-color: #1e3a5f;
+}</string>
+        </property>
+        <property name="text">
+         <string>Назад</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_next">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #ed8936;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    min-width: 120px;
+}
+QPushButton:hover {
+    background-color: #dd7724;
+}
+QPushButton:pressed {
+    background-color: #c0651f;
+}</string>
+        </property>
+        <property name="text">
+         <string>Далее</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_finish">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    min-width: 120px;
+}
+QPushButton:hover {
+    background-color: #3c9e65;
+}
+QPushButton:pressed {
+    background-color: #286a43;
+}</string>
+        </property>
+        <property name="text">
+         <string>Завершить</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
