@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Platform</class>
+ <widget class="QMainWindow" name="Platform">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1358</width>
+    <height>848</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DataLite</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>./resource/icon.png</normaloff>./resource/icon.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
+    <property name="spacing">
+     <number>3</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="left_panel">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="palette">
+       <palette>
+        <active>
+         <colorrole role="Button">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>23</red>
+            <green>63</green>
+            <blue>138</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Base">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>23</red>
+            <green>63</green>
+            <blue>138</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Window">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>23</red>
+            <green>63</green>
+            <blue>138</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="Button">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>23</red>
+            <green>63</green>
+            <blue>138</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Base">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>23</red>
+            <green>63</green>
+            <blue>138</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Window">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>23</red>
+            <green>63</green>
+            <blue>138</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="Button">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>23</red>
+            <green>63</green>
+            <blue>138</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Base">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>23</red>
+            <green>63</green>
+            <blue>138</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Window">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>23</red>
+            <green>63</green>
+            <blue>138</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+background-color: #173F8A;
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>&lt;h1 style='color: #ffffff; font-size: 28px;'&gt; &lt;b&gt; DataLite &lt;b&gt; &lt;/h1&gt;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>&lt;div style='color: #ffffff; font-size: 16px; line-height: 1.6; margin: 20px; font-family: &quot;Segoe UI&quot;, Arial, sans-serif;'&gt;
+    &lt;!-- Заголовок --&gt;
+    &lt;div style=&quot;background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 12px; margin-bottom: 25px;&quot;&gt;
+        &lt;h2 style=&quot;color: #ffffff; font-size: 24px; font-weight: 600; margin: 0; text-align: center;&quot;&gt;
+            🚀 Профессиональная платформа аналитики
+        &lt;/h2&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Возможности системы --&gt;
+    &lt;div style=&quot;background: rgba(30, 58, 95, 0.9); padding: 25px; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid #3182ce;&quot;&gt;
+        &lt;h3 style=&quot;color: #90cdf4; font-size: 20px; font-weight: 600; margin: 0 0 20px 0; display: flex; align-items: center;&quot;&gt;
+            &lt;span style=&quot;margin-right: 10px;&quot;&gt;📊&lt;/span&gt;Возможности системы
+        &lt;/h3&gt;
+
+        &lt;div style=&quot;display: grid; gap: 15px;&quot;&gt;
+            &lt;div style=&quot;display: flex; align-items: flex-start; gap: 15px;&quot;&gt;
+                &lt;span style=&quot;color: #48bb78; font-size: 20px;&quot;&gt;📈&lt;/span&gt;
+                &lt;div&gt;
+                    &lt;div style=&quot;color: #bee3f8; font-weight: 600; font-size: 18px;&quot;&gt;Разведочный анализ (EDA)&lt;/div&gt;
+                    &lt;div style=&quot;color: #a0aec0; font-size: 15px;&quot;&gt;Исследование данных и выявление аномалий&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div style=&quot;display: flex; align-items: flex-start; gap: 15px;&quot;&gt;
+                &lt;span style=&quot;color: #4299e1; font-size: 20px;&quot;&gt;📊&lt;/span&gt;
+                &lt;div&gt;
+                    &lt;div style=&quot;color: #bee3f8; font-weight: 600; font-size: 18px;&quot;&gt;Визуализация данных&lt;/div&gt;
+                    &lt;div style=&quot;color: #a0aec0; font-size: 15px;&quot;&gt;Интерактивные дашборды и отчеты&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div style=&quot;display: flex; align-items: flex-start; gap: 15px;&quot;&gt;
+                &lt;span style=&quot;color: #ed8936; font-size: 20px;&quot;&gt;🔍&lt;/span&gt;
+                &lt;div&gt;
+                    &lt;div style=&quot;color: #bee3f8; font-weight: 600; font-size: 18px;&quot;&gt;ML моделирование&lt;/div&gt;
+                    &lt;div style=&quot;color: #a0aec0; font-size: 15px;&quot;&gt;Прогнозирование и анализ паттернов&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div style=&quot;display: flex; align-items: flex-start; gap: 15px;&quot;&gt;
+                &lt;span style=&quot;color: #9f7aea; font-size: 20px;&quot;&gt;📁&lt;/span&gt;
+                &lt;div&gt;
+                    &lt;div style=&quot;color: #bee3f8; font-weight: 600; font-size: 18px;&quot;&gt;Управление датасетами&lt;/div&gt;
+                    &lt;div style=&quot;color: #a0aec0; font-size: 15px;&quot;&gt;Хранение и каталогизация данных&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+	&lt;br&gt;
+    &lt;!-- Форматы и Workflow в одной строке --&gt;
+    &lt;div style=&quot;display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;&quot;&gt;
+        &lt;!-- Поддерживаемые форматы --&gt;
+        &lt;div style=&quot;background: rgba(30, 58, 95, 0.9); padding: 20px; border-radius: 12px; border-left: 5px solid #48bb78;&quot;&gt;
+            &lt;h3 style=&quot;color: #90cdf4; font-size: 20px; font-weight: 600; margin: 0 0 15px 0; display: flex; align-items: center;&quot;&gt;
+                &lt;span style=&quot;margin-right: 10px;&quot;&gt;📋&lt;/span&gt;Форматы
+            &lt;/h3&gt;
+
+            &lt;div style=&quot;display: flex; flex-direction: column; gap: 12px;&quot;&gt;
+                &lt;div style=&quot;display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(72, 187, 120, 0.1); border-radius: 8px;&quot;&gt;
+                    &lt;span style=&quot;color: #68d391; font-size: 18px;&quot;&gt;📄&lt;/span&gt;
+                    &lt;span style=&quot;color: #bee3f8; font-weight: 600; font-size: 16px;&quot;&gt;CSV&lt;/span&gt;
+                    &lt;span style=&quot;color: #a0aec0; font-size: 14px; margin-left: auto;&quot;&gt;Табличные&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;div style=&quot;display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(66, 153, 225, 0.1); border-radius: 8px;&quot;&gt;
+                    &lt;span style=&quot;color: #90cdf4; font-size: 18px;&quot;&gt;📑&lt;/span&gt;
+                    &lt;span style=&quot;color: #bee3f8; font-weight: 600; font-size: 16px;&quot;&gt;JSON&lt;/span&gt;
+                    &lt;span style=&quot;color: #a0aec0; font-size: 14px; margin-left: auto;&quot;&gt;Структурированные&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+	&lt;br&gt;
+
+        &lt;!-- Workflow --&gt;
+        &lt;div style=&quot;background: linear-gradient(135deg, #2c5282 0%, #1a365d 100%); padding: 20px; border-radius: 12px;&quot;&gt;
+            &lt;h3 style=&quot;color: #90cdf4; font-size: 20px; font-weight: 600; margin: 0 0 15px 0; display: flex; align-items: center;&quot;&gt;
+                &lt;span style=&quot;margin-right: 10px;&quot;&gt;💡&lt;/span&gt;Workflow
+            &lt;/h3&gt;
+
+            &lt;div style=&quot;display: flex; flex-direction: column; gap: 12px;&quot;&gt;
+                &lt;div style=&quot;display: flex; align-items: center; gap: 12px;&quot;&gt;
+                    &lt;div style=&quot;width: 28px; height: 28px; background: #3182ce; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 14px;&quot;&gt;1&lt;/div&gt;
+                    &lt;div style=&quot;color: #bee3f8; font-size: 16px;&quot;&gt;Импорт данных&lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;div style=&quot;display: flex; align-items: center; gap: 12px;&quot;&gt;
+                    &lt;div style=&quot;width: 28px; height: 28px; background: #4299e1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 14px;&quot;&gt;2&lt;/div&gt;
+                    &lt;div style=&quot;color: #bee3f8; font-size: 16px;&quot;&gt;Выбор датасета&lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;div style=&quot;display: flex; align-items: center; gap: 12px;&quot;&gt;
+                    &lt;div style=&quot;width: 28px; height: 28px; background: #38b2ac; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 14px;&quot;&gt;3&lt;/div&gt;
+                    &lt;div style=&quot;color: #bee3f8; font-size: 16px;&quot;&gt;Анализ данных&lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;div style=&quot;display: flex; align-items: center; gap: 12px;&quot;&gt;
+                    &lt;div style=&quot;width: 28px; height: 28px; background: #9f7aea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 14px;&quot;&gt;4&lt;/div&gt;
+                    &lt;div style=&quot;color: #bee3f8; font-size: 16px;&quot;&gt;Управление данными&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="main_page">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QFrame" name="right_panel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>1</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+background-color: #ffffff;
+}</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>&lt;h1 style='color: #1e3a5f; margin: 20px; font-size: 32px;'&gt; 🗂️ Управление датасетами &lt;h1&gt;</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="stats_label">
+             <property name="styleSheet">
+              <string notr="true">color: #2c5282;
+font-size: 18px;
+margin: 8px;
+padding: 12px;
+background-color: #e2e8f0;
+border-radius: 8px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Загрузка...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="file_list">
+             <property name="styleSheet">
+              <string notr="true">QListWidget {
+                background-color: white;
+                color: #1a202c;
+                border: 2px solid #3182ce;
+                border-radius: 10px;
+                font-size: 16px;
+                font-family: &quot;Segoe UI&quot;, Arial, sans-serif;
+            }
+ QListWidget::item {
+                padding: 15px;
+                border-bottom: 2px solid #e2e8f0;
+                font-size: 15px;
+            }
+QListWidget::item:selected {
+                background-color: #3182ce;
+                color: white;
+                border-radius: 8px;
+                font-weight: bold;
+            }</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QPushButton" name="add_button">
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+                    background-color: #48bb78;
+                    color: white;
+                    border: none;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    font-size: 22px;
+                }
+QPushButton:hover {
+                    background-color: #3c9e65;
+                }
+QPushButton:pressed {
+                    background-color: #286a43;
+                }
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+               </property>
+               <property name="text">
+                <string>Добавить датасет</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="open_button">
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+                    background-color: #3182ce;
+                    color: white;
+                    border: none;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    font-size: 22px;
+                }
+QPushButton:hover {
+                    background-color: rgb(37, 100, 159);
+                }
+QPushButton:pressed {
+                    background-color: rgb(25, 68, 109);
+                }
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+               </property>
+               <property name="text">
+                <string>Анализировать</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="delete_button">
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+                    background-color: #ed8936;
+                    color: white;
+                    border: none;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+QPushButton:hover {
+                    background-color: rgb(195, 112, 44);
+                }
+QPushButton:pressed {
+                    background-color: rgb(176, 101, 40);
+                }
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+               </property>
+               <property name="text">
+                <string>Удалить</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="update_button">
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+                    background-color: rgb(170, 85, 255);
+                    color: white;
+                    border: none;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    font-size: 22px;
+                }
+QPushButton:hover {
+                    background-color: rgb(121, 0, 182);
+                }
+QPushButton:pressed {
+                    background-color: rgb(117, 0, 176);
+                }
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+               </property>
+               <property name="text">
+                <string>Обновить</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="analysis_page">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QFrame" name="frame">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    background-color: #ffffff;
+    border-radius: 12px;
+}</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt; 🔧 Инструменты анализа &lt;/h1&gt;</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QGridLayout" name="gridLayout">
+             <item row="0" column="0">
+              <widget class="QPushButton" name="preprocessing_button">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>250</width>
+                 <height>140</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #4CAF50, stop: 1 #45a049);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    font-weight: bold;
+    font-size: 24px;
+    padding: 25px;
+}
+QPushButton:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #45a049, stop: 1 #3d8b40);
+}
+QPushButton:pressed {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #3d8b40, stop: 1 #357c38);
+}
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+               </property>
+               <property name="text">
+                <string> Предобработка данных</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="visualization_button">
+               <property name="minimumSize">
+                <size>
+                 <width>250</width>
+                 <height>140</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #2196F3, stop: 1 #1976D2);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    font-weight: bold;
+    font-size: 24px;
+    padding: 25px;
+}
+QPushButton:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #1976D2, stop: 1 #1565C0);
+}
+QPushButton:pressed {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #1565C0, stop: 1 #0D47A1);
+}
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+               </property>
+               <property name="text">
+                <string> Визуализация</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QPushButton" name="modeling_button">
+               <property name="minimumSize">
+                <size>
+                 <width>250</width>
+                 <height>140</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #FF9800, stop: 1 #F57C00);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    font-weight: bold;
+    font-size: 24px;
+    padding: 25px;
+}
+QPushButton:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #F57C00, stop: 1 #EF6C00);
+}
+QPushButton:pressed {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #EF6C00, stop: 1 #E65100);
+}
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+               </property>
+               <property name="text">
+                <string>Моделирование</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="back_button">
+               <property name="minimumSize">
+                <size>
+                 <width>250</width>
+                 <height>140</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #9C27B0, stop: 1 #7B1FA2);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    font-weight: bold;
+    font-size: 24px;
+    padding: 25px;
+}
+QPushButton:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #7B1FA2, stop: 1 #6A1B9A);
+}
+QPushButton:pressed {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #6A1B9A, stop: 1 #4A148C);
+}
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+               </property>
+               <property name="text">
+                <string>Назад</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1358</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="../resource/img.qrc"/>
+ </resources>
+ <connections/>
+</ui>
