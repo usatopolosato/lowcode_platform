@@ -1900,17 +1900,23 @@ class PreprocessingWindow(QMainWindow):
             # Сохраняем данные
             if self.filename.endswith('.csv'):
                 if hasattr(self, 'current_delimiter'):
-                    self.data.to_csv(self.file_path, index=False, sep=self.current_delimiter,
-                                     encoding='utf-8')
+                    delimiter = self.current_delimiter
+                    self.data.to_csv(self.file_path, index=False, sep=delimiter, encoding='utf-8')
                 else:
+                    delimiter = ','  # Используем запятую по умолчанию
                     self.data.to_csv(self.file_path, index=False, encoding='utf-8')
             elif self.filename.endswith('.json'):
+                delimiter = None  # Для JSON нет разделителя
                 self.data.to_json(self.file_path, orient='records', indent=2, force_ascii=False)
 
             # Обновляем состояние файла в родительском окне
             if self.parent_window:
                 # Обновляем состояние preprocessing на True
                 self.parent_window.update_file_state('preprocessing', completed=True)
+
+                # Обновляем разделитель
+                if hasattr(self, 'current_delimiter') and self.current_delimiter:
+                    self.parent_window.update_file_separated(self.current_delimiter)
 
                 # Обновляем кнопки в главном окне
                 self.parent_window.update_analysis_buttons_state()

@@ -14,7 +14,7 @@ class Ui_Platform(object):
         Platform.setObjectName("Platform")
         Platform.resize(1358, 848)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../resource/icon.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap("resource/icon.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         Platform.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(parent=Platform)
         self.centralwidget.setObjectName("centralwidget")
@@ -486,7 +486,7 @@ class Ui_Platform(object):
 "        </div>\n"
 "    </div>\n"
 "</div>"))
-        self.label_3.setText(_translate("Platform", "<h1 style=\'color: #1e3a5f; margin: 20px; font-size: 32px;\'> 🗂️ Управление датасетами <h1>"))
+        self.label_3.setText(_translate("Platform", "<h1 style=\'color: #1e3a5f; margin: 20px; font-size: 32px;\'> Управление датасетами <h1>"))
         self.stats_label.setText(_translate("Platform", "Загрузка..."))
         self.add_button.setText(_translate("Platform", "Добавить датасет"))
         self.open_button.setText(_translate("Platform", "Анализировать"))
