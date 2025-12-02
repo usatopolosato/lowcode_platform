@@ -65,7 +65,7 @@ QPushButton:disabled {
 }</string>
           </property>
           <property name="currentIndex">
-           <number>3</number>
+           <number>8</number>
           </property>
           <widget class="QWidget" name="charts_setup_page">
            <layout class="QHBoxLayout" name="horizontalLayout_main">
@@ -1631,7 +1631,7 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>635</width>
+                 <width>1052</width>
                  <height>601</height>
                 </rect>
                </property>
@@ -1972,7 +1972,7 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>458</width>
+                 <width>1052</width>
                  <height>849</height>
                 </rect>
                </property>
@@ -2397,7 +2397,7 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>606</width>
+                 <width>1052</width>
                  <height>793</height>
                 </rect>
                </property>
@@ -2810,8 +2810,8 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>621</width>
-                 <height>556</height>
+                 <width>1073</width>
+                 <height>546</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_layout_scroll">
@@ -3115,7 +3115,7 @@ font-weight: bold;</string>
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
+                 <y>-180</y>
                  <width>1122</width>
                  <height>655</height>
                 </rect>
@@ -3173,7 +3173,7 @@ border-radius: 6px;
 border: 1px solid #48bb78;</string>
                   </property>
                   <property name="text">
-                   <string>Для сохранения графика используйте: plt.savefig('filename.png', dpi=300, bbox_inches='tight')</string>
+                   <string>Визуализация в самом приложении в бета тестировании, но вы всегда можете эскпортировать свой дашборд</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -3245,7 +3245,7 @@ QPushButton:pressed {
 }</string>
                 </property>
                 <property name="text">
-                 <string>Экспортировать график</string>
+                 <string>Экспортировать дашборд</string>
                 </property>
                </widget>
               </item>
