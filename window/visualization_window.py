@@ -69,11 +69,6 @@ class ChartConfig:
         self.title = title
         self.data_config = data_config
         self.styling = styling
-        self.fig_settings = fig_settings or {
-            'figsize_width': 10,
-            'figsize_height': 8,
-            'dpi': 100
-        }
         self.created_at = created_at or datetime.now().isoformat()
         self.id = id or f"chart_{int(datetime.now().timestamp())}_{hash(title)}"
         self.image_path = None  # Путь к временному изображению
@@ -85,7 +80,6 @@ class ChartConfig:
             'title': self.title,
             'data_config': self.data_config,
             'styling': self.styling,
-            'fig_settings': self.fig_settings,
             'created_at': self.created_at
         }
 
@@ -97,11 +91,6 @@ class ChartConfig:
             title=data['title'],
             data_config=data.get('data_config', {}),
             styling=data.get('styling', {}),
-            fig_settings=data.get('fig_settings', {
-                'figsize_width': 10,
-                'figsize_height': 8,
-                'dpi': 100
-            }),
             created_at=data.get('created_at', datetime.now().isoformat())
         )
 
@@ -398,7 +387,6 @@ class UnifiedChartRenderer:
             line_width = styling.get('line_width', 2.0)
             markers = styling.get('markers', 'None (нет)').split(' ')[0]
             markersize = styling.get('markersize', 6)
-            color = styling.get('color', 'blue (синий)').split(' ')[0]
             alpha = styling.get('alpha', 1.0)
 
             x_data = self.data[x_col]
@@ -412,8 +400,7 @@ class UnifiedChartRenderer:
                 ax.plot(x_clean, y_clean, linestyle=line_style,
                         linewidth=line_width,
                         marker=markers if markers != 'None' else None,
-                        markersize=markersize,
-                        color=color, alpha=alpha,
+                        markersize=markersize, alpha=alpha,
                         label=y_col)
 
         if len(y_cols) > 1 and styling.get('show_legend', True):
@@ -430,7 +417,6 @@ class UnifiedChartRenderer:
 
         if categories_col in self.data.columns and values_col in self.data.columns:
             orientation = styling.get('orientation', 'vertical (вертикальная)').split(' ')[0]
-            color = styling.get('color', 'steelblue').split(' ')[0]
             edgecolor = styling.get('edgecolor', 'black (черный)').split(' ')[0]
             edgewidth = styling.get('edgewidth', 1.0)
             alpha = styling.get('alpha', 0.8)
@@ -440,14 +426,14 @@ class UnifiedChartRenderer:
             values = self.data[values_col]
 
             if orientation == 'vertical':
-                ax.bar(categories, values, color=color,
+                ax.bar(categories, values,
                        edgecolor=edgecolor if edgecolor != 'none' else None,
                        linewidth=edgewidth, alpha=alpha, width=width)
                 ax.set_xlabel(categories_col, fontsize=9)
                 ax.set_ylabel(values_col, fontsize=9)
                 plt.setp(ax.get_xticklabels(), rotation=45, ha='right', fontsize=8)
             else:
-                ax.barh(categories, values, color=color,
+                ax.barh(categories, values,
                         edgecolor=edgecolor if edgecolor != 'none' else None,
                         linewidth=edgewidth, alpha=alpha, height=width)
                 ax.set_xlabel(values_col, fontsize=9)
@@ -511,7 +497,6 @@ class UnifiedChartRenderer:
         if column in self.data.columns:
             bins = styling.get('bins', 'auto (автоматически)')
             hist_type = styling.get('hist_type', 'bar (столбчатая)').split(' ')[0]
-            color = styling.get('color', 'steelblue')
             alpha = styling.get('alpha', 0.7)
             show_density = styling.get('density', False)
             show_cumulative = styling.get('cumulative', False)
@@ -526,7 +511,7 @@ class UnifiedChartRenderer:
                 except:
                     bins = 10
 
-            ax.hist(data, bins=bins, histtype=hist_type, color=color,
+            ax.hist(data, bins=bins, histtype=hist_type,
                     alpha=alpha, density=show_density, cumulative=show_cumulative,
                     edgecolor='black')
 
@@ -577,7 +562,6 @@ class UnifiedChartRenderer:
         orientation = styling.get('orientation', 'vertical (вертикальная)').split(' ')[0]
         show_points = styling.get('show_points', 'outliers (только выбросы)').split(' ')[0]
         show_notch = styling.get('notch', False)
-        color = styling.get('color', 'lightblue')
         linewidth = styling.get('linewidth', 1.5)
         whis = styling.get('whis', 1.5)
 
@@ -596,8 +580,8 @@ class UnifiedChartRenderer:
 
         showfliers = show_points in ['outliers', 'all']
 
-        bp = ax.boxplot(data, labels=labels, notch=show_notch, showfliers=showfliers,
-                        patch_artist=True, boxprops=dict(facecolor=color, linewidth=linewidth),
+        bp = ax.boxplot(data, tick_labels=labels, notch=show_notch, showfliers=showfliers,
+                        patch_artist=True, boxprops=dict(linewidth=linewidth),
                         whiskerprops=dict(linewidth=linewidth), capprops=dict(linewidth=linewidth),
                         medianprops=dict(linewidth=linewidth, color='red'),
                         flierprops=dict(marker='o', markersize=3, alpha=0.5), whis=whis)
@@ -806,7 +790,6 @@ class VisualizationWindow(QMainWindow):
         self.ui.btn_box_save.clicked.connect(lambda: self.save_chart(6))
 
         # Кнопки на странице компоновки
-        self.ui.btn_generate_layout.clicked.connect(self.generate_layout)
         self.ui.btn_back_to_setup.clicked.connect(lambda: self.go_to_page(0))
         self.ui.btn_export_figure.clicked.connect(self.export_figure)
 
@@ -984,9 +967,11 @@ class VisualizationWindow(QMainWindow):
     def go_to_previous_page(self):
         if hasattr(self.ui, 'stackedWidget'):
             current_index = self.ui.stackedWidget.currentIndex()
-            if current_index > 0:
+            if 0 < current_index <= 7:
+                self.ui.stackedWidget.setCurrentIndex(0)
+            elif current_index > 0:
                 self.ui.stackedWidget.setCurrentIndex(current_index - 1)
-                self.update_navigation_buttons()
+            self.update_navigation_buttons()
 
     def go_to_next_page(self):
         if hasattr(self.ui, 'stackedWidget'):
@@ -998,7 +983,7 @@ class VisualizationWindow(QMainWindow):
                     QMessageBox.warning(self, "Внимание", "Сначала создайте хотя бы один график!")
                     return
                 self.go_to_page(7)
-            elif current_index < max_index:
+            elif 7 <= current_index < max_index:
                 self.ui.stackedWidget.setCurrentIndex(current_index + 1)
                 self.update_navigation_buttons()
 
@@ -1023,16 +1008,20 @@ class VisualizationWindow(QMainWindow):
             if hasattr(self.ui, 'btn_next'):
                 if current_index == 0:
                     self.ui.btn_next.setText("К компоновке")
+                    self.ui.btn_next.clicked.disconnect()
+                    self.ui.btn_next.clicked.connect(self.go_to_next_page)
                     self.ui.btn_next.setEnabled(True)
                 elif current_index == 7:
                     self.ui.btn_next.setText("Показать графики")
+                    self.ui.btn_next.clicked.disconnect()
+                    self.ui.btn_next.clicked.connect(self.generate_layout)
                     self.ui.btn_next.setEnabled(len(self.charts) > 0)
                 elif current_index == 8:
                     self.ui.btn_next.setEnabled(False)
                     self.ui.btn_next.setText("Далее")
                 else:
-                    self.ui.btn_next.setEnabled(True)
-                    self.ui.btn_next.setText("Далее")
+                    self.ui.btn_next.setEnabled(False)
+                    self.ui.btn_next.setText("Далее(недоступно)")
 
             if hasattr(self.ui, 'btn_finish'):
                 self.ui.btn_finish.setEnabled(current_index in [0, 8])
@@ -1065,12 +1054,6 @@ class VisualizationWindow(QMainWindow):
             chart_type = ""
             data_config = {}
             styling = {}
-
-            fig_settings = {
-                'figsize_width': self.ui.figsize_width_spin.value(),
-                'figsize_height': self.ui.figsize_height_spin.value(),
-                'dpi': self.ui.dpi_spinbox.value()
-            }
 
             title = self.ui.chart_title_edit.text().strip()
             if not title:
@@ -1106,7 +1089,6 @@ class VisualizationWindow(QMainWindow):
                     'line_width': self.ui.line_width_spin.value(),
                     'markers': self.ui.markers_combo.currentText(),
                     'markersize': self.ui.markersize_spin.value(),
-                    'color': self.ui.line_color_combo.currentText(),
                     'alpha': self.ui.line_alpha_spin.value(),
                     'show_grid': self.ui.grid_checkbox.isChecked(),
                     'show_legend': True,
@@ -1132,7 +1114,6 @@ class VisualizationWindow(QMainWindow):
 
                 styling = {
                     'orientation': self.ui.bar_orientation_combo.currentText(),
-                    'color': self.ui.bar_color_combo.currentText(),
                     'edgecolor': self.ui.bar_edgecolor_combo.currentText(),
                     'edgewidth': self.ui.bar_edgewidth_spin.value(),
                     'alpha': self.ui.bar_alpha_spin.value(),
@@ -1159,7 +1140,6 @@ class VisualizationWindow(QMainWindow):
                     'explode': self.ui.pie_explode_spin.value(),
                     'autopct': self.ui.pie_autopct_combo.currentText(),
                     'shadow': self.ui.pie_shadow_checkbox.isChecked(),
-                    'colormap': self.ui.pie_colormap_combo.currentText()
                 }
 
             elif page_type == 4:
@@ -1177,7 +1157,6 @@ class VisualizationWindow(QMainWindow):
                 styling = {
                     'bins': self.ui.bins_combo.currentText(),
                     'hist_type': self.ui.hist_type_combo.currentText(),
-                    'color': self.ui.hist_color_combo.currentText(),
                     'alpha': self.ui.hist_alpha_spin.value(),
                     'density': self.ui.hist_density_checkbox.isChecked(),
                     'cumulative': self.ui.hist_cumulative_checkbox.isChecked()
@@ -1239,8 +1218,7 @@ class VisualizationWindow(QMainWindow):
                 chart_type=chart_type,
                 title=title,
                 data_config=data_config,
-                styling=styling,
-                fig_settings=fig_settings
+                styling=styling
             )
 
             self.charts.append(chart_config)
@@ -1291,9 +1269,6 @@ class VisualizationWindow(QMainWindow):
 
             self.ui.chart_type_combo.setCurrentText(chart.chart_type)
             self.ui.chart_title_edit.setText(chart.title)
-            self.ui.figsize_width_spin.setValue(chart.fig_settings.get('figsize_width', 10))
-            self.ui.figsize_height_spin.setValue(chart.fig_settings.get('figsize_height', 6))
-            self.ui.dpi_spinbox.setValue(chart.fig_settings.get('dpi', 100))
 
             chart_type = chart.chart_type
             page_index = self.chart_type_to_page.get(chart_type, 1)
@@ -1336,7 +1311,6 @@ class VisualizationWindow(QMainWindow):
         self.ui.line_width_spin.setValue(styling.get('line_width', 2.0))
         self.ui.markers_combo.setCurrentText(styling.get('markers', 'None (нет)'))
         self.ui.markersize_spin.setValue(styling.get('markersize', 6))
-        self.ui.line_color_combo.setCurrentText(styling.get('color', 'blue (синий)'))
         self.ui.line_alpha_spin.setValue(styling.get('alpha', 1.0))
         self.ui.grid_checkbox.setChecked(styling.get('show_grid', True))
         self.ui.xlabel_edit.setText(styling.get('xlabel', ''))
@@ -1351,7 +1325,6 @@ class VisualizationWindow(QMainWindow):
 
         self.ui.bar_orientation_combo.setCurrentText(
             styling.get('orientation', 'vertical (вертикальная)'))
-        self.ui.bar_color_combo.setCurrentText(styling.get('color', 'steelblue'))
         self.ui.bar_edgecolor_combo.setCurrentText(styling.get('edgecolor', 'black (черный)'))
         self.ui.bar_edgewidth_spin.setValue(styling.get('edgewidth', 1.0))
         self.ui.bar_alpha_spin.setValue(styling.get('alpha', 0.8))
@@ -1368,7 +1341,6 @@ class VisualizationWindow(QMainWindow):
         self.ui.pie_explode_spin.setValue(styling.get('explode', 0.1))
         self.ui.pie_autopct_combo.setCurrentText(styling.get('autopct', 'Не показывать'))
         self.ui.pie_shadow_checkbox.setChecked(styling.get('shadow', False))
-        self.ui.pie_colormap_combo.setCurrentText(styling.get('colormap', 'tab20c'))
 
     def _fill_histogram_fields(self, chart):
         data_config = chart.data_config
@@ -1378,7 +1350,6 @@ class VisualizationWindow(QMainWindow):
 
         self.ui.bins_combo.setCurrentText(styling.get('bins', 'auto (автоматически)'))
         self.ui.hist_type_combo.setCurrentText(styling.get('hist_type', 'bar (столбчатая)'))
-        self.ui.hist_color_combo.setCurrentText(styling.get('color', 'steelblue'))
         self.ui.hist_alpha_spin.setValue(styling.get('alpha', 0.7))
         self.ui.hist_density_checkbox.setChecked(styling.get('density', False))
         self.ui.hist_cumulative_checkbox.setChecked(styling.get('cumulative', False))

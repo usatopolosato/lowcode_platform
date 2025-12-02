@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>800</height>
+    <width>1141</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -18,6 +18,10 @@
   </property>
   <property name="windowTitle">
    <string>DataLite - Визуализация (Matplotlib/Pandas)</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../resource/icon.png</normaloff>../resource/icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
@@ -43,8 +47,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>955</width>
-         <height>779</height>
+         <width>1117</width>
+         <height>624</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -61,7 +65,7 @@ QPushButton:disabled {
 }</string>
           </property>
           <property name="currentIndex">
-           <number>8</number>
+           <number>3</number>
           </property>
           <widget class="QWidget" name="charts_setup_page">
            <layout class="QHBoxLayout" name="horizontalLayout_main">
@@ -304,16 +308,6 @@ QComboBox:focus {
                       <string>Box Plot (boxplot)</string>
                      </property>
                     </item>
-                    <item>
-                     <property name="text">
-                      <string>Площадной график (area)</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>График плотности (kde)</string>
-                     </property>
-                    </item>
                    </widget>
                   </item>
                  </layout>
@@ -361,136 +355,6 @@ QLineEdit:focus {
                     </property>
                     <property name="placeholderText">
                      <string>Введите название графика...</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QFrame" name="global_settings_frame">
-                 <property name="styleSheet">
-                  <string notr="true">QFrame {
-    background-color: #edf2f7;
-    border: 1px solid #cbd5e0;
-    border-radius: 6px;
-    padding: 10px;
-    margin-top: 10px;
-}</string>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_global">
-                  <item>
-                   <widget class="QLabel" name="label_figsize">
-                    <property name="styleSheet">
-                     <string notr="true">color: #1e3a5f;
-font-size: 14px;
-font-weight: bold;
-margin-bottom: 5px;</string>
-                    </property>
-                    <property name="text">
-                     <string>Размер фигуры (дюймы):</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_figsize">
-                    <item>
-                     <widget class="QSpinBox" name="figsize_width_spin">
-                      <property name="styleSheet">
-                       <string notr="true">QSpinBox {
-    background-color: white;
-    border: 2px solid #cbd5e0;
-    border-radius: 6px;
-    padding: 6px;
-    font-size: 14px;
-}</string>
-                      </property>
-                      <property name="suffix">
-                       <string> дюймов</string>
-                      </property>
-                      <property name="minimum">
-                       <number>4</number>
-                      </property>
-                      <property name="maximum">
-                       <number>20</number>
-                      </property>
-                      <property name="value">
-                       <number>10</number>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_figsize_x">
-                      <property name="styleSheet">
-                       <string notr="true">color: #4a5568;
-font-size: 16px;
-font-weight: bold;
-margin: 0 5px;</string>
-                      </property>
-                      <property name="text">
-                       <string>×</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSpinBox" name="figsize_height_spin">
-                      <property name="styleSheet">
-                       <string notr="true">QSpinBox {
-    background-color: white;
-    border: 2px solid #cbd5e0;
-    border-radius: 6px;
-    padding: 6px;
-    font-size: 14px;
-}</string>
-                      </property>
-                      <property name="suffix">
-                       <string> дюймов</string>
-                      </property>
-                      <property name="minimum">
-                       <number>4</number>
-                      </property>
-                      <property name="maximum">
-                       <number>20</number>
-                      </property>
-                      <property name="value">
-                       <number>6</number>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_dpi">
-                    <property name="styleSheet">
-                     <string notr="true">color: #1e3a5f;
-font-size: 14px;
-font-weight: bold;
-margin-top: 8px;</string>
-                    </property>
-                    <property name="text">
-                     <string>Разрешение (DPI):</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QSpinBox" name="dpi_spinbox">
-                    <property name="styleSheet">
-                     <string notr="true">QSpinBox {
-    background-color: white;
-    border: 2px solid #cbd5e0;
-    border-radius: 6px;
-    padding: 6px;
-    font-size: 14px;
-}</string>
-                    </property>
-                    <property name="minimum">
-                     <number>72</number>
-                    </property>
-                    <property name="maximum">
-                     <number>300</number>
-                    </property>
-                    <property name="value">
-                     <number>100</number>
                     </property>
                    </widget>
                   </item>
@@ -553,8 +417,8 @@ QPushButton:disabled {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>890</width>
-                 <height>1250</height>
+                 <width>614</width>
+                 <height>1182</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_line_scroll">
@@ -653,6 +517,29 @@ QListWidget::item:selected {
 }</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_line_style">
+                   <item row="3" column="1">
+                    <widget class="QSpinBox" name="markersize_spin">
+                     <property name="styleSheet">
+                      <string notr="true">QSpinBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    min-width: 100px;
+}</string>
+                     </property>
+                     <property name="minimum">
+                      <number>1</number>
+                     </property>
+                     <property name="maximum">
+                      <number>20</number>
+                     </property>
+                     <property name="value">
+                      <number>6</number>
+                     </property>
+                    </widget>
+                   </item>
                    <item row="0" column="0">
                     <widget class="QLabel" name="label_line_style">
                      <property name="styleSheet">
@@ -699,18 +586,6 @@ font-weight: bold;</string>
                      </item>
                     </widget>
                    </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_line_width">
-                     <property name="styleSheet">
-                      <string notr="true">color: #1e3a5f;
-font-size: 14px;
-font-weight: bold;</string>
-                     </property>
-                     <property name="text">
-                      <string>Толщина линии:</string>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="1" column="1">
                     <widget class="QDoubleSpinBox" name="line_width_spin">
                      <property name="styleSheet">
@@ -734,6 +609,30 @@ font-weight: bold;</string>
                      </property>
                      <property name="value">
                       <double>2.000000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_line_width">
+                     <property name="styleSheet">
+                      <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+                     </property>
+                     <property name="text">
+                      <string>Толщина линии:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="label_markersize">
+                     <property name="styleSheet">
+                      <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+                     </property>
+                     <property name="text">
+                      <string>Размер маркера:</string>
                      </property>
                     </widget>
                    </item>
@@ -798,103 +697,7 @@ font-weight: bold;</string>
                      </item>
                     </widget>
                    </item>
-                   <item row="3" column="0">
-                    <widget class="QLabel" name="label_markersize">
-                     <property name="styleSheet">
-                      <string notr="true">color: #1e3a5f;
-font-size: 14px;
-font-weight: bold;</string>
-                     </property>
-                     <property name="text">
-                      <string>Размер маркера:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="1">
-                    <widget class="QSpinBox" name="markersize_spin">
-                     <property name="styleSheet">
-                      <string notr="true">QSpinBox {
-    background-color: white;
-    border: 2px solid #cbd5e0;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 14px;
-    min-width: 100px;
-}</string>
-                     </property>
-                     <property name="minimum">
-                      <number>1</number>
-                     </property>
-                     <property name="maximum">
-                      <number>20</number>
-                     </property>
-                     <property name="value">
-                      <number>6</number>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="4" column="0">
-                    <widget class="QLabel" name="label_color">
-                     <property name="styleSheet">
-                      <string notr="true">color: #1e3a5f;
-font-size: 14px;
-font-weight: bold;</string>
-                     </property>
-                     <property name="text">
-                      <string>Цвет:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="4" column="1">
-                    <widget class="QComboBox" name="line_color_combo">
-                     <property name="styleSheet">
-                      <string notr="true">QComboBox {
-    background-color: white;
-    border: 2px solid #cbd5e0;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 14px;
-    min-width: 150px;
-}</string>
-                     </property>
-                     <item>
-                      <property name="text">
-                       <string>blue (синий)</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>red (красный)</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>green (зеленый)</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>orange (оранжевый)</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>purple (фиолетовый)</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>black (черный)</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>cyan (бирюзовый)</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                   <item row="5" column="0">
                     <widget class="QLabel" name="label_alpha">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
@@ -906,7 +709,7 @@ font-weight: bold;</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="1">
+                   <item row="4" column="1">
                     <widget class="QDoubleSpinBox" name="line_alpha_spin">
                      <property name="styleSheet">
                       <string notr="true">QDoubleSpinBox {
@@ -932,16 +735,19 @@ font-weight: bold;</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="6" column="0">
+                   <item row="5" column="0">
                     <widget class="QLabel" name="label_grid">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
 font-size: 14px;
 font-weight: bold;</string>
                      </property>
+                     <property name="text">
+                      <string>Сетка:</string>
+                     </property>
                     </widget>
                    </item>
-                   <item row="6" column="1">
+                   <item row="5" column="1">
                     <widget class="QCheckBox" name="grid_checkbox">
                      <property name="styleSheet">
                       <string notr="true">QCheckBox {
@@ -1127,8 +933,8 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>890</width>
-                 <height>793</height>
+                 <width>446</width>
+                 <height>725</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_bar_scroll">
@@ -1210,18 +1016,6 @@ margin-top: 10px;</string>
 }</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_bar_style">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_bar_orientation">
-                     <property name="styleSheet">
-                      <string notr="true">color: #1e3a5f;
-font-size: 14px;
-font-weight: bold;</string>
-                     </property>
-                     <property name="text">
-                      <string>Ориентация:</string>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="0" column="1">
                     <widget class="QComboBox" name="bar_orientation_combo">
                      <property name="styleSheet">
@@ -1246,70 +1040,31 @@ font-weight: bold;</string>
                      </item>
                     </widget>
                    </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_bar_color">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_bar_orientation">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
 font-size: 14px;
 font-weight: bold;</string>
                      </property>
                      <property name="text">
-                      <string>Цвет столбцов:</string>
+                      <string>Ориентация:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_bar_edgewidth">
+                     <property name="styleSheet">
+                      <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+                     </property>
+                     <property name="text">
+                      <string>Толщина обводки:</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QComboBox" name="bar_color_combo">
-                     <property name="styleSheet">
-                      <string notr="true">QComboBox {
-    background-color: white;
-    border: 2px solid #cbd5e0;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 14px;
-    min-width: 150px;
-}</string>
-                     </property>
-                     <item>
-                      <property name="text">
-                       <string>steelblue</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>forestgreen</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>firebrick</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>darkorange</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>mediumpurple</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_bar_edgecolor">
-                     <property name="styleSheet">
-                      <string notr="true">color: #1e3a5f;
-font-size: 14px;
-font-weight: bold;</string>
-                     </property>
-                     <property name="text">
-                      <string>Цвет обводки:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="1">
                     <widget class="QComboBox" name="bar_edgecolor_combo">
                      <property name="styleSheet">
                       <string notr="true">QComboBox {
@@ -1338,19 +1093,19 @@ font-weight: bold;</string>
                      </item>
                     </widget>
                    </item>
-                   <item row="3" column="0">
-                    <widget class="QLabel" name="label_bar_edgewidth">
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_bar_edgecolor">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
 font-size: 14px;
 font-weight: bold;</string>
                      </property>
                      <property name="text">
-                      <string>Толщина обводки:</string>
+                      <string>Цвет обводки:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="1">
+                   <item row="2" column="1">
                     <widget class="QDoubleSpinBox" name="bar_edgewidth_spin">
                      <property name="styleSheet">
                       <string notr="true">QDoubleSpinBox {
@@ -1376,7 +1131,7 @@ font-weight: bold;</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="0">
+                   <item row="3" column="0">
                     <widget class="QLabel" name="label_bar_alpha">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
@@ -1388,7 +1143,7 @@ font-weight: bold;</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="1">
+                   <item row="3" column="1">
                     <widget class="QDoubleSpinBox" name="bar_alpha_spin">
                      <property name="styleSheet">
                       <string notr="true">QDoubleSpinBox {
@@ -1414,7 +1169,7 @@ font-weight: bold;</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="0">
+                   <item row="4" column="0">
                     <widget class="QLabel" name="label_bar_width">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
@@ -1426,7 +1181,7 @@ font-weight: bold;</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="1">
+                   <item row="4" column="1">
                     <widget class="QDoubleSpinBox" name="bar_width_spin">
                      <property name="styleSheet">
                       <string notr="true">QDoubleSpinBox {
@@ -1550,8 +1305,8 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>890</width>
-                 <height>725</height>
+                 <width>1052</width>
+                 <height>657</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_pie_scroll">
@@ -1709,18 +1464,6 @@ font-weight: bold;</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_pie_autopct">
-                     <property name="styleSheet">
-                      <string notr="true">color: #1e3a5f;
-font-size: 14px;
-font-weight: bold;</string>
-                     </property>
-                     <property name="text">
-                      <string>Отображение процентов:</string>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="2" column="1">
                     <widget class="QComboBox" name="pie_autopct_combo">
                      <property name="styleSheet">
@@ -1733,11 +1476,6 @@ font-weight: bold;</string>
     min-width: 150px;
 }</string>
                      </property>
-                     <item>
-                      <property name="text">
-                       <string>Не показывать</string>
-                      </property>
-                     </item>
                      <item>
                       <property name="text">
                        <string>%1.1f%% (с одним знаком)</string>
@@ -1755,15 +1493,15 @@ font-weight: bold;</string>
                      </item>
                     </widget>
                    </item>
-                   <item row="3" column="0">
-                    <widget class="QLabel" name="label_pie_shadow">
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_pie_autopct">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
 font-size: 14px;
 font-weight: bold;</string>
                      </property>
                      <property name="text">
-                      <string>Тень:</string>
+                      <string>Отображение процентов:</string>
                      </property>
                     </widget>
                    </item>
@@ -1783,55 +1521,16 @@ font-weight: bold;</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="0">
-                    <widget class="QLabel" name="label_pie_colormap">
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="label_pie_shadow">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
 font-size: 14px;
 font-weight: bold;</string>
                      </property>
                      <property name="text">
-                      <string>Цветовая схема:</string>
+                      <string>Тень:</string>
                      </property>
-                    </widget>
-                   </item>
-                   <item row="4" column="1">
-                    <widget class="QComboBox" name="pie_colormap_combo">
-                     <property name="styleSheet">
-                      <string notr="true">QComboBox {
-    background-color: white;
-    border: 2px solid #cbd5e0;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 14px;
-    min-width: 150px;
-}</string>
-                     </property>
-                     <item>
-                      <property name="text">
-                       <string>tab20c</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Set3</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Set2</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Pastel1</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>viridis</string>
-                      </property>
-                     </item>
                     </widget>
                    </item>
                   </layout>
@@ -1932,8 +1631,8 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>890</width>
-                 <height>669</height>
+                 <width>635</width>
+                 <height>601</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_hist_scroll">
@@ -1989,15 +1688,15 @@ font-weight: bold;</string>
 }</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_hist_params">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_bins">
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_hist_type">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
 font-size: 14px;
 font-weight: bold;</string>
                      </property>
                      <property name="text">
-                      <string>Количество интервалов (bins):</string>
+                      <string>Тип гистограммы:</string>
                      </property>
                     </widget>
                    </item>
@@ -2040,15 +1739,15 @@ font-weight: bold;</string>
                      </item>
                     </widget>
                    </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_hist_type">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_bins">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
 font-size: 14px;
 font-weight: bold;</string>
                      </property>
                      <property name="text">
-                      <string>Тип гистограммы:</string>
+                      <string>Количество интервалов (bins):</string>
                      </property>
                     </widget>
                    </item>
@@ -2081,53 +1780,19 @@ font-weight: bold;</string>
                      </item>
                     </widget>
                    </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_hist_color">
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="label_hist_density">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
 font-size: 14px;
 font-weight: bold;</string>
                      </property>
                      <property name="text">
-                      <string>Цвет:</string>
+                      <string>Нормализация:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="1">
-                    <widget class="QComboBox" name="hist_color_combo">
-                     <property name="styleSheet">
-                      <string notr="true">QComboBox {
-    background-color: white;
-    border: 2px solid #cbd5e0;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 14px;
-    min-width: 150px;
-}</string>
-                     </property>
-                     <item>
-                      <property name="text">
-                       <string>steelblue</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>forestgreen</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>firebrick</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>darkorange</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                   <item row="3" column="0">
+                   <item row="2" column="0">
                     <widget class="QLabel" name="label_hist_alpha">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
@@ -2139,7 +1804,7 @@ font-weight: bold;</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="1">
+                   <item row="2" column="1">
                     <widget class="QDoubleSpinBox" name="hist_alpha_spin">
                      <property name="styleSheet">
                       <string notr="true">QDoubleSpinBox {
@@ -2166,18 +1831,18 @@ font-weight: bold;</string>
                     </widget>
                    </item>
                    <item row="4" column="0">
-                    <widget class="QLabel" name="label_hist_density">
+                    <widget class="QLabel" name="label_hist_cumulative">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
 font-size: 14px;
 font-weight: bold;</string>
                      </property>
                      <property name="text">
-                      <string>Нормализация:</string>
+                      <string>Кумулятивная:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="1">
+                   <item row="3" column="1">
                     <widget class="QCheckBox" name="hist_density_checkbox">
                      <property name="styleSheet">
                       <string notr="true">QCheckBox {
@@ -2193,19 +1858,7 @@ font-weight: bold;</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="0">
-                    <widget class="QLabel" name="label_hist_cumulative">
-                     <property name="styleSheet">
-                      <string notr="true">color: #1e3a5f;
-font-size: 14px;
-font-weight: bold;</string>
-                     </property>
-                     <property name="text">
-                      <string>Кумулятивная:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="5" column="1">
+                   <item row="4" column="1">
                     <widget class="QCheckBox" name="hist_cumulative_checkbox">
                      <property name="styleSheet">
                       <string notr="true">QCheckBox {
@@ -2319,7 +1972,7 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>890</width>
+                 <width>458</width>
                  <height>849</height>
                 </rect>
                </property>
@@ -2744,7 +2397,7 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>890</width>
+                 <width>606</width>
                  <height>793</height>
                 </rect>
                </property>
@@ -3156,9 +2809,9 @@ QPushButton:pressed {
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-120</y>
-                 <width>890</width>
-                 <height>866</height>
+                 <y>0</y>
+                 <width>621</width>
+                 <height>556</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_layout_scroll">
@@ -3413,115 +3066,6 @@ QSpinBox:focus {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QFrame" name="figsize_frame">
-                  <property name="styleSheet">
-                   <string notr="true">QFrame {
-    background-color: #f7fafc;
-    border: 2px solid #3182ce;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-}</string>
-                  </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_figsize">
-                   <item>
-                    <widget class="QLabel" name="label_figsize_layout">
-                     <property name="styleSheet">
-                      <string notr="true">color: #1e3a5f;
-font-size: 14px;
-font-weight: bold;
-margin-bottom: 10px;</string>
-                     </property>
-                     <property name="text">
-                      <string>Размер общей фигуры (дюймы):</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_figsize_layout">
-                     <item>
-                      <widget class="QLabel" name="label_width_layout">
-                       <property name="styleSheet">
-                        <string notr="true">color: #4a5568;
-font-size: 14px;
-min-width: 80px;</string>
-                       </property>
-                       <property name="text">
-                        <string>Ширина:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QDoubleSpinBox" name="figsize_width_layout_spin">
-                       <property name="styleSheet">
-                        <string notr="true">QDoubleSpinBox {
-    background-color: white;
-    border: 2px solid #cbd5e0;
-    border-radius: 6px;
-    padding: 8px;
-    font-size: 14px;
-    min-width: 100px;
-}</string>
-                       </property>
-                       <property name="minimum">
-                        <double>6.000000000000000</double>
-                       </property>
-                       <property name="maximum">
-                        <double>24.000000000000000</double>
-                       </property>
-                       <property name="singleStep">
-                        <double>1.000000000000000</double>
-                       </property>
-                       <property name="value">
-                        <double>12.000000000000000</double>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="label_height_layout">
-                       <property name="styleSheet">
-                        <string notr="true">color: #4a5568;
-font-size: 14px;
-min-width: 80px;
-margin-left: 15px;</string>
-                       </property>
-                       <property name="text">
-                        <string>Высота:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QDoubleSpinBox" name="figsize_height_layout_spin">
-                       <property name="styleSheet">
-                        <string notr="true">QDoubleSpinBox {
-    background-color: white;
-    border: 2px solid #cbd5e0;
-    border-radius: 6px;
-    padding: 8px;
-    font-size: 14px;
-    min-width: 100px;
-}</string>
-                       </property>
-                       <property name="minimum">
-                        <double>4.000000000000000</double>
-                       </property>
-                       <property name="maximum">
-                        <double>20.000000000000000</double>
-                       </property>
-                       <property name="singleStep">
-                        <double>1.000000000000000</double>
-                       </property>
-                       <property name="value">
-                        <double>8.000000000000000</double>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item>
                  <widget class="QLabel" name="layout_info_label">
                   <property name="styleSheet">
                    <string notr="true">color: #2d3748;
@@ -3541,34 +3085,6 @@ font-weight: bold;</string>
                   </property>
                   <property name="wordWrap">
                    <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="btn_generate_layout">
-                  <property name="styleSheet">
-                   <string notr="true">QPushButton {
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #ed8936, stop:1 #dd7724);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 16px;
-    padding: 15px 30px;
-    min-width: 200px;
-    margin: 20px;
-}
-QPushButton:hover {
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #dd7724, stop:1 #c0651f);
-}
-QPushButton:pressed {
-    background: #c0651f;
-}</string>
-                  </property>
-                  <property name="text">
-                   <string>Построить все графики</string>
                   </property>
                  </widget>
                 </item>
@@ -3599,9 +3115,9 @@ QPushButton:pressed {
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-4</y>
-                 <width>1022</width>
-                 <height>1651</height>
+                 <y>0</y>
+                 <width>1122</width>
+                 <height>655</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_display_scroll">
@@ -3629,8 +3145,8 @@ border: 1px solid #3182ce;</string>
                  <widget class="QFrame" name="charts_container_frame">
                   <property name="minimumSize">
                    <size>
-                    <width>1000</width>
-                    <height>1500</height>
+                    <width>1100</width>
+                    <height>504</height>
                    </size>
                   </property>
                   <property name="styleSheet">

@@ -12,8 +12,11 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Visualization(object):
     def setupUi(self, Visualization):
         Visualization.setObjectName("Visualization")
-        Visualization.resize(1000, 800)
+        Visualization.resize(1141, 700)
         Visualization.setMinimumSize(QtCore.QSize(900, 700))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("resource/icon.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        Visualization.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(parent=Visualization)
         self.centralwidget.setStyleSheet("QPushButton:disabled {\n"
 "    background: #a0aec0;\n"
@@ -28,7 +31,7 @@ class Ui_Visualization(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 955, 779))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1117, 624))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
@@ -206,8 +209,6 @@ class Ui_Visualization(object):
         self.chart_type_combo.addItem("")
         self.chart_type_combo.addItem("")
         self.chart_type_combo.addItem("")
-        self.chart_type_combo.addItem("")
-        self.chart_type_combo.addItem("")
         self.verticalLayout_chart_type.addWidget(self.chart_type_combo)
         self.verticalLayout_right.addWidget(self.chart_type_frame)
         self.basic_settings_frame = QtWidgets.QFrame(parent=self.right_frame)
@@ -243,81 +244,6 @@ class Ui_Visualization(object):
         self.chart_title_edit.setObjectName("chart_title_edit")
         self.verticalLayout_basic.addWidget(self.chart_title_edit)
         self.verticalLayout_right.addWidget(self.basic_settings_frame)
-        self.global_settings_frame = QtWidgets.QFrame(parent=self.right_frame)
-        self.global_settings_frame.setStyleSheet("QFrame {\n"
-"    background-color: #edf2f7;\n"
-"    border: 1px solid #cbd5e0;\n"
-"    border-radius: 6px;\n"
-"    padding: 10px;\n"
-"    margin-top: 10px;\n"
-"}")
-        self.global_settings_frame.setObjectName("global_settings_frame")
-        self.verticalLayout_global = QtWidgets.QVBoxLayout(self.global_settings_frame)
-        self.verticalLayout_global.setObjectName("verticalLayout_global")
-        self.label_figsize = QtWidgets.QLabel(parent=self.global_settings_frame)
-        self.label_figsize.setStyleSheet("color: #1e3a5f;\n"
-"font-size: 14px;\n"
-"font-weight: bold;\n"
-"margin-bottom: 5px;")
-        self.label_figsize.setObjectName("label_figsize")
-        self.verticalLayout_global.addWidget(self.label_figsize)
-        self.horizontalLayout_figsize = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_figsize.setObjectName("horizontalLayout_figsize")
-        self.figsize_width_spin = QtWidgets.QSpinBox(parent=self.global_settings_frame)
-        self.figsize_width_spin.setStyleSheet("QSpinBox {\n"
-"    background-color: white;\n"
-"    border: 2px solid #cbd5e0;\n"
-"    border-radius: 6px;\n"
-"    padding: 6px;\n"
-"    font-size: 14px;\n"
-"}")
-        self.figsize_width_spin.setMinimum(4)
-        self.figsize_width_spin.setMaximum(20)
-        self.figsize_width_spin.setProperty("value", 10)
-        self.figsize_width_spin.setObjectName("figsize_width_spin")
-        self.horizontalLayout_figsize.addWidget(self.figsize_width_spin)
-        self.label_figsize_x = QtWidgets.QLabel(parent=self.global_settings_frame)
-        self.label_figsize_x.setStyleSheet("color: #4a5568;\n"
-"font-size: 16px;\n"
-"font-weight: bold;\n"
-"margin: 0 5px;")
-        self.label_figsize_x.setObjectName("label_figsize_x")
-        self.horizontalLayout_figsize.addWidget(self.label_figsize_x)
-        self.figsize_height_spin = QtWidgets.QSpinBox(parent=self.global_settings_frame)
-        self.figsize_height_spin.setStyleSheet("QSpinBox {\n"
-"    background-color: white;\n"
-"    border: 2px solid #cbd5e0;\n"
-"    border-radius: 6px;\n"
-"    padding: 6px;\n"
-"    font-size: 14px;\n"
-"}")
-        self.figsize_height_spin.setMinimum(4)
-        self.figsize_height_spin.setMaximum(20)
-        self.figsize_height_spin.setProperty("value", 6)
-        self.figsize_height_spin.setObjectName("figsize_height_spin")
-        self.horizontalLayout_figsize.addWidget(self.figsize_height_spin)
-        self.verticalLayout_global.addLayout(self.horizontalLayout_figsize)
-        self.label_dpi = QtWidgets.QLabel(parent=self.global_settings_frame)
-        self.label_dpi.setStyleSheet("color: #1e3a5f;\n"
-"font-size: 14px;\n"
-"font-weight: bold;\n"
-"margin-top: 8px;")
-        self.label_dpi.setObjectName("label_dpi")
-        self.verticalLayout_global.addWidget(self.label_dpi)
-        self.dpi_spinbox = QtWidgets.QSpinBox(parent=self.global_settings_frame)
-        self.dpi_spinbox.setStyleSheet("QSpinBox {\n"
-"    background-color: white;\n"
-"    border: 2px solid #cbd5e0;\n"
-"    border-radius: 6px;\n"
-"    padding: 6px;\n"
-"    font-size: 14px;\n"
-"}")
-        self.dpi_spinbox.setMinimum(72)
-        self.dpi_spinbox.setMaximum(300)
-        self.dpi_spinbox.setProperty("value", 100)
-        self.dpi_spinbox.setObjectName("dpi_spinbox")
-        self.verticalLayout_global.addWidget(self.dpi_spinbox)
-        self.verticalLayout_right.addWidget(self.global_settings_frame)
         self.btn_configure_chart = QtWidgets.QPushButton(parent=self.right_frame)
         self.btn_configure_chart.setStyleSheet("QPushButton {\n"
 "    background-color: #ed8936;\n"
@@ -355,7 +281,7 @@ class Ui_Visualization(object):
         self.scrollArea_line.setWidgetResizable(True)
         self.scrollArea_line.setObjectName("scrollArea_line")
         self.scrollAreaWidgetContents_line = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_line.setGeometry(QtCore.QRect(0, 0, 890, 1250))
+        self.scrollAreaWidgetContents_line.setGeometry(QtCore.QRect(0, 0, 614, 1182))
         self.scrollAreaWidgetContents_line.setObjectName("scrollAreaWidgetContents_line")
         self.verticalLayout_line_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_line)
         self.verticalLayout_line_scroll.setObjectName("verticalLayout_line_scroll")
@@ -430,6 +356,20 @@ class Ui_Visualization(object):
         self.line_style_frame.setObjectName("line_style_frame")
         self.gridLayout_line_style = QtWidgets.QGridLayout(self.line_style_frame)
         self.gridLayout_line_style.setObjectName("gridLayout_line_style")
+        self.markersize_spin = QtWidgets.QSpinBox(parent=self.line_style_frame)
+        self.markersize_spin.setStyleSheet("QSpinBox {\n"
+"    background-color: white;\n"
+"    border: 2px solid #cbd5e0;\n"
+"    border-radius: 6px;\n"
+"    padding: 8px 12px;\n"
+"    font-size: 14px;\n"
+"    min-width: 100px;\n"
+"}")
+        self.markersize_spin.setMinimum(1)
+        self.markersize_spin.setMaximum(20)
+        self.markersize_spin.setProperty("value", 6)
+        self.markersize_spin.setObjectName("markersize_spin")
+        self.gridLayout_line_style.addWidget(self.markersize_spin, 3, 1, 1, 1)
         self.label_line_style = QtWidgets.QLabel(parent=self.line_style_frame)
         self.label_line_style.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
@@ -451,12 +391,6 @@ class Ui_Visualization(object):
         self.line_style_combo.addItem("")
         self.line_style_combo.addItem("")
         self.gridLayout_line_style.addWidget(self.line_style_combo, 0, 1, 1, 1)
-        self.label_line_width = QtWidgets.QLabel(parent=self.line_style_frame)
-        self.label_line_width.setStyleSheet("color: #1e3a5f;\n"
-"font-size: 14px;\n"
-"font-weight: bold;")
-        self.label_line_width.setObjectName("label_line_width")
-        self.gridLayout_line_style.addWidget(self.label_line_width, 1, 0, 1, 1)
         self.line_width_spin = QtWidgets.QDoubleSpinBox(parent=self.line_style_frame)
         self.line_width_spin.setStyleSheet("QDoubleSpinBox {\n"
 "    background-color: white;\n"
@@ -472,6 +406,18 @@ class Ui_Visualization(object):
         self.line_width_spin.setProperty("value", 2.0)
         self.line_width_spin.setObjectName("line_width_spin")
         self.gridLayout_line_style.addWidget(self.line_width_spin, 1, 1, 1, 1)
+        self.label_line_width = QtWidgets.QLabel(parent=self.line_style_frame)
+        self.label_line_width.setStyleSheet("color: #1e3a5f;\n"
+"font-size: 14px;\n"
+"font-weight: bold;")
+        self.label_line_width.setObjectName("label_line_width")
+        self.gridLayout_line_style.addWidget(self.label_line_width, 1, 0, 1, 1)
+        self.label_markersize = QtWidgets.QLabel(parent=self.line_style_frame)
+        self.label_markersize.setStyleSheet("color: #1e3a5f;\n"
+"font-size: 14px;\n"
+"font-weight: bold;")
+        self.label_markersize.setObjectName("label_markersize")
+        self.gridLayout_line_style.addWidget(self.label_markersize, 3, 0, 1, 1)
         self.label_markers = QtWidgets.QLabel(parent=self.line_style_frame)
         self.label_markers.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
@@ -496,56 +442,12 @@ class Ui_Visualization(object):
         self.markers_combo.addItem("")
         self.markers_combo.addItem("")
         self.gridLayout_line_style.addWidget(self.markers_combo, 2, 1, 1, 1)
-        self.label_markersize = QtWidgets.QLabel(parent=self.line_style_frame)
-        self.label_markersize.setStyleSheet("color: #1e3a5f;\n"
-"font-size: 14px;\n"
-"font-weight: bold;")
-        self.label_markersize.setObjectName("label_markersize")
-        self.gridLayout_line_style.addWidget(self.label_markersize, 3, 0, 1, 1)
-        self.markersize_spin = QtWidgets.QSpinBox(parent=self.line_style_frame)
-        self.markersize_spin.setStyleSheet("QSpinBox {\n"
-"    background-color: white;\n"
-"    border: 2px solid #cbd5e0;\n"
-"    border-radius: 6px;\n"
-"    padding: 8px 12px;\n"
-"    font-size: 14px;\n"
-"    min-width: 100px;\n"
-"}")
-        self.markersize_spin.setMinimum(1)
-        self.markersize_spin.setMaximum(20)
-        self.markersize_spin.setProperty("value", 6)
-        self.markersize_spin.setObjectName("markersize_spin")
-        self.gridLayout_line_style.addWidget(self.markersize_spin, 3, 1, 1, 1)
-        self.label_color = QtWidgets.QLabel(parent=self.line_style_frame)
-        self.label_color.setStyleSheet("color: #1e3a5f;\n"
-"font-size: 14px;\n"
-"font-weight: bold;")
-        self.label_color.setObjectName("label_color")
-        self.gridLayout_line_style.addWidget(self.label_color, 4, 0, 1, 1)
-        self.line_color_combo = QtWidgets.QComboBox(parent=self.line_style_frame)
-        self.line_color_combo.setStyleSheet("QComboBox {\n"
-"    background-color: white;\n"
-"    border: 2px solid #cbd5e0;\n"
-"    border-radius: 6px;\n"
-"    padding: 8px 12px;\n"
-"    font-size: 14px;\n"
-"    min-width: 150px;\n"
-"}")
-        self.line_color_combo.setObjectName("line_color_combo")
-        self.line_color_combo.addItem("")
-        self.line_color_combo.addItem("")
-        self.line_color_combo.addItem("")
-        self.line_color_combo.addItem("")
-        self.line_color_combo.addItem("")
-        self.line_color_combo.addItem("")
-        self.line_color_combo.addItem("")
-        self.gridLayout_line_style.addWidget(self.line_color_combo, 4, 1, 1, 1)
         self.label_alpha = QtWidgets.QLabel(parent=self.line_style_frame)
         self.label_alpha.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
         self.label_alpha.setObjectName("label_alpha")
-        self.gridLayout_line_style.addWidget(self.label_alpha, 5, 0, 1, 1)
+        self.gridLayout_line_style.addWidget(self.label_alpha, 4, 0, 1, 1)
         self.line_alpha_spin = QtWidgets.QDoubleSpinBox(parent=self.line_style_frame)
         self.line_alpha_spin.setStyleSheet("QDoubleSpinBox {\n"
 "    background-color: white;\n"
@@ -560,13 +462,13 @@ class Ui_Visualization(object):
         self.line_alpha_spin.setSingleStep(0.1)
         self.line_alpha_spin.setProperty("value", 1.0)
         self.line_alpha_spin.setObjectName("line_alpha_spin")
-        self.gridLayout_line_style.addWidget(self.line_alpha_spin, 5, 1, 1, 1)
+        self.gridLayout_line_style.addWidget(self.line_alpha_spin, 4, 1, 1, 1)
         self.label_grid = QtWidgets.QLabel(parent=self.line_style_frame)
         self.label_grid.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
         self.label_grid.setObjectName("label_grid")
-        self.gridLayout_line_style.addWidget(self.label_grid, 6, 0, 1, 1)
+        self.gridLayout_line_style.addWidget(self.label_grid, 5, 0, 1, 1)
         self.grid_checkbox = QtWidgets.QCheckBox(parent=self.line_style_frame)
         self.grid_checkbox.setStyleSheet("QCheckBox {\n"
 "    font-size: 14px;\n"
@@ -574,7 +476,7 @@ class Ui_Visualization(object):
 "}")
         self.grid_checkbox.setChecked(True)
         self.grid_checkbox.setObjectName("grid_checkbox")
-        self.gridLayout_line_style.addWidget(self.grid_checkbox, 6, 1, 1, 1)
+        self.gridLayout_line_style.addWidget(self.grid_checkbox, 5, 1, 1, 1)
         self.verticalLayout_line_scroll.addWidget(self.line_style_frame)
         self.axis_labels_frame = QtWidgets.QFrame(parent=self.scrollAreaWidgetContents_line)
         self.axis_labels_frame.setStyleSheet("QFrame {\n"
@@ -679,7 +581,7 @@ class Ui_Visualization(object):
         self.scrollArea_bar.setWidgetResizable(True)
         self.scrollArea_bar.setObjectName("scrollArea_bar")
         self.scrollAreaWidgetContents_bar = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_bar.setGeometry(QtCore.QRect(0, 0, 890, 793))
+        self.scrollAreaWidgetContents_bar.setGeometry(QtCore.QRect(0, 0, 446, 725))
         self.scrollAreaWidgetContents_bar.setObjectName("scrollAreaWidgetContents_bar")
         self.verticalLayout_bar_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_bar)
         self.verticalLayout_bar_scroll.setObjectName("verticalLayout_bar_scroll")
@@ -739,12 +641,6 @@ class Ui_Visualization(object):
         self.bar_style_frame.setObjectName("bar_style_frame")
         self.gridLayout_bar_style = QtWidgets.QGridLayout(self.bar_style_frame)
         self.gridLayout_bar_style.setObjectName("gridLayout_bar_style")
-        self.label_bar_orientation = QtWidgets.QLabel(parent=self.bar_style_frame)
-        self.label_bar_orientation.setStyleSheet("color: #1e3a5f;\n"
-"font-size: 14px;\n"
-"font-weight: bold;")
-        self.label_bar_orientation.setObjectName("label_bar_orientation")
-        self.gridLayout_bar_style.addWidget(self.label_bar_orientation, 0, 0, 1, 1)
         self.bar_orientation_combo = QtWidgets.QComboBox(parent=self.bar_style_frame)
         self.bar_orientation_combo.setStyleSheet("QComboBox {\n"
 "    background-color: white;\n"
@@ -758,34 +654,18 @@ class Ui_Visualization(object):
         self.bar_orientation_combo.addItem("")
         self.bar_orientation_combo.addItem("")
         self.gridLayout_bar_style.addWidget(self.bar_orientation_combo, 0, 1, 1, 1)
-        self.label_bar_color = QtWidgets.QLabel(parent=self.bar_style_frame)
-        self.label_bar_color.setStyleSheet("color: #1e3a5f;\n"
+        self.label_bar_orientation = QtWidgets.QLabel(parent=self.bar_style_frame)
+        self.label_bar_orientation.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
-        self.label_bar_color.setObjectName("label_bar_color")
-        self.gridLayout_bar_style.addWidget(self.label_bar_color, 1, 0, 1, 1)
-        self.bar_color_combo = QtWidgets.QComboBox(parent=self.bar_style_frame)
-        self.bar_color_combo.setStyleSheet("QComboBox {\n"
-"    background-color: white;\n"
-"    border: 2px solid #cbd5e0;\n"
-"    border-radius: 6px;\n"
-"    padding: 8px 12px;\n"
-"    font-size: 14px;\n"
-"    min-width: 150px;\n"
-"}")
-        self.bar_color_combo.setObjectName("bar_color_combo")
-        self.bar_color_combo.addItem("")
-        self.bar_color_combo.addItem("")
-        self.bar_color_combo.addItem("")
-        self.bar_color_combo.addItem("")
-        self.bar_color_combo.addItem("")
-        self.gridLayout_bar_style.addWidget(self.bar_color_combo, 1, 1, 1, 1)
-        self.label_bar_edgecolor = QtWidgets.QLabel(parent=self.bar_style_frame)
-        self.label_bar_edgecolor.setStyleSheet("color: #1e3a5f;\n"
+        self.label_bar_orientation.setObjectName("label_bar_orientation")
+        self.gridLayout_bar_style.addWidget(self.label_bar_orientation, 0, 0, 1, 1)
+        self.label_bar_edgewidth = QtWidgets.QLabel(parent=self.bar_style_frame)
+        self.label_bar_edgewidth.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
-        self.label_bar_edgecolor.setObjectName("label_bar_edgecolor")
-        self.gridLayout_bar_style.addWidget(self.label_bar_edgecolor, 2, 0, 1, 1)
+        self.label_bar_edgewidth.setObjectName("label_bar_edgewidth")
+        self.gridLayout_bar_style.addWidget(self.label_bar_edgewidth, 2, 0, 1, 1)
         self.bar_edgecolor_combo = QtWidgets.QComboBox(parent=self.bar_style_frame)
         self.bar_edgecolor_combo.setStyleSheet("QComboBox {\n"
 "    background-color: white;\n"
@@ -799,13 +679,13 @@ class Ui_Visualization(object):
         self.bar_edgecolor_combo.addItem("")
         self.bar_edgecolor_combo.addItem("")
         self.bar_edgecolor_combo.addItem("")
-        self.gridLayout_bar_style.addWidget(self.bar_edgecolor_combo, 2, 1, 1, 1)
-        self.label_bar_edgewidth = QtWidgets.QLabel(parent=self.bar_style_frame)
-        self.label_bar_edgewidth.setStyleSheet("color: #1e3a5f;\n"
+        self.gridLayout_bar_style.addWidget(self.bar_edgecolor_combo, 1, 1, 1, 1)
+        self.label_bar_edgecolor = QtWidgets.QLabel(parent=self.bar_style_frame)
+        self.label_bar_edgecolor.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
-        self.label_bar_edgewidth.setObjectName("label_bar_edgewidth")
-        self.gridLayout_bar_style.addWidget(self.label_bar_edgewidth, 3, 0, 1, 1)
+        self.label_bar_edgecolor.setObjectName("label_bar_edgecolor")
+        self.gridLayout_bar_style.addWidget(self.label_bar_edgecolor, 1, 0, 1, 1)
         self.bar_edgewidth_spin = QtWidgets.QDoubleSpinBox(parent=self.bar_style_frame)
         self.bar_edgewidth_spin.setStyleSheet("QDoubleSpinBox {\n"
 "    background-color: white;\n"
@@ -820,13 +700,13 @@ class Ui_Visualization(object):
         self.bar_edgewidth_spin.setSingleStep(0.5)
         self.bar_edgewidth_spin.setProperty("value", 1.0)
         self.bar_edgewidth_spin.setObjectName("bar_edgewidth_spin")
-        self.gridLayout_bar_style.addWidget(self.bar_edgewidth_spin, 3, 1, 1, 1)
+        self.gridLayout_bar_style.addWidget(self.bar_edgewidth_spin, 2, 1, 1, 1)
         self.label_bar_alpha = QtWidgets.QLabel(parent=self.bar_style_frame)
         self.label_bar_alpha.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
         self.label_bar_alpha.setObjectName("label_bar_alpha")
-        self.gridLayout_bar_style.addWidget(self.label_bar_alpha, 4, 0, 1, 1)
+        self.gridLayout_bar_style.addWidget(self.label_bar_alpha, 3, 0, 1, 1)
         self.bar_alpha_spin = QtWidgets.QDoubleSpinBox(parent=self.bar_style_frame)
         self.bar_alpha_spin.setStyleSheet("QDoubleSpinBox {\n"
 "    background-color: white;\n"
@@ -841,13 +721,13 @@ class Ui_Visualization(object):
         self.bar_alpha_spin.setSingleStep(0.1)
         self.bar_alpha_spin.setProperty("value", 0.8)
         self.bar_alpha_spin.setObjectName("bar_alpha_spin")
-        self.gridLayout_bar_style.addWidget(self.bar_alpha_spin, 4, 1, 1, 1)
+        self.gridLayout_bar_style.addWidget(self.bar_alpha_spin, 3, 1, 1, 1)
         self.label_bar_width = QtWidgets.QLabel(parent=self.bar_style_frame)
         self.label_bar_width.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
         self.label_bar_width.setObjectName("label_bar_width")
-        self.gridLayout_bar_style.addWidget(self.label_bar_width, 5, 0, 1, 1)
+        self.gridLayout_bar_style.addWidget(self.label_bar_width, 4, 0, 1, 1)
         self.bar_width_spin = QtWidgets.QDoubleSpinBox(parent=self.bar_style_frame)
         self.bar_width_spin.setStyleSheet("QDoubleSpinBox {\n"
 "    background-color: white;\n"
@@ -862,7 +742,7 @@ class Ui_Visualization(object):
         self.bar_width_spin.setSingleStep(0.1)
         self.bar_width_spin.setProperty("value", 0.8)
         self.bar_width_spin.setObjectName("bar_width_spin")
-        self.gridLayout_bar_style.addWidget(self.bar_width_spin, 5, 1, 1, 1)
+        self.gridLayout_bar_style.addWidget(self.bar_width_spin, 4, 1, 1, 1)
         self.verticalLayout_bar_scroll.addWidget(self.bar_style_frame)
         self.scrollArea_bar.setWidget(self.scrollAreaWidgetContents_bar)
         self.verticalLayout_bar.addWidget(self.scrollArea_bar)
@@ -922,7 +802,7 @@ class Ui_Visualization(object):
         self.scrollArea_pie.setWidgetResizable(True)
         self.scrollArea_pie.setObjectName("scrollArea_pie")
         self.scrollAreaWidgetContents_pie = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_pie.setGeometry(QtCore.QRect(0, 0, 890, 725))
+        self.scrollAreaWidgetContents_pie.setGeometry(QtCore.QRect(0, 0, 1052, 657))
         self.scrollAreaWidgetContents_pie.setObjectName("scrollAreaWidgetContents_pie")
         self.verticalLayout_pie_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_pie)
         self.verticalLayout_pie_scroll.setObjectName("verticalLayout_pie_scroll")
@@ -1023,12 +903,6 @@ class Ui_Visualization(object):
         self.pie_explode_spin.setProperty("value", 0.1)
         self.pie_explode_spin.setObjectName("pie_explode_spin")
         self.gridLayout_pie_style.addWidget(self.pie_explode_spin, 1, 1, 1, 1)
-        self.label_pie_autopct = QtWidgets.QLabel(parent=self.pie_style_frame)
-        self.label_pie_autopct.setStyleSheet("color: #1e3a5f;\n"
-"font-size: 14px;\n"
-"font-weight: bold;")
-        self.label_pie_autopct.setObjectName("label_pie_autopct")
-        self.gridLayout_pie_style.addWidget(self.label_pie_autopct, 2, 0, 1, 1)
         self.pie_autopct_combo = QtWidgets.QComboBox(parent=self.pie_style_frame)
         self.pie_autopct_combo.setStyleSheet("QComboBox {\n"
 "    background-color: white;\n"
@@ -1042,14 +916,13 @@ class Ui_Visualization(object):
         self.pie_autopct_combo.addItem("")
         self.pie_autopct_combo.addItem("")
         self.pie_autopct_combo.addItem("")
-        self.pie_autopct_combo.addItem("")
         self.gridLayout_pie_style.addWidget(self.pie_autopct_combo, 2, 1, 1, 1)
-        self.label_pie_shadow = QtWidgets.QLabel(parent=self.pie_style_frame)
-        self.label_pie_shadow.setStyleSheet("color: #1e3a5f;\n"
+        self.label_pie_autopct = QtWidgets.QLabel(parent=self.pie_style_frame)
+        self.label_pie_autopct.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
-        self.label_pie_shadow.setObjectName("label_pie_shadow")
-        self.gridLayout_pie_style.addWidget(self.label_pie_shadow, 3, 0, 1, 1)
+        self.label_pie_autopct.setObjectName("label_pie_autopct")
+        self.gridLayout_pie_style.addWidget(self.label_pie_autopct, 2, 0, 1, 1)
         self.pie_shadow_checkbox = QtWidgets.QCheckBox(parent=self.pie_style_frame)
         self.pie_shadow_checkbox.setStyleSheet("QCheckBox {\n"
 "    font-size: 14px;\n"
@@ -1058,28 +931,12 @@ class Ui_Visualization(object):
         self.pie_shadow_checkbox.setChecked(False)
         self.pie_shadow_checkbox.setObjectName("pie_shadow_checkbox")
         self.gridLayout_pie_style.addWidget(self.pie_shadow_checkbox, 3, 1, 1, 1)
-        self.label_pie_colormap = QtWidgets.QLabel(parent=self.pie_style_frame)
-        self.label_pie_colormap.setStyleSheet("color: #1e3a5f;\n"
+        self.label_pie_shadow = QtWidgets.QLabel(parent=self.pie_style_frame)
+        self.label_pie_shadow.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
-        self.label_pie_colormap.setObjectName("label_pie_colormap")
-        self.gridLayout_pie_style.addWidget(self.label_pie_colormap, 4, 0, 1, 1)
-        self.pie_colormap_combo = QtWidgets.QComboBox(parent=self.pie_style_frame)
-        self.pie_colormap_combo.setStyleSheet("QComboBox {\n"
-"    background-color: white;\n"
-"    border: 2px solid #cbd5e0;\n"
-"    border-radius: 6px;\n"
-"    padding: 8px 12px;\n"
-"    font-size: 14px;\n"
-"    min-width: 150px;\n"
-"}")
-        self.pie_colormap_combo.setObjectName("pie_colormap_combo")
-        self.pie_colormap_combo.addItem("")
-        self.pie_colormap_combo.addItem("")
-        self.pie_colormap_combo.addItem("")
-        self.pie_colormap_combo.addItem("")
-        self.pie_colormap_combo.addItem("")
-        self.gridLayout_pie_style.addWidget(self.pie_colormap_combo, 4, 1, 1, 1)
+        self.label_pie_shadow.setObjectName("label_pie_shadow")
+        self.gridLayout_pie_style.addWidget(self.label_pie_shadow, 3, 0, 1, 1)
         self.verticalLayout_pie_scroll.addWidget(self.pie_style_frame)
         self.scrollArea_pie.setWidget(self.scrollAreaWidgetContents_pie)
         self.verticalLayout_pie.addWidget(self.scrollArea_pie)
@@ -1139,7 +996,7 @@ class Ui_Visualization(object):
         self.scrollArea_hist.setWidgetResizable(True)
         self.scrollArea_hist.setObjectName("scrollArea_hist")
         self.scrollAreaWidgetContents_hist = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_hist.setGeometry(QtCore.QRect(0, 0, 890, 669))
+        self.scrollAreaWidgetContents_hist.setGeometry(QtCore.QRect(0, 0, 635, 601))
         self.scrollAreaWidgetContents_hist.setObjectName("scrollAreaWidgetContents_hist")
         self.verticalLayout_hist_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_hist)
         self.verticalLayout_hist_scroll.setObjectName("verticalLayout_hist_scroll")
@@ -1182,12 +1039,12 @@ class Ui_Visualization(object):
         self.hist_params_frame.setObjectName("hist_params_frame")
         self.gridLayout_hist_params = QtWidgets.QGridLayout(self.hist_params_frame)
         self.gridLayout_hist_params.setObjectName("gridLayout_hist_params")
-        self.label_bins = QtWidgets.QLabel(parent=self.hist_params_frame)
-        self.label_bins.setStyleSheet("color: #1e3a5f;\n"
+        self.label_hist_type = QtWidgets.QLabel(parent=self.hist_params_frame)
+        self.label_hist_type.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
-        self.label_bins.setObjectName("label_bins")
-        self.gridLayout_hist_params.addWidget(self.label_bins, 0, 0, 1, 1)
+        self.label_hist_type.setObjectName("label_hist_type")
+        self.gridLayout_hist_params.addWidget(self.label_hist_type, 1, 0, 1, 1)
         self.bins_combo = QtWidgets.QComboBox(parent=self.hist_params_frame)
         self.bins_combo.setStyleSheet("QComboBox {\n"
 "    background-color: white;\n"
@@ -1204,12 +1061,12 @@ class Ui_Visualization(object):
         self.bins_combo.addItem("")
         self.bins_combo.addItem("")
         self.gridLayout_hist_params.addWidget(self.bins_combo, 0, 1, 1, 1)
-        self.label_hist_type = QtWidgets.QLabel(parent=self.hist_params_frame)
-        self.label_hist_type.setStyleSheet("color: #1e3a5f;\n"
+        self.label_bins = QtWidgets.QLabel(parent=self.hist_params_frame)
+        self.label_bins.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
-        self.label_hist_type.setObjectName("label_hist_type")
-        self.gridLayout_hist_params.addWidget(self.label_hist_type, 1, 0, 1, 1)
+        self.label_bins.setObjectName("label_bins")
+        self.gridLayout_hist_params.addWidget(self.label_bins, 0, 0, 1, 1)
         self.hist_type_combo = QtWidgets.QComboBox(parent=self.hist_params_frame)
         self.hist_type_combo.setStyleSheet("QComboBox {\n"
 "    background-color: white;\n"
@@ -1224,33 +1081,18 @@ class Ui_Visualization(object):
         self.hist_type_combo.addItem("")
         self.hist_type_combo.addItem("")
         self.gridLayout_hist_params.addWidget(self.hist_type_combo, 1, 1, 1, 1)
-        self.label_hist_color = QtWidgets.QLabel(parent=self.hist_params_frame)
-        self.label_hist_color.setStyleSheet("color: #1e3a5f;\n"
+        self.label_hist_density = QtWidgets.QLabel(parent=self.hist_params_frame)
+        self.label_hist_density.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
-        self.label_hist_color.setObjectName("label_hist_color")
-        self.gridLayout_hist_params.addWidget(self.label_hist_color, 2, 0, 1, 1)
-        self.hist_color_combo = QtWidgets.QComboBox(parent=self.hist_params_frame)
-        self.hist_color_combo.setStyleSheet("QComboBox {\n"
-"    background-color: white;\n"
-"    border: 2px solid #cbd5e0;\n"
-"    border-radius: 6px;\n"
-"    padding: 8px 12px;\n"
-"    font-size: 14px;\n"
-"    min-width: 150px;\n"
-"}")
-        self.hist_color_combo.setObjectName("hist_color_combo")
-        self.hist_color_combo.addItem("")
-        self.hist_color_combo.addItem("")
-        self.hist_color_combo.addItem("")
-        self.hist_color_combo.addItem("")
-        self.gridLayout_hist_params.addWidget(self.hist_color_combo, 2, 1, 1, 1)
+        self.label_hist_density.setObjectName("label_hist_density")
+        self.gridLayout_hist_params.addWidget(self.label_hist_density, 3, 0, 1, 1)
         self.label_hist_alpha = QtWidgets.QLabel(parent=self.hist_params_frame)
         self.label_hist_alpha.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
         self.label_hist_alpha.setObjectName("label_hist_alpha")
-        self.gridLayout_hist_params.addWidget(self.label_hist_alpha, 3, 0, 1, 1)
+        self.gridLayout_hist_params.addWidget(self.label_hist_alpha, 2, 0, 1, 1)
         self.hist_alpha_spin = QtWidgets.QDoubleSpinBox(parent=self.hist_params_frame)
         self.hist_alpha_spin.setStyleSheet("QDoubleSpinBox {\n"
 "    background-color: white;\n"
@@ -1265,13 +1107,13 @@ class Ui_Visualization(object):
         self.hist_alpha_spin.setSingleStep(0.1)
         self.hist_alpha_spin.setProperty("value", 0.7)
         self.hist_alpha_spin.setObjectName("hist_alpha_spin")
-        self.gridLayout_hist_params.addWidget(self.hist_alpha_spin, 3, 1, 1, 1)
-        self.label_hist_density = QtWidgets.QLabel(parent=self.hist_params_frame)
-        self.label_hist_density.setStyleSheet("color: #1e3a5f;\n"
+        self.gridLayout_hist_params.addWidget(self.hist_alpha_spin, 2, 1, 1, 1)
+        self.label_hist_cumulative = QtWidgets.QLabel(parent=self.hist_params_frame)
+        self.label_hist_cumulative.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
-        self.label_hist_density.setObjectName("label_hist_density")
-        self.gridLayout_hist_params.addWidget(self.label_hist_density, 4, 0, 1, 1)
+        self.label_hist_cumulative.setObjectName("label_hist_cumulative")
+        self.gridLayout_hist_params.addWidget(self.label_hist_cumulative, 4, 0, 1, 1)
         self.hist_density_checkbox = QtWidgets.QCheckBox(parent=self.hist_params_frame)
         self.hist_density_checkbox.setStyleSheet("QCheckBox {\n"
 "    font-size: 14px;\n"
@@ -1279,13 +1121,7 @@ class Ui_Visualization(object):
 "}")
         self.hist_density_checkbox.setChecked(False)
         self.hist_density_checkbox.setObjectName("hist_density_checkbox")
-        self.gridLayout_hist_params.addWidget(self.hist_density_checkbox, 4, 1, 1, 1)
-        self.label_hist_cumulative = QtWidgets.QLabel(parent=self.hist_params_frame)
-        self.label_hist_cumulative.setStyleSheet("color: #1e3a5f;\n"
-"font-size: 14px;\n"
-"font-weight: bold;")
-        self.label_hist_cumulative.setObjectName("label_hist_cumulative")
-        self.gridLayout_hist_params.addWidget(self.label_hist_cumulative, 5, 0, 1, 1)
+        self.gridLayout_hist_params.addWidget(self.hist_density_checkbox, 3, 1, 1, 1)
         self.hist_cumulative_checkbox = QtWidgets.QCheckBox(parent=self.hist_params_frame)
         self.hist_cumulative_checkbox.setStyleSheet("QCheckBox {\n"
 "    font-size: 14px;\n"
@@ -1293,7 +1129,7 @@ class Ui_Visualization(object):
 "}")
         self.hist_cumulative_checkbox.setChecked(False)
         self.hist_cumulative_checkbox.setObjectName("hist_cumulative_checkbox")
-        self.gridLayout_hist_params.addWidget(self.hist_cumulative_checkbox, 5, 1, 1, 1)
+        self.gridLayout_hist_params.addWidget(self.hist_cumulative_checkbox, 4, 1, 1, 1)
         self.verticalLayout_hist_scroll.addWidget(self.hist_params_frame)
         self.scrollArea_hist.setWidget(self.scrollAreaWidgetContents_hist)
         self.verticalLayout_hist.addWidget(self.scrollArea_hist)
@@ -1353,7 +1189,7 @@ class Ui_Visualization(object):
         self.scrollArea_scatter.setWidgetResizable(True)
         self.scrollArea_scatter.setObjectName("scrollArea_scatter")
         self.scrollAreaWidgetContents_scatter = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_scatter.setGeometry(QtCore.QRect(0, 0, 890, 849))
+        self.scrollAreaWidgetContents_scatter.setGeometry(QtCore.QRect(0, 0, 458, 849))
         self.scrollAreaWidgetContents_scatter.setObjectName("scrollAreaWidgetContents_scatter")
         self.verticalLayout_scatter_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_scatter)
         self.verticalLayout_scatter_scroll.setObjectName("verticalLayout_scatter_scroll")
@@ -1591,7 +1427,7 @@ class Ui_Visualization(object):
         self.scrollArea_box.setWidgetResizable(True)
         self.scrollArea_box.setObjectName("scrollArea_box")
         self.scrollAreaWidgetContents_box = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_box.setGeometry(QtCore.QRect(0, 0, 890, 793))
+        self.scrollAreaWidgetContents_box.setGeometry(QtCore.QRect(0, 0, 606, 793))
         self.scrollAreaWidgetContents_box.setObjectName("scrollAreaWidgetContents_box")
         self.verticalLayout_box_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_box)
         self.verticalLayout_box_scroll.setObjectName("verticalLayout_box_scroll")
@@ -1827,7 +1663,7 @@ class Ui_Visualization(object):
         self.scrollArea_layout.setWidgetResizable(True)
         self.scrollArea_layout.setObjectName("scrollArea_layout")
         self.scrollAreaWidgetContents_layout = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_layout.setGeometry(QtCore.QRect(0, -120, 890, 866))
+        self.scrollAreaWidgetContents_layout.setGeometry(QtCore.QRect(0, 0, 621, 556))
         self.scrollAreaWidgetContents_layout.setObjectName("scrollAreaWidgetContents_layout")
         self.verticalLayout_layout_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_layout)
         self.verticalLayout_layout_scroll.setObjectName("verticalLayout_layout_scroll")
@@ -1990,71 +1826,6 @@ class Ui_Visualization(object):
         self.horizontalLayout_custom.addWidget(self.custom_cols_spin)
         self.verticalLayout_layout_options.addWidget(self.custom_layout_frame)
         self.verticalLayout_layout_scroll.addWidget(self.layout_options_frame)
-        self.figsize_frame = QtWidgets.QFrame(parent=self.scrollAreaWidgetContents_layout)
-        self.figsize_frame.setStyleSheet("QFrame {\n"
-"    background-color: #f7fafc;\n"
-"    border: 2px solid #3182ce;\n"
-"    border-radius: 8px;\n"
-"    padding: 15px;\n"
-"    margin-bottom: 15px;\n"
-"}")
-        self.figsize_frame.setObjectName("figsize_frame")
-        self.verticalLayout_figsize = QtWidgets.QVBoxLayout(self.figsize_frame)
-        self.verticalLayout_figsize.setObjectName("verticalLayout_figsize")
-        self.label_figsize_layout = QtWidgets.QLabel(parent=self.figsize_frame)
-        self.label_figsize_layout.setStyleSheet("color: #1e3a5f;\n"
-"font-size: 14px;\n"
-"font-weight: bold;\n"
-"margin-bottom: 10px;")
-        self.label_figsize_layout.setObjectName("label_figsize_layout")
-        self.verticalLayout_figsize.addWidget(self.label_figsize_layout)
-        self.horizontalLayout_figsize_layout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_figsize_layout.setObjectName("horizontalLayout_figsize_layout")
-        self.label_width_layout = QtWidgets.QLabel(parent=self.figsize_frame)
-        self.label_width_layout.setStyleSheet("color: #4a5568;\n"
-"font-size: 14px;\n"
-"min-width: 80px;")
-        self.label_width_layout.setObjectName("label_width_layout")
-        self.horizontalLayout_figsize_layout.addWidget(self.label_width_layout)
-        self.figsize_width_layout_spin = QtWidgets.QDoubleSpinBox(parent=self.figsize_frame)
-        self.figsize_width_layout_spin.setStyleSheet("QDoubleSpinBox {\n"
-"    background-color: white;\n"
-"    border: 2px solid #cbd5e0;\n"
-"    border-radius: 6px;\n"
-"    padding: 8px;\n"
-"    font-size: 14px;\n"
-"    min-width: 100px;\n"
-"}")
-        self.figsize_width_layout_spin.setMinimum(6.0)
-        self.figsize_width_layout_spin.setMaximum(24.0)
-        self.figsize_width_layout_spin.setSingleStep(1.0)
-        self.figsize_width_layout_spin.setProperty("value", 12.0)
-        self.figsize_width_layout_spin.setObjectName("figsize_width_layout_spin")
-        self.horizontalLayout_figsize_layout.addWidget(self.figsize_width_layout_spin)
-        self.label_height_layout = QtWidgets.QLabel(parent=self.figsize_frame)
-        self.label_height_layout.setStyleSheet("color: #4a5568;\n"
-"font-size: 14px;\n"
-"min-width: 80px;\n"
-"margin-left: 15px;")
-        self.label_height_layout.setObjectName("label_height_layout")
-        self.horizontalLayout_figsize_layout.addWidget(self.label_height_layout)
-        self.figsize_height_layout_spin = QtWidgets.QDoubleSpinBox(parent=self.figsize_frame)
-        self.figsize_height_layout_spin.setStyleSheet("QDoubleSpinBox {\n"
-"    background-color: white;\n"
-"    border: 2px solid #cbd5e0;\n"
-"    border-radius: 6px;\n"
-"    padding: 8px;\n"
-"    font-size: 14px;\n"
-"    min-width: 100px;\n"
-"}")
-        self.figsize_height_layout_spin.setMinimum(4.0)
-        self.figsize_height_layout_spin.setMaximum(20.0)
-        self.figsize_height_layout_spin.setSingleStep(1.0)
-        self.figsize_height_layout_spin.setProperty("value", 8.0)
-        self.figsize_height_layout_spin.setObjectName("figsize_height_layout_spin")
-        self.horizontalLayout_figsize_layout.addWidget(self.figsize_height_layout_spin)
-        self.verticalLayout_figsize.addLayout(self.horizontalLayout_figsize_layout)
-        self.verticalLayout_layout_scroll.addWidget(self.figsize_frame)
         self.layout_info_label = QtWidgets.QLabel(parent=self.scrollAreaWidgetContents_layout)
         self.layout_info_label.setStyleSheet("color: #2d3748;\n"
 "font-size: 14px;\n"
@@ -2068,28 +1839,6 @@ class Ui_Visualization(object):
         self.layout_info_label.setWordWrap(True)
         self.layout_info_label.setObjectName("layout_info_label")
         self.verticalLayout_layout_scroll.addWidget(self.layout_info_label)
-        self.btn_generate_layout = QtWidgets.QPushButton(parent=self.scrollAreaWidgetContents_layout)
-        self.btn_generate_layout.setStyleSheet("QPushButton {\n"
-"    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,\n"
-"        stop:0 #ed8936, stop:1 #dd7724);\n"
-"    color: white;\n"
-"    border: none;\n"
-"    border-radius: 8px;\n"
-"    font-weight: bold;\n"
-"    font-size: 16px;\n"
-"    padding: 15px 30px;\n"
-"    min-width: 200px;\n"
-"    margin: 20px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,\n"
-"        stop:0 #dd7724, stop:1 #c0651f);\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background: #c0651f;\n"
-"}")
-        self.btn_generate_layout.setObjectName("btn_generate_layout")
-        self.verticalLayout_layout_scroll.addWidget(self.btn_generate_layout)
         self.scrollArea_layout.setWidget(self.scrollAreaWidgetContents_layout)
         self.verticalLayout_2.addWidget(self.scrollArea_layout)
         self.stackedWidget.addWidget(self.layout_page)
@@ -2105,7 +1854,7 @@ class Ui_Visualization(object):
         self.scrollArea_display.setWidgetResizable(True)
         self.scrollArea_display.setObjectName("scrollArea_display")
         self.scrollAreaWidgetContents_display = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_display.setGeometry(QtCore.QRect(0, -4, 1022, 1651))
+        self.scrollAreaWidgetContents_display.setGeometry(QtCore.QRect(0, 0, 1122, 655))
         self.scrollAreaWidgetContents_display.setObjectName("scrollAreaWidgetContents_display")
         self.verticalLayout_display_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_display)
         self.verticalLayout_display_scroll.setObjectName("verticalLayout_display_scroll")
@@ -2122,7 +1871,7 @@ class Ui_Visualization(object):
         self.current_layout_label.setObjectName("current_layout_label")
         self.verticalLayout_display_scroll.addWidget(self.current_layout_label)
         self.charts_container_frame = QtWidgets.QFrame(parent=self.scrollAreaWidgetContents_display)
-        self.charts_container_frame.setMinimumSize(QtCore.QSize(1000, 1500))
+        self.charts_container_frame.setMinimumSize(QtCore.QSize(1100, 504))
         self.charts_container_frame.setStyleSheet("QFrame {\n"
 "    background-color: white;\n"
 "    border: 2px dashed #cbd5e0;\n"
@@ -2272,7 +2021,7 @@ class Ui_Visualization(object):
         Visualization.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(Visualization)
-        self.stackedWidget.setCurrentIndex(8)
+        self.stackedWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Visualization)
 
     def retranslateUi(self, Visualization):
@@ -2290,15 +2039,8 @@ class Ui_Visualization(object):
         self.chart_type_combo.setItemText(3, _translate("Visualization", "Гистограмма (hist)"))
         self.chart_type_combo.setItemText(4, _translate("Visualization", "Диаграмма рассеяния (scatter)"))
         self.chart_type_combo.setItemText(5, _translate("Visualization", "Box Plot (boxplot)"))
-        self.chart_type_combo.setItemText(6, _translate("Visualization", "Площадной график (area)"))
-        self.chart_type_combo.setItemText(7, _translate("Visualization", "График плотности (kde)"))
         self.label_chart_title.setText(_translate("Visualization", "Название графика:"))
         self.chart_title_edit.setPlaceholderText(_translate("Visualization", "Введите название графика..."))
-        self.label_figsize.setText(_translate("Visualization", "Размер фигуры (дюймы):"))
-        self.figsize_width_spin.setSuffix(_translate("Visualization", " дюймов"))
-        self.label_figsize_x.setText(_translate("Visualization", "×"))
-        self.figsize_height_spin.setSuffix(_translate("Visualization", " дюймов"))
-        self.label_dpi.setText(_translate("Visualization", "Разрешение (DPI):"))
         self.btn_configure_chart.setText(_translate("Visualization", "Настроить параметры графика"))
         self.label_line_title.setText(_translate("Visualization", "<h2 style=\'color: #1e3a5f; margin: 10px; text-align: center;\'>📈 Настройка линейного графика (plot)</h2>"))
         self.label_line_x.setText(_translate("Visualization", "Столбец для оси X:"))
@@ -2309,6 +2051,7 @@ class Ui_Visualization(object):
         self.line_style_combo.setItemText(2, _translate("Visualization", "dashdot (штрих-пунктир)"))
         self.line_style_combo.setItemText(3, _translate("Visualization", "dotted (точки)"))
         self.label_line_width.setText(_translate("Visualization", "Толщина линии:"))
+        self.label_markersize.setText(_translate("Visualization", "Размер маркера:"))
         self.label_markers.setText(_translate("Visualization", "Маркеры:"))
         self.markers_combo.setItemText(0, _translate("Visualization", "None (нет)"))
         self.markers_combo.setItemText(1, _translate("Visualization", "o (круг)"))
@@ -2317,16 +2060,8 @@ class Ui_Visualization(object):
         self.markers_combo.setItemText(4, _translate("Visualization", "D (ромб)"))
         self.markers_combo.setItemText(5, _translate("Visualization", "+ (плюс)"))
         self.markers_combo.setItemText(6, _translate("Visualization", "x (крест)"))
-        self.label_markersize.setText(_translate("Visualization", "Размер маркера:"))
-        self.label_color.setText(_translate("Visualization", "Цвет:"))
-        self.line_color_combo.setItemText(0, _translate("Visualization", "blue (синий)"))
-        self.line_color_combo.setItemText(1, _translate("Visualization", "red (красный)"))
-        self.line_color_combo.setItemText(2, _translate("Visualization", "green (зеленый)"))
-        self.line_color_combo.setItemText(3, _translate("Visualization", "orange (оранжевый)"))
-        self.line_color_combo.setItemText(4, _translate("Visualization", "purple (фиолетовый)"))
-        self.line_color_combo.setItemText(5, _translate("Visualization", "black (черный)"))
-        self.line_color_combo.setItemText(6, _translate("Visualization", "cyan (бирюзовый)"))
         self.label_alpha.setText(_translate("Visualization", "Прозрачность:"))
+        self.label_grid.setText(_translate("Visualization", "Сетка:"))
         self.grid_checkbox.setText(_translate("Visualization", "Показать сетку"))
         self.label_xlabel.setText(_translate("Visualization", "Подпись оси X:"))
         self.xlabel_edit.setPlaceholderText(_translate("Visualization", "Введите подпись оси X (или оставьте пустым для имени столбца)"))
@@ -2337,20 +2072,14 @@ class Ui_Visualization(object):
         self.label_bar_title.setText(_translate("Visualization", "<h2 style=\'color: #1e3a5f; margin: 10px; text-align: center;\'>📊 Настройка столбчатой диаграммы (bar)</h2>"))
         self.label_bar_categories.setText(_translate("Visualization", "Категории (X):"))
         self.label_bar_values.setText(_translate("Visualization", "Значения (Y):"))
-        self.label_bar_orientation.setText(_translate("Visualization", "Ориентация:"))
         self.bar_orientation_combo.setItemText(0, _translate("Visualization", "vertical (вертикальная)"))
         self.bar_orientation_combo.setItemText(1, _translate("Visualization", "horizontal (горизонтальная)"))
-        self.label_bar_color.setText(_translate("Visualization", "Цвет столбцов:"))
-        self.bar_color_combo.setItemText(0, _translate("Visualization", "steelblue"))
-        self.bar_color_combo.setItemText(1, _translate("Visualization", "forestgreen"))
-        self.bar_color_combo.setItemText(2, _translate("Visualization", "firebrick"))
-        self.bar_color_combo.setItemText(3, _translate("Visualization", "darkorange"))
-        self.bar_color_combo.setItemText(4, _translate("Visualization", "mediumpurple"))
-        self.label_bar_edgecolor.setText(_translate("Visualization", "Цвет обводки:"))
+        self.label_bar_orientation.setText(_translate("Visualization", "Ориентация:"))
+        self.label_bar_edgewidth.setText(_translate("Visualization", "Толщина обводки:"))
         self.bar_edgecolor_combo.setItemText(0, _translate("Visualization", "black (черный)"))
         self.bar_edgecolor_combo.setItemText(1, _translate("Visualization", "darkgray"))
         self.bar_edgecolor_combo.setItemText(2, _translate("Visualization", "none (без обводки)"))
-        self.label_bar_edgewidth.setText(_translate("Visualization", "Толщина обводки:"))
+        self.label_bar_edgecolor.setText(_translate("Visualization", "Цвет обводки:"))
         self.label_bar_alpha.setText(_translate("Visualization", "Прозрачность:"))
         self.label_bar_width.setText(_translate("Visualization", "Ширина столбцов:"))
         self.btn_bar_back.setText(_translate("Visualization", "Назад"))
@@ -2361,42 +2090,30 @@ class Ui_Visualization(object):
         self.label_pie_start_angle.setText(_translate("Visualization", "Начальный угол (°):"))
         self.label_pie_explode.setText(_translate("Visualization", "Выделение сегментов:"))
         self.pie_explode_spin.setToolTip(_translate("Visualization", "Величина выделения сегментов (0 = без выделения)"))
+        self.pie_autopct_combo.setItemText(0, _translate("Visualization", "%1.1f%% (с одним знаком)"))
+        self.pie_autopct_combo.setItemText(1, _translate("Visualization", "%1.2f%% (с двумя знаками)"))
+        self.pie_autopct_combo.setItemText(2, _translate("Visualization", "%d%% (целые числа)"))
         self.label_pie_autopct.setText(_translate("Visualization", "Отображение процентов:"))
-        self.pie_autopct_combo.setItemText(0, _translate("Visualization", "Не показывать"))
-        self.pie_autopct_combo.setItemText(1, _translate("Visualization", "%1.1f%% (с одним знаком)"))
-        self.pie_autopct_combo.setItemText(2, _translate("Visualization", "%1.2f%% (с двумя знаками)"))
-        self.pie_autopct_combo.setItemText(3, _translate("Visualization", "%d%% (целые числа)"))
-        self.label_pie_shadow.setText(_translate("Visualization", "Тень:"))
         self.pie_shadow_checkbox.setText(_translate("Visualization", "Добавить тень"))
-        self.label_pie_colormap.setText(_translate("Visualization", "Цветовая схема:"))
-        self.pie_colormap_combo.setItemText(0, _translate("Visualization", "tab20c"))
-        self.pie_colormap_combo.setItemText(1, _translate("Visualization", "Set3"))
-        self.pie_colormap_combo.setItemText(2, _translate("Visualization", "Set2"))
-        self.pie_colormap_combo.setItemText(3, _translate("Visualization", "Pastel1"))
-        self.pie_colormap_combo.setItemText(4, _translate("Visualization", "viridis"))
+        self.label_pie_shadow.setText(_translate("Visualization", "Тень:"))
         self.btn_pie_back.setText(_translate("Visualization", "Назад"))
         self.btn_pie_save.setText(_translate("Visualization", "Сохранить график"))
         self.label_hist_title.setText(_translate("Visualization", "<h2 style=\'color: #1e3a5f; margin: 10px; text-align: center;\'>📊 Настройка гистограммы (hist)</h2>"))
         self.label_hist_column.setText(_translate("Visualization", "Числовой столбец:"))
-        self.label_bins.setText(_translate("Visualization", "Количество интервалов (bins):"))
+        self.label_hist_type.setText(_translate("Visualization", "Тип гистограммы:"))
         self.bins_combo.setItemText(0, _translate("Visualization", "auto (автоматически)"))
         self.bins_combo.setItemText(1, _translate("Visualization", "10"))
         self.bins_combo.setItemText(2, _translate("Visualization", "20"))
         self.bins_combo.setItemText(3, _translate("Visualization", "30"))
         self.bins_combo.setItemText(4, _translate("Visualization", "50"))
-        self.label_hist_type.setText(_translate("Visualization", "Тип гистограммы:"))
+        self.label_bins.setText(_translate("Visualization", "Количество интервалов (bins):"))
         self.hist_type_combo.setItemText(0, _translate("Visualization", "bar (столбчатая)"))
         self.hist_type_combo.setItemText(1, _translate("Visualization", "step (ступенчатая)"))
         self.hist_type_combo.setItemText(2, _translate("Visualization", "stepfilled (заполненная ступенчатая)"))
-        self.label_hist_color.setText(_translate("Visualization", "Цвет:"))
-        self.hist_color_combo.setItemText(0, _translate("Visualization", "steelblue"))
-        self.hist_color_combo.setItemText(1, _translate("Visualization", "forestgreen"))
-        self.hist_color_combo.setItemText(2, _translate("Visualization", "firebrick"))
-        self.hist_color_combo.setItemText(3, _translate("Visualization", "darkorange"))
-        self.label_hist_alpha.setText(_translate("Visualization", "Прозрачность:"))
         self.label_hist_density.setText(_translate("Visualization", "Нормализация:"))
-        self.hist_density_checkbox.setText(_translate("Visualization", "Показать плотность вероятности"))
+        self.label_hist_alpha.setText(_translate("Visualization", "Прозрачность:"))
         self.label_hist_cumulative.setText(_translate("Visualization", "Кумулятивная:"))
+        self.hist_density_checkbox.setText(_translate("Visualization", "Показать плотность вероятности"))
         self.hist_cumulative_checkbox.setText(_translate("Visualization", "Показать кумулятивное распределение"))
         self.btn_hist_back.setText(_translate("Visualization", "Назад"))
         self.btn_hist_save.setText(_translate("Visualization", "Сохранить график"))
@@ -2458,11 +2175,7 @@ class Ui_Visualization(object):
         self.radio_self.setText(_translate("Visualization", "Своя компоновка"))
         self.label_custom_rows.setText(_translate("Visualization", "Строки:"))
         self.label_custom_cols.setText(_translate("Visualization", "Колонки:"))
-        self.label_figsize_layout.setText(_translate("Visualization", "Размер общей фигуры (дюймы):"))
-        self.label_width_layout.setText(_translate("Visualization", "Ширина:"))
-        self.label_height_layout.setText(_translate("Visualization", "Высота:"))
         self.layout_info_label.setText(_translate("Visualization", "Будет создана фигура matplotlib с выбранной компоновкой subplots. Каждый график будет отображен в своей ячейке."))
-        self.btn_generate_layout.setText(_translate("Visualization", "Построить все графики"))
         self.label_display_title.setText(_translate("Visualization", "<h2 style=\'color: #1e3a5f; margin: 10px; text-align: center;\'>📈 Визуализация данных (Matplotlib)</h2>"))
         self.current_layout_label.setText(_translate("Visualization", "Компоновка: 1 × 1 | Графиков: 1"))
         self.save_options_label.setText(_translate("Visualization", "Для сохранения графика используйте: plt.savefig(\'filename.png\', dpi=300, bbox_inches=\'tight\')"))
