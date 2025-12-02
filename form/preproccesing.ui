@@ -38,7 +38,7 @@ QPushButton:disabled {
 }</string>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="view_page">
        <layout class="QVBoxLayout" name="verticalLayout_view">
@@ -55,8 +55,8 @@ QPushButton:disabled {
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1156</width>
-             <height>653</height>
+             <width>661</width>
+             <height>319</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_view_content">
@@ -357,7 +357,7 @@ QPushButton:disabled {
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1135</width>
+             <width>773</width>
              <height>793</height>
             </rect>
            </property>
@@ -520,7 +520,7 @@ text-align: center;</string>
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>461</width>
+                          <width>280</width>
                           <height>253</height>
                          </rect>
                         </property>
@@ -621,7 +621,7 @@ text-align: center;</string>
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>461</width>
+                          <width>280</width>
                           <height>247</height>
                          </rect>
                         </property>
@@ -784,8 +784,8 @@ font-weight: bold;</string>
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1156</width>
-             <height>653</height>
+             <width>776</width>
+             <height>403</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_pass_content">
@@ -1082,8 +1082,8 @@ text-align: center;</string>
                             <rect>
                              <x>0</x>
                              <y>0</y>
-                             <width>129</width>
-                             <height>129</height>
+                             <width>380</width>
+                             <height>328</height>
                             </rect>
                            </property>
                            <layout class="QVBoxLayout" name="verticalLayout_15">
@@ -1208,8 +1208,8 @@ margin-top: 10px;</string>
                             <rect>
                              <x>0</x>
                              <y>0</y>
-                             <width>129</width>
-                             <height>129</height>
+                             <width>280</width>
+                             <height>212</height>
                             </rect>
                            </property>
                            <layout class="QVBoxLayout" name="verticalLayout_16">
@@ -1218,7 +1218,7 @@ margin-top: 10px;</string>
                               <property name="minimumSize">
                                <size>
                                 <width>0</width>
-                                <height>250</height>
+                                <height>172</height>
                                </size>
                               </property>
                               <property name="styleSheet">
@@ -1471,7 +1471,7 @@ text-align: center;</string>
                             <rect>
                              <x>0</x>
                              <y>0</y>
-                             <width>129</width>
+                             <width>359</width>
                              <height>129</height>
                             </rect>
                            </property>
@@ -2179,7 +2179,7 @@ QPushButton:pressed {
                        <x>0</x>
                        <y>0</y>
                        <width>881</width>
-                       <height>574</height>
+                       <height>1122</height>
                       </rect>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -2594,8 +2594,8 @@ margin-bottom: 5px;</string>
                                    <rect>
                                     <x>0</x>
                                     <y>0</y>
-                                    <width>149</width>
-                                    <height>149</height>
+                                    <width>308</width>
+                                    <height>199</height>
                                    </rect>
                                   </property>
                                   <layout class="QVBoxLayout" name="verticalLayout_21">
@@ -2816,7 +2816,7 @@ QPushButton:pressed {
                        <x>0</x>
                        <y>0</y>
                        <width>981</width>
-                       <height>574</height>
+                       <height>874</height>
                       </rect>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_22">
@@ -2917,8 +2917,8 @@ QLineEdit:focus {
                                 <rect>
                                  <x>0</x>
                                  <y>0</y>
-                                 <width>139</width>
-                                 <height>139</height>
+                                 <width>360</width>
+                                 <height>502</height>
                                 </rect>
                                </property>
                                <layout class="QVBoxLayout" name="verticalLayout_23">
@@ -3113,8 +3113,8 @@ margin-bottom: 5px;</string>
                                    <rect>
                                     <x>0</x>
                                     <y>0</y>
-                                    <width>149</width>
-                                    <height>149</height>
+                                    <width>308</width>
+                                    <height>162</height>
                                    </rect>
                                   </property>
                                   <layout class="QVBoxLayout" name="verticalLayout_24">
@@ -3229,8 +3229,8 @@ QPushButton:pressed {
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1156</width>
-             <height>653</height>
+             <width>533</width>
+             <height>309</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_duplicate_content">
@@ -3274,8 +3274,8 @@ QPushButton:pressed {
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>1112</width>
-                    <height>429</height>
+                    <width>468</width>
+                    <height>111</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_25">
@@ -3460,8 +3460,8 @@ QPushButton:disabled {
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>838</width>
-             <height>468</height>
+             <width>1156</width>
+             <height>653</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_missing_content">
@@ -3694,6 +3694,703 @@ QPushButton:disabled {
                </item>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_18"/>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="column_operations_page">
+       <layout class="QVBoxLayout" name="verticalLayout_column_ops">
+        <item>
+         <widget class="QScrollArea" name="scrollArea_column_ops">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_column_ops">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>-1904</y>
+             <width>1135</width>
+             <height>2557</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_column_ops_content">
+            <item>
+             <widget class="QFrame" name="column_ops_main_frame">
+              <layout class="QVBoxLayout" name="verticalLayout_column_ops_combined">
+               <item>
+                <widget class="QFrame" name="column_ops_selection_frame">
+                 <property name="styleSheet">
+                  <string notr="true">QFrame {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 15px;
+}</string>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_column_ops_selection">
+                  <item>
+                   <widget class="QLabel" name="column_ops_title_label">
+                    <property name="text">
+                     <string>&lt;h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'&gt; 🔧 Управление столбцами &lt;/h1&gt;</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="remove_column_frame">
+                    <property name="styleSheet">
+                     <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #e53e3e;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+}</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_remove_column">
+                     <item>
+                      <widget class="QLabel" name="remove_column_label">
+                       <property name="styleSheet">
+                        <string notr="true">color: #1e3a5f;
+font-size: 18px;
+font-weight: bold;
+text-align: center;
+margin-bottom: 10px;</string>
+                       </property>
+                       <property name="text">
+                        <string>🗑️ Удаление столбцов</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QScrollArea" name="remove_column_scroll">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>400</height>
+                        </size>
+                       </property>
+                       <property name="widgetResizable">
+                        <bool>true</bool>
+                       </property>
+                       <widget class="QWidget" name="scrollAreaWidgetContents_13">
+                        <property name="geometry">
+                         <rect>
+                          <x>0</x>
+                          <y>0</y>
+                          <width>909</width>
+                          <height>346</height>
+                         </rect>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_26">
+                         <item>
+                          <widget class="QListWidget" name="remove_column_listwidget">
+                           <property name="styleSheet">
+                            <string notr="true">QListWidget {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #1a202c;
+    min-height: 120px;
+    max-height: 150px;
+}
+QListWidget::item {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e2e8f0;
+}
+QListWidget::item:selected {
+    background-color: #e53e3e;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+}
+QListWidget::item:hover:!selected {
+    background-color: #fed7d7;
+    border-radius: 4px;
+}</string>
+                           </property>
+                           <property name="selectionMode">
+                            <enum>QAbstractItemView::ExtendedSelection</enum>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="remove_column_button">
+                       <property name="styleSheet">
+                        <string notr="true">QPushButton {
+    background-color: #e53e3e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+}
+QPushButton:hover {
+    background-color: #c53030;
+}
+QPushButton:pressed {
+    background-color: #9b2c2c;
+}
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+                       </property>
+                       <property name="text">
+                        <string>Удалить выбранные столбцы</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="group_agg_frame">
+                    <property name="styleSheet">
+                     <string notr="true">QFrame {
+    background-color: #f7fafc;
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+}</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_group_agg">
+                     <item>
+                      <widget class="QLabel" name="group_agg_label">
+                       <property name="styleSheet">
+                        <string notr="true">color: #1e3a5f;
+font-size: 18px;
+font-weight: bold;
+text-align: center;
+margin-bottom: 15px;</string>
+                       </property>
+                       <property name="text">
+                        <string>📊 Создать столбец через группировку и агрегацию</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="new_agg_column_name_frame">
+                       <property name="styleSheet">
+                        <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 10px;
+}</string>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_new_agg_column_name">
+                        <item>
+                         <widget class="QLabel" name="new_agg_column_name_label">
+                          <property name="styleSheet">
+                           <string notr="true">color: #2c5282;
+font-size: 14px;
+font-weight: bold;
+min-width: 180px;</string>
+                          </property>
+                          <property name="text">
+                           <string>Имя нового столбца:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLineEdit" name="new_agg_column_name_edit">
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 14px;
+    min-width: 200px;
+}
+QLineEdit:focus {
+    border-color: #3182ce;
+}</string>
+                          </property>
+                          <property name="placeholderText">
+                           <string>Например: total_sales, avg_price...</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="group_columns_frame">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>400</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 10px;
+}</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_group_columns">
+                        <item>
+                         <widget class="QLabel" name="group_columns_label">
+                          <property name="styleSheet">
+                           <string notr="true">color: #2c5282;
+font-size: 14px;
+font-weight: bold;
+margin-bottom: 8px;</string>
+                          </property>
+                          <property name="text">
+                           <string>Столбцы для группировки (выберите один или несколько):</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QScrollArea" name="group_columns_scroll">
+                          <property name="widgetResizable">
+                           <bool>true</bool>
+                          </property>
+                          <widget class="QWidget" name="scrollAreaWidgetContents_14">
+                           <property name="geometry">
+                            <rect>
+                             <x>0</x>
+                             <y>0</y>
+                             <width>836</width>
+                             <height>322</height>
+                            </rect>
+                           </property>
+                           <layout class="QVBoxLayout" name="verticalLayout_27">
+                            <item>
+                             <widget class="QListWidget" name="group_columns_listwidget">
+                              <property name="minimumSize">
+                               <size>
+                                <width>0</width>
+                                <height>300</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">QListWidget {
+    background-color: white;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    font-size: 13px;
+    max-height: 90px;
+}
+QListWidget::item {
+    padding: 6px 8px;
+    border-bottom: 1px solid #e2e8f0;
+}
+QListWidget::item:selected {
+    background-color: #3182ce;
+    color: white;
+    border-radius: 3px;
+}
+QListWidget::item:hover:!selected {
+    background-color: #e2e8f0;
+    border-radius: 3px;
+}</string>
+                              </property>
+                              <property name="selectionMode">
+                               <enum>QAbstractItemView::ExtendedSelection</enum>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </widget>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="agg_column_frame">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>400</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 10px;
+}</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_agg_column">
+                        <item>
+                         <widget class="QLabel" name="agg_column_label">
+                          <property name="styleSheet">
+                           <string notr="true">color: #2c5282;
+font-size: 14px;
+font-weight: bold;
+margin-bottom: 8px;</string>
+                          </property>
+                          <property name="text">
+                           <string>Столбец для агрегации (выберите один):</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QScrollArea" name="agg_column_scroll">
+                          <property name="widgetResizable">
+                           <bool>true</bool>
+                          </property>
+                          <widget class="QWidget" name="scrollAreaWidgetContents_15">
+                           <property name="geometry">
+                            <rect>
+                             <x>0</x>
+                             <y>0</y>
+                             <width>836</width>
+                             <height>322</height>
+                            </rect>
+                           </property>
+                           <layout class="QVBoxLayout" name="verticalLayout_28">
+                            <item>
+                             <widget class="QListWidget" name="agg_column_listwidget">
+                              <property name="minimumSize">
+                               <size>
+                                <width>0</width>
+                                <height>300</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">QListWidget {
+    background-color: white;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    font-size: 13px;
+    max-height: 90px;
+}
+QListWidget::item {
+    padding: 6px 8px;
+    border-bottom: 1px solid #e2e8f0;
+}
+QListWidget::item:selected {
+    background-color: #48bb78;
+    color: white;
+    border-radius: 3px;
+}
+QListWidget::item:hover:!selected {
+    background-color: #e2e8f0;
+    border-radius: 3px;
+}</string>
+                              </property>
+                              <property name="selectionMode">
+                               <enum>QAbstractItemView::SingleSelection</enum>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </widget>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="agg_operation_frame">
+                       <property name="styleSheet">
+                        <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 10px;
+}</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_agg_operation">
+                        <item>
+                         <widget class="QLabel" name="agg_operation_label">
+                          <property name="styleSheet">
+                           <string notr="true">color: #2c5282;
+font-size: 14px;
+font-weight: bold;
+margin-bottom: 8px;</string>
+                          </property>
+                          <property name="text">
+                           <string>Операция агрегации (выберите одну):</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_agg_operations">
+                          <item row="0" column="0">
+                           <widget class="QRadioButton" name="agg_sum_radio">
+                            <property name="styleSheet">
+                             <string notr="true">QRadioButton {
+    font-size: 13px;
+    color: #2d3748;
+}
+QRadioButton::indicator {
+    width: 16px;
+    height: 16px;
+}
+QRadioButton::indicator:checked {
+    background-color: #48bb78;
+    border: 2px solid #48bb78;
+}</string>
+                            </property>
+                            <property name="text">
+                             <string>Сумма (Sum)</string>
+                            </property>
+                            <property name="checked">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QRadioButton" name="agg_mean_radio">
+                            <property name="styleSheet">
+                             <string notr="true">QRadioButton {
+    font-size: 13px;
+    color: #2d3748;
+}</string>
+                            </property>
+                            <property name="text">
+                             <string>Среднее (Mean)</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="QRadioButton" name="agg_median_radio">
+                            <property name="styleSheet">
+                             <string notr="true">QRadioButton {
+    font-size: 13px;
+    color: #2d3748;
+}</string>
+                            </property>
+                            <property name="text">
+                             <string>Медиана (Median)</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="0">
+                           <widget class="QRadioButton" name="agg_count_radio">
+                            <property name="styleSheet">
+                             <string notr="true">QRadioButton {
+    font-size: 13px;
+    color: #2d3748;
+}</string>
+                            </property>
+                            <property name="text">
+                             <string>Количество (Count)</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="1">
+                           <widget class="QRadioButton" name="agg_min_radio">
+                            <property name="styleSheet">
+                             <string notr="true">QRadioButton {
+    font-size: 13px;
+    color: #2d3748;
+}</string>
+                            </property>
+                            <property name="text">
+                             <string>Минимум (Min)</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="2">
+                           <widget class="QRadioButton" name="agg_max_radio">
+                            <property name="styleSheet">
+                             <string notr="true">QRadioButton {
+    font-size: 13px;
+    color: #2d3748;
+}</string>
+                            </property>
+                            <property name="text">
+                             <string>Максимум (Max)</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="0" colspan="3">
+                           <widget class="QRadioButton" name="agg_value_counts_radio">
+                            <property name="styleSheet">
+                             <string notr="true">QRadioButton {
+    font-size: 13px;
+    color: #9C27B0;
+    font-weight: bold;
+}
+QRadioButton::indicator:checked {
+    background-color: #9C27B0;
+    border: 2px solid #9C27B0;
+}</string>
+                            </property>
+                            <property name="text">
+                             <string>Частота значений (Value Counts)</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="agg_preview_frame">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>400</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QFrame {
+    background-color: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 10px;
+}</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_agg_preview">
+                        <item>
+                         <widget class="QLabel" name="agg_preview_label">
+                          <property name="styleSheet">
+                           <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-bottom: 8px;</string>
+                          </property>
+                          <property name="text">
+                           <string>📋 Предпросмотр результата группировки:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QScrollArea" name="agg_preview_scroll">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>300</height>
+                           </size>
+                          </property>
+                          <property name="widgetResizable">
+                           <bool>true</bool>
+                          </property>
+                          <widget class="QWidget" name="scrollAreaWidgetContents_16">
+                           <property name="geometry">
+                            <rect>
+                             <x>0</x>
+                             <y>0</y>
+                             <width>857</width>
+                             <height>258</height>
+                            </rect>
+                           </property>
+                           <layout class="QVBoxLayout" name="verticalLayout_29">
+                            <item>
+                             <widget class="QTableWidget" name="agg_preview_table">
+                              <property name="styleSheet">
+                               <string notr="true">QTableWidget {
+    background-color: white;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    font-size: 11px;
+    min-height: 120px;
+    max-height: 140px;
+}
+QTableWidget::item {
+    padding: 4px;
+    border-bottom: 1px solid #e2e8f0;
+}
+QTableWidget::item:selected {
+    background-color: #3182ce;
+    color: white;
+}
+QHeaderView::section {
+    background-color: #3182ce;
+    color: white;
+    padding: 6px;
+    border: none;
+    font-weight: bold;
+    font-size: 10px;
+}</string>
+                              </property>
+                              <property name="alternatingRowColors">
+                               <bool>true</bool>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </widget>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="agg_preview_info_label">
+                          <property name="styleSheet">
+                           <string notr="true">color: #4a5568;
+font-size: 11px;
+padding: 3px;
+text-align: center;
+font-style: italic;</string>
+                          </property>
+                          <property name="text">
+                           <string>Будет создан новый столбец с агрегированными данными</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="create_agg_column_button">
+                       <property name="styleSheet">
+                        <string notr="true">QPushButton {
+    background-color: #3182ce;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+}
+QPushButton:hover {
+    background-color: #2c5282;
+}
+QPushButton:pressed {
+    background-color: #1e3a5f;
+}
+QPushButton:disabled {
+    background: #a0aec0;
+    color: #e2e8f0;
+}</string>
+                       </property>
+                       <property name="text">
+                        <string>Создать новый столбец через агрегацию</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
                </item>
               </layout>
              </widget>

@@ -99,6 +99,9 @@ class PreprocessingWindow(QMainWindow):
         self.ui.title_label_missing.setText(
             f"<h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'> 🧹 Удаление пропусков: {self.filename} </h1>")
 
+        self.ui.column_ops_title_label.setText(
+            f"<h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'> 🔧 Управление столбцами: {self.filename} </h1>")
+
     def setup_navigation(self):
         """Настройка навигации между страницами"""
         # Устанавливаем начальную страницу
@@ -183,6 +186,484 @@ class PreprocessingWindow(QMainWindow):
         self.ui.column_combo_missing.currentTextChanged.connect(self.update_missing_info)
         self.ui.clear_column_btn.clicked.connect(self.clear_column_missing)
         self.ui.clear_all_btn.clicked.connect(self.clear_all_missing)
+
+        # Новые сигналы для управления столбцами
+        self.ui.remove_column_button.clicked.connect(self.remove_selected_columns)
+        self.ui.group_columns_listwidget.itemSelectionChanged.connect(self.update_agg_column_list)
+        self.ui.agg_column_listwidget.itemSelectionChanged.connect(self.update_agg_preview)
+        self.ui.group_columns_listwidget.itemSelectionChanged.connect(self.update_agg_preview)
+        self.ui.agg_sum_radio.toggled.connect(self.update_agg_preview)
+        self.ui.agg_mean_radio.toggled.connect(self.update_agg_preview)
+        self.ui.agg_median_radio.toggled.connect(self.update_agg_preview)
+        self.ui.agg_count_radio.toggled.connect(self.update_agg_preview)
+        self.ui.agg_min_radio.toggled.connect(self.update_agg_preview)
+        self.ui.agg_max_radio.toggled.connect(self.update_agg_preview)
+        self.ui.agg_value_counts_radio.toggled.connect(self.update_agg_preview)
+        self.ui.new_agg_column_name_edit.textChanged.connect(self.update_agg_preview)
+        self.ui.create_agg_column_button.clicked.connect(self.create_agg_column)
+
+    def load_column_operations_page(self):
+        """Загрузка данных для страницы управления столбцами"""
+        try:
+            if self.data is None:
+                return
+
+            # Заполняем список столбцов для удаления
+            self.ui.remove_column_listwidget.clear()
+            self.ui.remove_column_listwidget.addItems(self.data.columns)
+
+            # Заполняем списки для группировки и агрегации
+            self.ui.group_columns_listwidget.clear()
+            self.ui.agg_column_listwidget.clear()
+
+            # Добавляем только числовые столбцы для агрегации
+            numeric_columns = self.data.select_dtypes(include=[np.number]).columns.tolist()
+            all_columns = self.data.columns.tolist()
+
+            self.ui.group_columns_listwidget.addItems(all_columns)
+            self.ui.agg_column_listwidget.addItems(numeric_columns)
+
+            # Сбрасываем поля
+            self.ui.new_agg_column_name_edit.clear()
+            self.ui.agg_preview_table.setRowCount(0)
+            self.ui.agg_preview_table.setColumnCount(0)
+            self.ui.agg_preview_info_label.setText("Выберите настройки для предпросмотра")
+
+            # Устанавливаем стандартные значения
+            self.ui.agg_sum_radio.setChecked(True)
+
+            # Обновляем кнопку удаления
+            self.ui.remove_column_button.setEnabled(False)
+            self.ui.remove_column_listwidget.itemSelectionChanged.connect(
+                self.update_remove_button_state)
+
+            # Обновляем кнопку создания агрегатного столбца
+            self.ui.create_agg_column_button.setEnabled(False)
+
+        except Exception as e:
+            print(f"Ошибка при загрузке страницы управления столбцами: {str(e)}")
+
+    def update_remove_button_state(self):
+        """Обновление состояния кнопки удаления столбцов"""
+        selected_items = self.ui.remove_column_listwidget.selectedItems()
+        has_selection = len(selected_items) > 0
+        self.ui.remove_column_button.setEnabled(has_selection)
+
+        # Нельзя удалить все столбцы
+        if has_selection and len(selected_items) == len(self.data.columns):
+            self.ui.remove_column_button.setEnabled(False)
+            QMessageBox.warning(self, "Предупреждение",
+                                "Нельзя удалить все столбцы из набора данных!")
+
+    def remove_selected_columns(self):
+        """Удаление выбранных столбцов"""
+        try:
+            selected_items = self.ui.remove_column_listwidget.selectedItems()
+            if not selected_items:
+                QMessageBox.warning(self, "Предупреждение", "Выберите столбцы для удаления!")
+                return
+
+            columns_to_remove = [item.text() for item in selected_items]
+
+            # Проверяем, не пытаемся ли удалить все столбцы
+            if len(columns_to_remove) == len(self.data.columns):
+                QMessageBox.warning(self, "Ошибка",
+                                    "Нельзя удалить все столбцы из набора данных!")
+                return
+
+            # Подтверждение удаления
+            column_list = "\n".join([f"• {col}" for col in columns_to_remove])
+            reply = QMessageBox.question(
+                self, "Подтверждение удаления",
+                f"Вы действительно хотите удалить следующие столбцы?\n\n"
+                f"{column_list}\n\n"
+                f"Всего: {len(columns_to_remove)} столбцов\n"
+                f"После удаления останется {len(self.data.columns) - len(columns_to_remove)} столбцов.",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+            )
+
+            if reply == QMessageBox.StandardButton.No:
+                return
+
+            # Сохраняем старые названия для отчета
+            old_columns = list(self.data.columns)
+
+            # Удаляем столбцы
+            self.data = self.data.drop(columns=columns_to_remove)
+
+            # Помечаем, что данные были изменены
+            self.data_changed = True
+
+            # Обновляем UI
+            self.load_column_operations_page()
+
+            # Показываем отчет
+            QMessageBox.information(
+                self, "Успех",
+                f"Столбцы успешно удалены!\n\n"
+                f"Удалено столбцов: {len(columns_to_remove)}\n"
+                f"Осталось столбцов: {len(self.data.columns)}\n\n"
+                f"Удаленные столбцы:\n{column_list}"
+            )
+
+        except Exception as e:
+            QMessageBox.critical(self, "Ошибка", f"Ошибка при удалении столбцов: {str(e)}")
+
+    def update_agg_column_list(self):
+        """Обновление списка столбцов для агрегации после выбора группировки"""
+        try:
+            selected_group_items = self.ui.group_columns_listwidget.selectedItems()
+
+            if not selected_group_items:
+                # Если нет выбранных столбцов для группировки, показываем все числовые столбцы
+                numeric_columns = self.data.select_dtypes(include=[np.number]).columns.tolist()
+                self.ui.agg_column_listwidget.clear()
+                self.ui.agg_column_listwidget.addItems(numeric_columns)
+                return
+
+            # Получаем выбранные столбцы группировки
+            group_columns = [item.text() for item in selected_group_items]
+
+            # Определяем, какие столбцы можно использовать для агрегации
+            # Нельзя агрегировать столбцы группировки сами по себе
+            available_columns = []
+            numeric_columns = self.data.select_dtypes(include=[np.number]).columns.tolist()
+
+            for col in numeric_columns:
+                if col not in group_columns:
+                    available_columns.append(col)
+
+            # Обновляем список
+            self.ui.agg_column_listwidget.clear()
+            self.ui.agg_column_listwidget.addItems(available_columns)
+
+            # Если есть доступные столбцы, выбираем первый
+            if available_columns:
+                self.ui.agg_column_listwidget.setCurrentRow(0)
+
+        except Exception as e:
+            print(f"Ошибка при обновлении списка агрегации: {str(e)}")
+
+    def update_agg_preview(self):
+        """Обновление предпросмотра агрегатного столбца"""
+        try:
+            # Проверяем все необходимые условия
+            column_name = self.ui.new_agg_column_name_edit.text().strip()
+            selected_group_items = self.ui.group_columns_listwidget.selectedItems()
+            selected_agg_items = self.ui.agg_column_listwidget.selectedItems()
+
+            if not column_name:
+                self.ui.agg_preview_info_label.setText("Введите имя нового столбца")
+                self.clear_preview_table(self.ui.agg_preview_table)
+                self.ui.create_agg_column_button.setEnabled(False)
+                return
+
+            if not selected_group_items:
+                self.ui.agg_preview_info_label.setText("Выберите столбцы для группировки")
+                self.clear_preview_table(self.ui.agg_preview_table)
+                self.ui.create_agg_column_button.setEnabled(False)
+                return
+
+            if not selected_agg_items:
+                self.ui.agg_preview_info_label.setText("Выберите столбец для агрегации")
+                self.clear_preview_table(self.ui.agg_preview_table)
+                self.ui.create_agg_column_button.setEnabled(False)
+                return
+
+            # Получаем выбранные столбцы
+            group_columns = [item.text() for item in selected_group_items]
+            agg_column = selected_agg_items[0].text()
+
+            # Определяем выбранную операцию
+            if self.ui.agg_sum_radio.isChecked():
+                operation = "sum"
+                operation_name = "Сумма"
+            elif self.ui.agg_mean_radio.isChecked():
+                operation = "mean"
+                operation_name = "Среднее"
+            elif self.ui.agg_median_radio.isChecked():
+                operation = "median"
+                operation_name = "Медиана"
+            elif self.ui.agg_count_radio.isChecked():
+                operation = "count"
+                operation_name = "Количество"
+            elif self.ui.agg_min_radio.isChecked():
+                operation = "min"
+                operation_name = "Минимум"
+            elif self.ui.agg_max_radio.isChecked():
+                operation = "max"
+                operation_name = "Максимум"
+            elif self.ui.agg_value_counts_radio.isChecked():
+                operation = "value_counts"
+                operation_name = "Частота значений"
+            else:
+                self.ui.agg_preview_info_label.setText("Выберите операцию агрегации")
+                self.clear_preview_table(self.ui.agg_preview_table)
+                self.ui.create_agg_column_button.setEnabled(False)
+                return
+
+            # Выполняем агрегацию для предпросмотра
+            try:
+                if operation == "value_counts":
+                    # Для value_counts создаем pivot таблицу
+                    grouped = self.data.groupby(group_columns)[agg_column].value_counts().unstack(
+                        fill_value=0)
+                    preview_data = grouped.head(10)  # Показываем первые 10 строк
+                    column_count = len(preview_data.columns)
+
+                    # Обновляем таблицу
+                    self.ui.agg_preview_table.setRowCount(len(preview_data))
+                    self.ui.agg_preview_table.setColumnCount(len(group_columns) + column_count)
+
+                    # Устанавливаем заголовки
+                    headers = group_columns + [f"{agg_column}_{col}" for col in
+                                               preview_data.columns]
+                    self.ui.agg_preview_table.setHorizontalHeaderLabels(headers)
+
+                    # Заполняем таблицу
+                    for i, (index, row) in enumerate(preview_data.iterrows()):
+                        # Индекс может быть кортежем для нескольких столбцов группировки
+                        if isinstance(index, tuple):
+                            for j, value in enumerate(index):
+                                self.ui.agg_preview_table.setItem(i, j,
+                                                                  QTableWidgetItem(str(value)))
+                        else:
+                            self.ui.agg_preview_table.setItem(i, 0, QTableWidgetItem(str(index)))
+
+                        # Заполняем значения агрегации
+                        for j, value in enumerate(row):
+                            item = QTableWidgetItem(str(value))
+                            item.setBackground(Qt.GlobalColor.lightGray)
+                            self.ui.agg_preview_table.setItem(i, len(group_columns) + j, item)
+
+                    info_text = (f"Будет создано {column_count} новых столбцов\n"
+                                 f"Операция: {operation_name}")
+
+                else:
+                    # Для обычных операций агрегации
+                    grouped = self.data.groupby(group_columns)[agg_column].agg(operation)
+                    preview_data = grouped.reset_index().head(10)  # Показываем первые 10 строк
+
+                    # Обновляем таблицу
+                    self.ui.agg_preview_table.setRowCount(len(preview_data))
+                    self.ui.agg_preview_table.setColumnCount(len(preview_data.columns))
+
+                    # Устанавливаем заголовки
+                    headers = list(preview_data.columns)
+                    headers[-1] = column_name  # Последний столбец - результат агрегации
+                    self.ui.agg_preview_table.setHorizontalHeaderLabels(headers)
+
+                    # Заполняем таблицу
+                    for i, (idx, row) in enumerate(preview_data.iterrows()):
+                        for j, col in enumerate(preview_data.columns):
+                            value = row[col]
+                            item = QTableWidgetItem(str(value))
+
+                            # Подсвечиваем столбец с результатом агрегации
+                            if j == len(preview_data.columns) - 1:
+                                item.setBackground(Qt.GlobalColor.lightGray)
+
+                            self.ui.agg_preview_table.setItem(i, j, item)
+
+                    info_text = f"Будет создан столбец '{column_name}'\nОперация: {operation_name}"
+
+                # Настраиваем заголовки таблицы
+                header = self.ui.agg_preview_table.horizontalHeader()
+                header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+
+                # Обновляем информацию
+                self.ui.agg_preview_info_label.setText(info_text)
+                self.ui.create_agg_column_button.setEnabled(True)
+
+            except Exception as e:
+                self.ui.agg_preview_info_label.setText(f"Ошибка при агрегации: {str(e)}")
+                self.clear_preview_table(self.ui.agg_preview_table)
+                self.ui.create_agg_column_button.setEnabled(False)
+
+        except Exception as e:
+            print(f"Ошибка при обновлении предпросмотра агрегации: {str(e)}")
+            self.ui.create_agg_column_button.setEnabled(False)
+
+    def create_agg_column(self):
+        """Создание нового столбца через агрегацию"""
+        try:
+            # Получаем параметры
+            new_column_name = self.ui.new_agg_column_name_edit.text().strip()
+            selected_group_items = self.ui.group_columns_listwidget.selectedItems()
+            selected_agg_items = self.ui.agg_column_listwidget.selectedItems()
+
+            # Проверяем обязательные поля
+            if not new_column_name:
+                QMessageBox.warning(self, "Предупреждение", "Введите имя нового столбца!")
+                return
+
+            if not selected_group_items:
+                QMessageBox.warning(self, "Предупреждение", "Выберите столбцы для группировки!")
+                return
+
+            if not selected_agg_items:
+                QMessageBox.warning(self, "Предупреждение", "Выберите столбец для агрегации!")
+                return
+
+            # Проверяем, существует ли уже столбец с таким именем
+            if new_column_name in self.data.columns:
+                reply = QMessageBox.question(
+                    self, "Подтверждение",
+                    f"Столбец с именем '{new_column_name}' уже существует.\n"
+                    f"Заменить существующий столбец?",
+                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+                )
+                if reply == QMessageBox.StandardButton.No:
+                    return
+
+            # Получаем выбранные столбцы
+            group_columns = [item.text() for item in selected_group_items]
+            agg_column = selected_agg_items[0].text()
+
+            # Определяем операцию
+            if self.ui.agg_sum_radio.isChecked():
+                operation = "sum"
+                operation_name = "сумма"
+            elif self.ui.agg_mean_radio.isChecked():
+                operation = "mean"
+                operation_name = "среднее"
+            elif self.ui.agg_median_radio.isChecked():
+                operation = "median"
+                operation_name = "медиана"
+            elif self.ui.agg_count_radio.isChecked():
+                operation = "count"
+                operation_name = "количество"
+            elif self.ui.agg_min_radio.isChecked():
+                operation = "min"
+                operation_name = "минимум"
+            elif self.ui.agg_max_radio.isChecked():
+                operation = "max"
+                operation_name = "максимум"
+            elif self.ui.agg_value_counts_radio.isChecked():
+                return self.create_value_counts_columns(new_column_name, group_columns, agg_column)
+            else:
+                QMessageBox.warning(self, "Предупреждение", "Выберите операцию агрегации!")
+                return
+
+            try:
+                # Выполняем группировку и агрегацию
+                grouped = self.data.groupby(group_columns)[agg_column].transform(operation)
+
+                # Создаем новый столбец
+                self.data[new_column_name] = grouped
+
+                # Помечаем, что данные были изменены
+                self.data_changed = True
+
+                # Формируем отчет
+                unique_groups = self.data[group_columns].drop_duplicates().shape[0]
+
+                QMessageBox.information(
+                    self, "Успех",
+                    f"Новый столбец успешно создан!\n\n"
+                    f"Имя столбца: {new_column_name}\n"
+                    f"Операция: {operation_name}\n"
+                    f"Столбец агрегации: {agg_column}\n"
+                    f"Столбцы группировки: {', '.join(group_columns)}\n"
+                    f"Уникальных групп: {unique_groups}\n"
+                    f"Добавлено значений: {len(self.data)}"
+                )
+
+                # Обновляем UI
+                self.load_column_operations_page()
+
+            except Exception as e:
+                QMessageBox.critical(self, "Ошибка", f"Ошибка при создании столбца: {str(e)}")
+
+        except Exception as e:
+            QMessageBox.critical(self, "Ошибка", f"Ошибка при создании столбца: {str(e)}")
+
+    def create_value_counts_columns(self, base_name, group_columns, agg_column):
+        """Создание нескольких столбцов для value_counts"""
+        try:
+            # Получаем уникальные значения в агрегируемом столбце
+            unique_values = self.data[agg_column].dropna().unique()
+
+            if len(unique_values) == 0:
+                QMessageBox.warning(self, "Предупреждение",
+                                    f"Столбец '{agg_column}' не содержит данных!")
+                return
+
+            if len(unique_values) > 20:
+                reply = QMessageBox.question(
+                    self, "Подтверждение",
+                    f"Столбец '{agg_column}' содержит {len(unique_values)} уникальных значений.\n"
+                    f"Это создаст {len(unique_values)} новых столбцов.\n"
+                    f"Продолжить?",
+                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+                )
+                if reply == QMessageBox.StandardButton.No:
+                    return
+
+            # Создаем pivot таблицу
+            pivot_table = pd.crosstab(
+                index=[self.data[col] for col in group_columns],
+                columns=self.data[agg_column],
+                rownames=group_columns,
+                colnames=[agg_column]
+            ).reset_index()
+
+            # Переименовываем столбцы
+            new_columns = []
+            for col in pivot_table.columns:
+                if col in group_columns:
+                    new_columns.append(col)
+                else:
+                    new_col_name = f"{base_name}_{col}"
+                    new_columns.append(new_col_name)
+
+            pivot_table.columns = new_columns
+
+            # Объединяем с исходными данными
+            self.data = self.data.merge(pivot_table, on=group_columns, how='left')
+
+            # Помечаем, что данные были изменены
+            self.data_changed = True
+
+            # Формируем отчет
+            created_columns = [col for col in new_columns if col not in group_columns]
+
+            QMessageBox.information(
+                self, "Успех",
+                f"Создано {len(created_columns)} новых столбцов!\n\n"
+                f"Базовое имя: {base_name}\n"
+                f"Столбец агрегации: {agg_column}\n"
+                f"Столбцы группировки: {', '.join(group_columns)}\n"
+                f"Созданные столбцы:\n" + "\n".join([f"• {col}" for col in created_columns[:10]])
+                + (f"\n... и еще {len(created_columns) - 10} столбцов"
+                   if len(created_columns) > 10 else "")
+            )
+
+            # Обновляем UI
+            self.load_column_operations_page()
+
+        except Exception as e:
+            QMessageBox.critical(self, "Ошибка",
+                                 f"Ошибка при создании столбцов value_counts: {str(e)}")
+
+    def clear_preview_table(self, table_widget):
+        """Очистка таблицы предпросмотра"""
+        table_widget.setRowCount(0)
+        table_widget.setColumnCount(0)
+
+    def update_navigation_buttons(self):
+        """Обновление состояния кнопок навигации"""
+        current_index = self.ui.stackedWidget.currentIndex()
+        max_index = self.ui.stackedWidget.count() - 1
+
+        # Кнопка "Назад"
+        self.ui.back_button.setEnabled(current_index > 0)
+
+        # Кнопка "Продолжить"
+        self.ui.next_button.setEnabled(current_index < max_index)
+
+        # Кнопка "Завершить" - всегда активна на последней странице
+        self.ui.compete_button.setEnabled(current_index == max_index)
 
     def load_data(self):
         """Загрузка данных из файла"""
@@ -460,6 +941,8 @@ class PreprocessingWindow(QMainWindow):
             self.load_duplicates_page()
         elif page_index == 5:  # Страница удаления пропусков
             self.load_remove_missing_page()
+        elif page_index == 6:  # Страница управления столбцами
+            self.load_column_operations_page()
 
     def load_analysis_page(self):
         """Загрузка данных для страницы анализа столбцов"""
@@ -1851,21 +2334,6 @@ class PreprocessingWindow(QMainWindow):
 
         except Exception as e:
             QMessageBox.critical(self, "Ошибка", f"Ошибка при очистке пропусков: {str(e)}")
-
-    def update_navigation_buttons(self):
-        """Обновление состояния кнопок навигации"""
-        current_index = self.ui.stackedWidget.currentIndex()
-        max_index = self.ui.stackedWidget.count() - 1
-
-        # Кнопка "Назад"
-        self.ui.back_button.setEnabled(current_index > 0)
-
-        # Кнопка "Продолжить"
-        self.ui.next_button.setEnabled(current_index < max_index)
-
-        # Кнопка "Завершить" - всегда активна на последней странице
-        # (даже если не было изменений, пользователь может просто пройти все шаги)
-        self.ui.compete_button.setEnabled(current_index == max_index)
 
     def on_close_button_clicked(self):
         """Обработчик нажатия кнопки 'Закрыть'"""

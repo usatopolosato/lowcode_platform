@@ -29,22 +29,22 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QScrollArea" name="scrollArea">
-      <property name="widgetResizable">
-       <bool>true</bool>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
       </property>
       <property name="horizontalScrollBarPolicy">
        <enum>Qt::ScrollBarAsNeeded</enum>
       </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAsNeeded</enum>
+      <property name="widgetResizable">
+       <bool>true</bool>
       </property>
       <widget class="QWidget" name="scrollAreaWidgetContents">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>980</width>
-         <height>700</height>
+         <width>955</width>
+         <height>779</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -61,7 +61,7 @@ QPushButton:disabled {
 }</string>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>8</number>
           </property>
           <widget class="QWidget" name="charts_setup_page">
            <layout class="QHBoxLayout" name="horizontalLayout_main">
@@ -74,12 +74,6 @@ QPushButton:disabled {
     border-radius: 8px;
     padding: 15px;
 }</string>
-              </property>
-              <property name="minimumWidth">
-               <number>350</number>
-              </property>
-              <property name="maximumWidth">
-               <number>450</number>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_left">
                <item>
@@ -411,6 +405,9 @@ margin-bottom: 5px;</string>
     font-size: 14px;
 }</string>
                       </property>
+                      <property name="suffix">
+                       <string> дюймов</string>
+                      </property>
                       <property name="minimum">
                        <number>4</number>
                       </property>
@@ -419,9 +416,6 @@ margin-bottom: 5px;</string>
                       </property>
                       <property name="value">
                        <number>10</number>
-                      </property>
-                      <property name="suffix">
-                       <string> дюймов</string>
                       </property>
                      </widget>
                     </item>
@@ -449,6 +443,9 @@ margin: 0 5px;</string>
     font-size: 14px;
 }</string>
                       </property>
+                      <property name="suffix">
+                       <string> дюймов</string>
+                      </property>
                       <property name="minimum">
                        <number>4</number>
                       </property>
@@ -457,9 +454,6 @@ margin: 0 5px;</string>
                       </property>
                       <property name="value">
                        <number>6</number>
-                      </property>
-                      <property name="suffix">
-                       <string> дюймов</string>
                       </property>
                      </widget>
                     </item>
@@ -537,8 +531,6 @@ QPushButton:disabled {
             </item>
            </layout>
           </widget>
-
-          <!-- Linear Chart Page -->
           <widget class="QWidget" name="line_chart_page">
            <layout class="QVBoxLayout" name="verticalLayout_line">
             <item>
@@ -557,8 +549,15 @@ QPushButton:disabled {
                <bool>true</bool>
               </property>
               <widget class="QWidget" name="scrollAreaWidgetContents_line">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>890</width>
+                 <height>1250</height>
+                </rect>
+               </property>
                <layout class="QVBoxLayout" name="verticalLayout_line_scroll">
-                <!-- Data Selection Frame -->
                 <item>
                  <widget class="QFrame" name="line_data_frame">
                   <property name="styleSheet">
@@ -614,9 +613,6 @@ margin-top: 10px;</string>
                    </item>
                    <item>
                     <widget class="QListWidget" name="line_y_list">
-                     <property name="selectionMode">
-                      <enum>QAbstractItemView::MultiSelection</enum>
-                     </property>
                      <property name="styleSheet">
                       <string notr="true">QListWidget {
     background-color: white;
@@ -637,13 +633,14 @@ QListWidget::item:selected {
     border-radius: 4px;
 }</string>
                      </property>
+                     <property name="selectionMode">
+                      <enum>QAbstractItemView::MultiSelection</enum>
+                     </property>
                     </widget>
                    </item>
                   </layout>
                  </widget>
                 </item>
-
-                <!-- Style Settings Frame -->
                 <item>
                  <widget class="QFrame" name="line_style_frame">
                   <property name="styleSheet">
@@ -727,16 +724,16 @@ font-weight: bold;</string>
 }</string>
                      </property>
                      <property name="minimum">
-                      <double>0.5</double>
+                      <double>0.500000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>10.0</double>
+                      <double>10.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.5</double>
+                      <double>0.500000000000000</double>
                      </property>
                      <property name="value">
-                      <double>2.0</double>
+                      <double>2.000000000000000</double>
                      </property>
                     </widget>
                    </item>
@@ -922,16 +919,16 @@ font-weight: bold;</string>
 }</string>
                      </property>
                      <property name="minimum">
-                      <double>0.0</double>
+                      <double>0.000000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>1.0</double>
+                      <double>1.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.1</double>
+                      <double>0.100000000000000</double>
                      </property>
                      <property name="value">
-                      <double>1.0</double>
+                      <double>1.000000000000000</double>
                      </property>
                     </widget>
                    </item>
@@ -963,8 +960,6 @@ font-weight: bold;</string>
                   </layout>
                  </widget>
                 </item>
-
-                <!-- Axis Labels Frame -->
                 <item>
                  <widget class="QFrame" name="axis_labels_frame">
                   <property name="styleSheet">
@@ -1110,8 +1105,6 @@ QPushButton:pressed {
             </item>
            </layout>
           </widget>
-
-          <!-- Bar Chart Page -->
           <widget class="QWidget" name="barchart_page">
            <layout class="QVBoxLayout" name="verticalLayout_bar">
             <item>
@@ -1130,8 +1123,15 @@ QPushButton:pressed {
                <bool>true</bool>
               </property>
               <widget class="QWidget" name="scrollAreaWidgetContents_bar">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>890</width>
+                 <height>793</height>
+                </rect>
+               </property>
                <layout class="QVBoxLayout" name="verticalLayout_bar_scroll">
-                <!-- Data Selection -->
                 <item>
                  <widget class="QFrame" name="bar_data_frame">
                   <property name="styleSheet">
@@ -1198,8 +1198,6 @@ margin-top: 10px;</string>
                   </layout>
                  </widget>
                 </item>
-
-                <!-- Style Settings -->
                 <item>
                  <widget class="QFrame" name="bar_style_frame">
                   <property name="styleSheet">
@@ -1365,16 +1363,16 @@ font-weight: bold;</string>
 }</string>
                      </property>
                      <property name="minimum">
-                      <double>0.0</double>
+                      <double>0.000000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>5.0</double>
+                      <double>5.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.5</double>
+                      <double>0.500000000000000</double>
                      </property>
                      <property name="value">
-                      <double>1.0</double>
+                      <double>1.000000000000000</double>
                      </property>
                     </widget>
                    </item>
@@ -1403,16 +1401,16 @@ font-weight: bold;</string>
 }</string>
                      </property>
                      <property name="minimum">
-                      <double>0.0</double>
+                      <double>0.000000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>1.0</double>
+                      <double>1.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.1</double>
+                      <double>0.100000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.8</double>
+                      <double>0.800000000000000</double>
                      </property>
                     </widget>
                    </item>
@@ -1441,16 +1439,16 @@ font-weight: bold;</string>
 }</string>
                      </property>
                      <property name="minimum">
-                      <double>0.1</double>
+                      <double>0.100000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>1.0</double>
+                      <double>1.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.1</double>
+                      <double>0.100000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.8</double>
+                      <double>0.800000000000000</double>
                      </property>
                     </widget>
                    </item>
@@ -1530,8 +1528,6 @@ QPushButton:pressed {
             </item>
            </layout>
           </widget>
-
-          <!-- Pie Chart Page -->
           <widget class="QWidget" name="pie_chart_page">
            <layout class="QVBoxLayout" name="verticalLayout_pie">
             <item>
@@ -1550,8 +1546,15 @@ QPushButton:pressed {
                <bool>true</bool>
               </property>
               <widget class="QWidget" name="scrollAreaWidgetContents_pie">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>890</width>
+                 <height>725</height>
+                </rect>
+               </property>
                <layout class="QVBoxLayout" name="verticalLayout_pie_scroll">
-                <!-- Data Selection -->
                 <item>
                  <widget class="QFrame" name="pie_data_frame">
                   <property name="styleSheet">
@@ -1618,8 +1621,6 @@ margin-top: 10px;</string>
                   </layout>
                  </widget>
                 </item>
-
-                <!-- Style Settings -->
                 <item>
                  <widget class="QFrame" name="pie_style_frame">
                   <property name="styleSheet">
@@ -1681,6 +1682,9 @@ font-weight: bold;</string>
                    </item>
                    <item row="1" column="1">
                     <widget class="QDoubleSpinBox" name="pie_explode_spin">
+                     <property name="toolTip">
+                      <string>Величина выделения сегментов (0 = без выделения)</string>
+                     </property>
                      <property name="styleSheet">
                       <string notr="true">QDoubleSpinBox {
     background-color: white;
@@ -1692,19 +1696,16 @@ font-weight: bold;</string>
 }</string>
                      </property>
                      <property name="minimum">
-                      <double>0.0</double>
+                      <double>0.000000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>0.5</double>
+                      <double>0.500000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.05</double>
+                      <double>0.050000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.1</double>
-                     </property>
-                     <property name="toolTip">
-                      <string>Величина выделения сегментов (0 = без выделения)</string>
+                      <double>0.100000000000000</double>
                      </property>
                     </widget>
                    </item>
@@ -1909,8 +1910,6 @@ QPushButton:pressed {
             </item>
            </layout>
           </widget>
-
-          <!-- Histogram Page -->
           <widget class="QWidget" name="histogram_page">
            <layout class="QVBoxLayout" name="verticalLayout_hist">
             <item>
@@ -1929,8 +1928,15 @@ QPushButton:pressed {
                <bool>true</bool>
               </property>
               <widget class="QWidget" name="scrollAreaWidgetContents_hist">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>890</width>
+                 <height>669</height>
+                </rect>
+               </property>
                <layout class="QVBoxLayout" name="verticalLayout_hist_scroll">
-                <!-- Data Selection -->
                 <item>
                  <widget class="QFrame" name="hist_data_frame">
                   <property name="styleSheet">
@@ -1971,8 +1977,6 @@ font-weight: bold;</string>
                   </layout>
                  </widget>
                 </item>
-
-                <!-- Parameters -->
                 <item>
                  <widget class="QFrame" name="hist_params_frame">
                   <property name="styleSheet">
@@ -2148,16 +2152,16 @@ font-weight: bold;</string>
 }</string>
                      </property>
                      <property name="minimum">
-                      <double>0.0</double>
+                      <double>0.000000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>1.0</double>
+                      <double>1.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.1</double>
+                      <double>0.100000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.7</double>
+                      <double>0.700000000000000</double>
                      </property>
                     </widget>
                    </item>
@@ -2293,8 +2297,6 @@ QPushButton:pressed {
             </item>
            </layout>
           </widget>
-
-          <!-- Scatter Plot Page -->
           <widget class="QWidget" name="scatter_page">
            <layout class="QVBoxLayout" name="verticalLayout_scatter">
             <item>
@@ -2313,8 +2315,15 @@ QPushButton:pressed {
                <bool>true</bool>
               </property>
               <widget class="QWidget" name="scrollAreaWidgetContents_scatter">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>890</width>
+                 <height>849</height>
+                </rect>
+               </property>
                <layout class="QVBoxLayout" name="verticalLayout_scatter_scroll">
-                <!-- Data Selection -->
                 <item>
                  <widget class="QFrame" name="scatter_data_frame">
                   <property name="styleSheet">
@@ -2412,8 +2421,6 @@ margin-top: 10px;</string>
                   </layout>
                  </widget>
                 </item>
-
-                <!-- Style Settings -->
                 <item>
                  <widget class="QFrame" name="scatter_style_frame">
                   <property name="styleSheet">
@@ -2486,16 +2493,16 @@ font-weight: bold;</string>
 }</string>
                      </property>
                      <property name="minimum">
-                      <double>0.0</double>
+                      <double>0.000000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>1.0</double>
+                      <double>1.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.1</double>
+                      <double>0.100000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.6</double>
+                      <double>0.600000000000000</double>
                      </property>
                     </widget>
                    </item>
@@ -2715,8 +2722,6 @@ QPushButton:pressed {
             </item>
            </layout>
           </widget>
-
-          <!-- Box Plot Page -->
           <widget class="QWidget" name="boxplot_page">
            <layout class="QVBoxLayout" name="verticalLayout_box">
             <item>
@@ -2735,8 +2740,15 @@ QPushButton:pressed {
                <bool>true</bool>
               </property>
               <widget class="QWidget" name="scrollAreaWidgetContents_box">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>890</width>
+                 <height>793</height>
+                </rect>
+               </property>
                <layout class="QVBoxLayout" name="verticalLayout_box_scroll">
-                <!-- Data Selection -->
                 <item>
                  <widget class="QFrame" name="box_data_frame">
                   <property name="styleSheet">
@@ -2808,8 +2820,6 @@ margin-top: 10px;</string>
                   </layout>
                  </widget>
                 </item>
-
-                <!-- Style Settings -->
                 <item>
                  <widget class="QFrame" name="box_style_frame">
                   <property name="styleSheet">
@@ -2998,16 +3008,16 @@ font-weight: bold;</string>
 }</string>
                      </property>
                      <property name="minimum">
-                      <double>0.5</double>
+                      <double>0.500000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>5.0</double>
+                      <double>5.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.5</double>
+                      <double>0.500000000000000</double>
                      </property>
                      <property name="value">
-                      <double>1.5</double>
+                      <double>1.500000000000000</double>
                      </property>
                     </widget>
                    </item>
@@ -3036,16 +3046,16 @@ font-weight: bold;</string>
 }</string>
                      </property>
                      <property name="minimum">
-                      <double>1.0</double>
+                      <double>1.000000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>5.0</double>
+                      <double>5.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.5</double>
+                      <double>0.500000000000000</double>
                      </property>
                      <property name="value">
-                      <double>1.5</double>
+                      <double>1.500000000000000</double>
                      </property>
                     </widget>
                    </item>
@@ -3125,8 +3135,6 @@ QPushButton:pressed {
             </item>
            </layout>
           </widget>
-
-          <!-- Layout Page -->
           <widget class="QWidget" name="layout_page">
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
@@ -3145,8 +3153,15 @@ QPushButton:pressed {
                <bool>true</bool>
               </property>
               <widget class="QWidget" name="scrollAreaWidgetContents_layout">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>-120</y>
+                 <width>890</width>
+                 <height>866</height>
+                </rect>
+               </property>
                <layout class="QVBoxLayout" name="verticalLayout_layout_scroll">
-                <!-- Layout Options -->
                 <item>
                  <widget class="QFrame" name="layout_options_frame">
                   <property name="styleSheet">
@@ -3175,6 +3190,20 @@ margin-bottom: 15px;</string>
                    </item>
                    <item>
                     <layout class="QGridLayout" name="gridLayout_radio">
+                     <item row="0" column="2">
+                      <widget class="QRadioButton" name="radio_3x3">
+                       <property name="styleSheet">
+                        <string notr="true">QRadioButton {
+    font-size: 14px;
+    color: #2d3748;
+    padding: 10px;
+}</string>
+                       </property>
+                       <property name="text">
+                        <string>3 × 3 (9 графиков)</string>
+                       </property>
+                      </widget>
+                     </item>
                      <item row="0" column="0">
                       <widget class="QRadioButton" name="radio_1x1">
                        <property name="styleSheet">
@@ -3214,8 +3243,8 @@ QRadioButton::indicator:checked {
                        </property>
                       </widget>
                      </item>
-                     <item row="0" column="2">
-                      <widget class="QRadioButton" name="radio_3x3">
+                     <item row="1" column="2">
+                      <widget class="QRadioButton" name="radio_4x4">
                        <property name="styleSheet">
                         <string notr="true">QRadioButton {
     font-size: 14px;
@@ -3224,21 +3253,7 @@ QRadioButton::indicator:checked {
 }</string>
                        </property>
                        <property name="text">
-                        <string>3 × 3 (9 графиков)</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="0">
-                      <widget class="QRadioButton" name="radio_2x3">
-                       <property name="styleSheet">
-                        <string notr="true">QRadioButton {
-    font-size: 14px;
-    color: #2d3748;
-    padding: 10px;
-}</string>
-                       </property>
-                       <property name="text">
-                        <string>2 × 3 (6 графиков)</string>
+                        <string>4 × 4 (16 графиков)</string>
                        </property>
                       </widget>
                      </item>
@@ -3256,8 +3271,8 @@ QRadioButton::indicator:checked {
                        </property>
                       </widget>
                      </item>
-                     <item row="1" column="2">
-                      <widget class="QRadioButton" name="radio_4x4">
+                     <item row="1" column="0">
+                      <widget class="QRadioButton" name="radio_2x3">
                        <property name="styleSheet">
                         <string notr="true">QRadioButton {
     font-size: 14px;
@@ -3266,7 +3281,29 @@ QRadioButton::indicator:checked {
 }</string>
                        </property>
                        <property name="text">
-                        <string>4 × 4 (16 графиков)</string>
+                        <string>2 × 3 (6 графиков)</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="0">
+                      <widget class="QRadioButton" name="radio_self">
+                       <property name="styleSheet">
+                        <string notr="true">QRadioButton {
+    font-size: 14px;
+    color: #2d3748;
+    padding: 10px;
+}
+QRadioButton::indicator {
+    width: 18px;
+    height: 18px;
+}
+QRadioButton::indicator:checked {
+    background-color: #3182ce;
+    border: 2px solid #3182ce;
+}</string>
+                       </property>
+                       <property name="text">
+                        <string>Своя компоновка</string>
                        </property>
                       </widget>
                      </item>
@@ -3375,8 +3412,6 @@ QSpinBox:focus {
                   </layout>
                  </widget>
                 </item>
-
-                <!-- Figure Size Settings -->
                 <item>
                  <widget class="QFrame" name="figsize_frame">
                   <property name="styleSheet">
@@ -3429,16 +3464,16 @@ min-width: 80px;</string>
 }</string>
                        </property>
                        <property name="minimum">
-                        <double>6.0</double>
+                        <double>6.000000000000000</double>
                        </property>
                        <property name="maximum">
-                        <double>24.0</double>
+                        <double>24.000000000000000</double>
                        </property>
                        <property name="singleStep">
-                        <double>1.0</double>
+                        <double>1.000000000000000</double>
                        </property>
                        <property name="value">
-                        <double>12.0</double>
+                        <double>12.000000000000000</double>
                        </property>
                       </widget>
                      </item>
@@ -3468,16 +3503,16 @@ margin-left: 15px;</string>
 }</string>
                        </property>
                        <property name="minimum">
-                        <double>4.0</double>
+                        <double>4.000000000000000</double>
                        </property>
                        <property name="maximum">
-                        <double>20.0</double>
+                        <double>20.000000000000000</double>
                        </property>
                        <property name="singleStep">
-                        <double>1.0</double>
+                        <double>1.000000000000000</double>
                        </property>
                        <property name="value">
-                        <double>8.0</double>
+                        <double>8.000000000000000</double>
                        </property>
                       </widget>
                      </item>
@@ -3486,8 +3521,6 @@ margin-left: 15px;</string>
                   </layout>
                  </widget>
                 </item>
-
-                <!-- Info and Generate Button -->
                 <item>
                  <widget class="QLabel" name="layout_info_label">
                   <property name="styleSheet">
@@ -3545,8 +3578,6 @@ QPushButton:pressed {
             </item>
            </layout>
           </widget>
-
-          <!-- Charts Display Page -->
           <widget class="QWidget" name="charts_display_page">
            <layout class="QVBoxLayout" name="verticalLayout_display">
             <item>
@@ -3565,6 +3596,14 @@ QPushButton:pressed {
                <bool>true</bool>
               </property>
               <widget class="QWidget" name="scrollAreaWidgetContents_display">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>-4</y>
+                 <width>1022</width>
+                 <height>1651</height>
+                </rect>
+               </property>
                <layout class="QVBoxLayout" name="verticalLayout_display_scroll">
                 <item>
                  <widget class="QLabel" name="current_layout_label">
@@ -3588,6 +3627,12 @@ border: 1px solid #3182ce;</string>
                 </item>
                 <item>
                  <widget class="QFrame" name="charts_container_frame">
+                  <property name="minimumSize">
+                   <size>
+                    <width>1000</width>
+                    <height>1500</height>
+                   </size>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">QFrame {
     background-color: white;

@@ -43,7 +43,7 @@ class Ui_Preprocessing(object):
         self.scrollArea_view.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.scrollArea_view.setObjectName("scrollArea_view")
         self.scrollAreaWidgetContents_view = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_view.setGeometry(QtCore.QRect(0, 0, 1156, 653))
+        self.scrollAreaWidgetContents_view.setGeometry(QtCore.QRect(0, 0, 661, 319))
         self.scrollAreaWidgetContents_view.setObjectName("scrollAreaWidgetContents_view")
         self.verticalLayout_view_content = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_view)
         self.verticalLayout_view_content.setObjectName("verticalLayout_view_content")
@@ -260,7 +260,7 @@ class Ui_Preprocessing(object):
         self.scrollArea_type.setWidgetResizable(True)
         self.scrollArea_type.setObjectName("scrollArea_type")
         self.scrollAreaWidgetContents_type = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_type.setGeometry(QtCore.QRect(0, 0, 1135, 793))
+        self.scrollAreaWidgetContents_type.setGeometry(QtCore.QRect(0, 0, 773, 793))
         self.scrollAreaWidgetContents_type.setObjectName("scrollAreaWidgetContents_type")
         self.verticalLayout_type_content = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_type)
         self.verticalLayout_type_content.setObjectName("verticalLayout_type_content")
@@ -376,7 +376,7 @@ class Ui_Preprocessing(object):
         self.unique_values_scroll.setWidgetResizable(True)
         self.unique_values_scroll.setObjectName("unique_values_scroll")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 461, 253))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 280, 253))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_13 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_13.setObjectName("verticalLayout_13")
@@ -433,7 +433,7 @@ class Ui_Preprocessing(object):
         self.dtype_scroll.setWidgetResizable(True)
         self.dtype_scroll.setObjectName("dtype_scroll")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 461, 247))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 280, 247))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.verticalLayout_14 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_14.setObjectName("verticalLayout_14")
@@ -545,7 +545,7 @@ class Ui_Preprocessing(object):
         self.scrollArea_pass.setWidgetResizable(True)
         self.scrollArea_pass.setObjectName("scrollArea_pass")
         self.scrollAreaWidgetContents_pass = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_pass.setGeometry(QtCore.QRect(0, 0, 1156, 653))
+        self.scrollAreaWidgetContents_pass.setGeometry(QtCore.QRect(0, 0, 776, 403))
         self.scrollAreaWidgetContents_pass.setObjectName("scrollAreaWidgetContents_pass")
         self.verticalLayout_pass_content = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_pass)
         self.verticalLayout_pass_content.setObjectName("verticalLayout_pass_content")
@@ -730,7 +730,7 @@ class Ui_Preprocessing(object):
         self.pass_numeric_table_scroll.setWidgetResizable(True)
         self.pass_numeric_table_scroll.setObjectName("pass_numeric_table_scroll")
         self.scrollAreaWidgetContents_3 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 129, 129))
+        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 380, 328))
         self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_3")
         self.verticalLayout_15 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_3)
         self.verticalLayout_15.setObjectName("verticalLayout_15")
@@ -809,12 +809,12 @@ class Ui_Preprocessing(object):
         self.pass_numeric_methods_scroll.setWidgetResizable(True)
         self.pass_numeric_methods_scroll.setObjectName("pass_numeric_methods_scroll")
         self.scrollAreaWidgetContents_4 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_4.setGeometry(QtCore.QRect(0, 0, 129, 129))
+        self.scrollAreaWidgetContents_4.setGeometry(QtCore.QRect(0, 0, 280, 212))
         self.scrollAreaWidgetContents_4.setObjectName("scrollAreaWidgetContents_4")
         self.verticalLayout_16 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_4)
         self.verticalLayout_16.setObjectName("verticalLayout_16")
         self.pass_numeric_methods_list = QtWidgets.QListWidget(parent=self.scrollAreaWidgetContents_4)
-        self.pass_numeric_methods_list.setMinimumSize(QtCore.QSize(0, 250))
+        self.pass_numeric_methods_list.setMinimumSize(QtCore.QSize(0, 172))
         self.pass_numeric_methods_list.setStyleSheet("QListWidget {\n"
 "    background-color: white;\n"
 "    border: 1px solid #cbd5e0;\n"
@@ -976,7 +976,7 @@ class Ui_Preprocessing(object):
         self.pass_categorical_text_scroll.setWidgetResizable(True)
         self.pass_categorical_text_scroll.setObjectName("pass_categorical_text_scroll")
         self.scrollAreaWidgetContents_5 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_5.setGeometry(QtCore.QRect(0, 0, 129, 129))
+        self.scrollAreaWidgetContents_5.setGeometry(QtCore.QRect(0, 0, 359, 129))
         self.scrollAreaWidgetContents_5.setObjectName("scrollAreaWidgetContents_5")
         self.verticalLayout_17 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_5)
         self.verticalLayout_17.setObjectName("verticalLayout_17")
@@ -1414,7 +1414,7 @@ class Ui_Preprocessing(object):
         self.replace_numeric_content_scroll.setWidgetResizable(True)
         self.replace_numeric_content_scroll.setObjectName("replace_numeric_content_scroll")
         self.scrollAreaWidgetContents_7 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_7.setGeometry(QtCore.QRect(0, 0, 881, 574))
+        self.scrollAreaWidgetContents_7.setGeometry(QtCore.QRect(0, 0, 881, 1122))
         self.scrollAreaWidgetContents_7.setObjectName("scrollAreaWidgetContents_7")
         self.verticalLayout_20 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_7)
         self.verticalLayout_20.setObjectName("verticalLayout_20")
@@ -1678,7 +1678,7 @@ class Ui_Preprocessing(object):
         self.replace_numeric_preview_scroll.setWidgetResizable(True)
         self.replace_numeric_preview_scroll.setObjectName("replace_numeric_preview_scroll")
         self.scrollAreaWidgetContents_8 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_8.setGeometry(QtCore.QRect(0, 0, 149, 149))
+        self.scrollAreaWidgetContents_8.setGeometry(QtCore.QRect(0, 0, 308, 199))
         self.scrollAreaWidgetContents_8.setObjectName("scrollAreaWidgetContents_8")
         self.verticalLayout_21 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_8)
         self.verticalLayout_21.setObjectName("verticalLayout_21")
@@ -1818,7 +1818,7 @@ class Ui_Preprocessing(object):
         self.replace_categorical_content_scroll.setWidgetResizable(True)
         self.replace_categorical_content_scroll.setObjectName("replace_categorical_content_scroll")
         self.scrollAreaWidgetContents_9 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_9.setGeometry(QtCore.QRect(0, 0, 981, 574))
+        self.scrollAreaWidgetContents_9.setGeometry(QtCore.QRect(0, 0, 981, 874))
         self.scrollAreaWidgetContents_9.setObjectName("scrollAreaWidgetContents_9")
         self.verticalLayout_22 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_9)
         self.verticalLayout_22.setObjectName("verticalLayout_22")
@@ -1885,7 +1885,7 @@ class Ui_Preprocessing(object):
         self.replace_categorical_values_scroll.setWidgetResizable(True)
         self.replace_categorical_values_scroll.setObjectName("replace_categorical_values_scroll")
         self.scrollAreaWidgetContents_10 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_10.setGeometry(QtCore.QRect(0, 0, 139, 139))
+        self.scrollAreaWidgetContents_10.setGeometry(QtCore.QRect(0, 0, 360, 502))
         self.scrollAreaWidgetContents_10.setObjectName("scrollAreaWidgetContents_10")
         self.verticalLayout_23 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_10)
         self.verticalLayout_23.setObjectName("verticalLayout_23")
@@ -2012,7 +2012,7 @@ class Ui_Preprocessing(object):
         self.replace_categorical_preview_scroll.setWidgetResizable(True)
         self.replace_categorical_preview_scroll.setObjectName("replace_categorical_preview_scroll")
         self.scrollAreaWidgetContents_11 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_11.setGeometry(QtCore.QRect(0, 0, 149, 149))
+        self.scrollAreaWidgetContents_11.setGeometry(QtCore.QRect(0, 0, 308, 162))
         self.scrollAreaWidgetContents_11.setObjectName("scrollAreaWidgetContents_11")
         self.verticalLayout_24 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_11)
         self.verticalLayout_24.setObjectName("verticalLayout_24")
@@ -2091,7 +2091,7 @@ class Ui_Preprocessing(object):
         self.scrollArea_duplicate.setWidgetResizable(True)
         self.scrollArea_duplicate.setObjectName("scrollArea_duplicate")
         self.scrollAreaWidgetContents_duplicate = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_duplicate.setGeometry(QtCore.QRect(0, 0, 1156, 653))
+        self.scrollAreaWidgetContents_duplicate.setGeometry(QtCore.QRect(0, 0, 533, 309))
         self.scrollAreaWidgetContents_duplicate.setObjectName("scrollAreaWidgetContents_duplicate")
         self.verticalLayout_duplicate_content = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_duplicate)
         self.verticalLayout_duplicate_content.setObjectName("verticalLayout_duplicate_content")
@@ -2118,7 +2118,7 @@ class Ui_Preprocessing(object):
         self.duplicates_table_scroll.setWidgetResizable(True)
         self.duplicates_table_scroll.setObjectName("duplicates_table_scroll")
         self.scrollAreaWidgetContents_12 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_12.setGeometry(QtCore.QRect(0, 0, 1112, 429))
+        self.scrollAreaWidgetContents_12.setGeometry(QtCore.QRect(0, 0, 468, 111))
         self.scrollAreaWidgetContents_12.setObjectName("scrollAreaWidgetContents_12")
         self.verticalLayout_25 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_12)
         self.verticalLayout_25.setObjectName("verticalLayout_25")
@@ -2248,7 +2248,7 @@ class Ui_Preprocessing(object):
         self.scrollArea_missing.setWidgetResizable(True)
         self.scrollArea_missing.setObjectName("scrollArea_missing")
         self.scrollAreaWidgetContents_missing = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_missing.setGeometry(QtCore.QRect(0, 0, 838, 468))
+        self.scrollAreaWidgetContents_missing.setGeometry(QtCore.QRect(0, 0, 1156, 653))
         self.scrollAreaWidgetContents_missing.setObjectName("scrollAreaWidgetContents_missing")
         self.verticalLayout_missing_content = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_missing)
         self.verticalLayout_missing_content.setObjectName("verticalLayout_missing_content")
@@ -2430,6 +2430,462 @@ class Ui_Preprocessing(object):
         self.scrollArea_missing.setWidget(self.scrollAreaWidgetContents_missing)
         self.verticalLayout_18.addWidget(self.scrollArea_missing)
         self.stackedWidget.addWidget(self.remove_pass_page)
+        self.column_operations_page = QtWidgets.QWidget()
+        self.column_operations_page.setObjectName("column_operations_page")
+        self.verticalLayout_column_ops = QtWidgets.QVBoxLayout(self.column_operations_page)
+        self.verticalLayout_column_ops.setObjectName("verticalLayout_column_ops")
+        self.scrollArea_column_ops = QtWidgets.QScrollArea(parent=self.column_operations_page)
+        self.scrollArea_column_ops.setWidgetResizable(True)
+        self.scrollArea_column_ops.setObjectName("scrollArea_column_ops")
+        self.scrollAreaWidgetContents_column_ops = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_column_ops.setGeometry(QtCore.QRect(0, -1904, 1135, 2557))
+        self.scrollAreaWidgetContents_column_ops.setObjectName("scrollAreaWidgetContents_column_ops")
+        self.verticalLayout_column_ops_content = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_column_ops)
+        self.verticalLayout_column_ops_content.setObjectName("verticalLayout_column_ops_content")
+        self.column_ops_main_frame = QtWidgets.QFrame(parent=self.scrollAreaWidgetContents_column_ops)
+        self.column_ops_main_frame.setObjectName("column_ops_main_frame")
+        self.verticalLayout_column_ops_combined = QtWidgets.QVBoxLayout(self.column_ops_main_frame)
+        self.verticalLayout_column_ops_combined.setObjectName("verticalLayout_column_ops_combined")
+        self.column_ops_selection_frame = QtWidgets.QFrame(parent=self.column_ops_main_frame)
+        self.column_ops_selection_frame.setStyleSheet("QFrame {\n"
+"    background-color: #ffffff;\n"
+"    border-radius: 12px;\n"
+"    padding: 15px;\n"
+"}")
+        self.column_ops_selection_frame.setObjectName("column_ops_selection_frame")
+        self.verticalLayout_column_ops_selection = QtWidgets.QVBoxLayout(self.column_ops_selection_frame)
+        self.verticalLayout_column_ops_selection.setObjectName("verticalLayout_column_ops_selection")
+        self.column_ops_title_label = QtWidgets.QLabel(parent=self.column_ops_selection_frame)
+        self.column_ops_title_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.column_ops_title_label.setObjectName("column_ops_title_label")
+        self.verticalLayout_column_ops_selection.addWidget(self.column_ops_title_label)
+        self.remove_column_frame = QtWidgets.QFrame(parent=self.column_ops_selection_frame)
+        self.remove_column_frame.setStyleSheet("QFrame {\n"
+"    background-color: #f7fafc;\n"
+"    border: 2px solid #e53e3e;\n"
+"    border-radius: 8px;\n"
+"    padding: 15px;\n"
+"    margin: 10px;\n"
+"}")
+        self.remove_column_frame.setObjectName("remove_column_frame")
+        self.verticalLayout_remove_column = QtWidgets.QVBoxLayout(self.remove_column_frame)
+        self.verticalLayout_remove_column.setObjectName("verticalLayout_remove_column")
+        self.remove_column_label = QtWidgets.QLabel(parent=self.remove_column_frame)
+        self.remove_column_label.setStyleSheet("color: #1e3a5f;\n"
+"font-size: 18px;\n"
+"font-weight: bold;\n"
+"text-align: center;\n"
+"margin-bottom: 10px;")
+        self.remove_column_label.setObjectName("remove_column_label")
+        self.verticalLayout_remove_column.addWidget(self.remove_column_label)
+        self.remove_column_scroll = QtWidgets.QScrollArea(parent=self.remove_column_frame)
+        self.remove_column_scroll.setMinimumSize(QtCore.QSize(0, 400))
+        self.remove_column_scroll.setWidgetResizable(True)
+        self.remove_column_scroll.setObjectName("remove_column_scroll")
+        self.scrollAreaWidgetContents_13 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_13.setGeometry(QtCore.QRect(0, 0, 909, 346))
+        self.scrollAreaWidgetContents_13.setObjectName("scrollAreaWidgetContents_13")
+        self.verticalLayout_26 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_13)
+        self.verticalLayout_26.setObjectName("verticalLayout_26")
+        self.remove_column_listwidget = QtWidgets.QListWidget(parent=self.scrollAreaWidgetContents_13)
+        self.remove_column_listwidget.setStyleSheet("QListWidget {\n"
+"    background-color: white;\n"
+"    border: 2px solid #cbd5e0;\n"
+"    border-radius: 6px;\n"
+"    font-size: 14px;\n"
+"    color: #1a202c;\n"
+"    min-height: 120px;\n"
+"    max-height: 150px;\n"
+"}\n"
+"QListWidget::item {\n"
+"    padding: 10px 12px;\n"
+"    border-bottom: 1px solid #e2e8f0;\n"
+"}\n"
+"QListWidget::item:selected {\n"
+"    background-color: #e53e3e;\n"
+"    color: white;\n"
+"    border-radius: 4px;\n"
+"    font-weight: bold;\n"
+"}\n"
+"QListWidget::item:hover:!selected {\n"
+"    background-color: #fed7d7;\n"
+"    border-radius: 4px;\n"
+"}")
+        self.remove_column_listwidget.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.ExtendedSelection)
+        self.remove_column_listwidget.setObjectName("remove_column_listwidget")
+        self.verticalLayout_26.addWidget(self.remove_column_listwidget)
+        self.remove_column_scroll.setWidget(self.scrollAreaWidgetContents_13)
+        self.verticalLayout_remove_column.addWidget(self.remove_column_scroll)
+        self.remove_column_button = QtWidgets.QPushButton(parent=self.remove_column_frame)
+        self.remove_column_button.setStyleSheet("QPushButton {\n"
+"    background-color: #e53e3e;\n"
+"    color: white;\n"
+"    border: none;\n"
+"    padding: 10px 20px;\n"
+"    border-radius: 6px;\n"
+"    font-weight: bold;\n"
+"    font-size: 14px;\n"
+"    margin-top: 10px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #c53030;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #9b2c2c;\n"
+"}\n"
+"QPushButton:disabled {\n"
+"    background: #a0aec0;\n"
+"    color: #e2e8f0;\n"
+"}")
+        self.remove_column_button.setObjectName("remove_column_button")
+        self.verticalLayout_remove_column.addWidget(self.remove_column_button)
+        self.verticalLayout_column_ops_selection.addWidget(self.remove_column_frame)
+        self.group_agg_frame = QtWidgets.QFrame(parent=self.column_ops_selection_frame)
+        self.group_agg_frame.setStyleSheet("QFrame {\n"
+"    background-color: #f7fafc;\n"
+"    border: 2px solid #3182ce;\n"
+"    border-radius: 8px;\n"
+"    padding: 15px;\n"
+"    margin: 10px;\n"
+"}")
+        self.group_agg_frame.setObjectName("group_agg_frame")
+        self.verticalLayout_group_agg = QtWidgets.QVBoxLayout(self.group_agg_frame)
+        self.verticalLayout_group_agg.setObjectName("verticalLayout_group_agg")
+        self.group_agg_label = QtWidgets.QLabel(parent=self.group_agg_frame)
+        self.group_agg_label.setStyleSheet("color: #1e3a5f;\n"
+"font-size: 18px;\n"
+"font-weight: bold;\n"
+"text-align: center;\n"
+"margin-bottom: 15px;")
+        self.group_agg_label.setObjectName("group_agg_label")
+        self.verticalLayout_group_agg.addWidget(self.group_agg_label)
+        self.new_agg_column_name_frame = QtWidgets.QFrame(parent=self.group_agg_frame)
+        self.new_agg_column_name_frame.setStyleSheet("QFrame {\n"
+"    background-color: #edf2f7;\n"
+"    border: 1px solid #cbd5e0;\n"
+"    border-radius: 6px;\n"
+"    padding: 10px;\n"
+"    margin-bottom: 10px;\n"
+"}")
+        self.new_agg_column_name_frame.setObjectName("new_agg_column_name_frame")
+        self.horizontalLayout_new_agg_column_name = QtWidgets.QHBoxLayout(self.new_agg_column_name_frame)
+        self.horizontalLayout_new_agg_column_name.setObjectName("horizontalLayout_new_agg_column_name")
+        self.new_agg_column_name_label = QtWidgets.QLabel(parent=self.new_agg_column_name_frame)
+        self.new_agg_column_name_label.setStyleSheet("color: #2c5282;\n"
+"font-size: 14px;\n"
+"font-weight: bold;\n"
+"min-width: 180px;")
+        self.new_agg_column_name_label.setObjectName("new_agg_column_name_label")
+        self.horizontalLayout_new_agg_column_name.addWidget(self.new_agg_column_name_label)
+        self.new_agg_column_name_edit = QtWidgets.QLineEdit(parent=self.new_agg_column_name_frame)
+        self.new_agg_column_name_edit.setStyleSheet("QLineEdit {\n"
+"    background-color: white;\n"
+"    border: 2px solid #cbd5e0;\n"
+"    border-radius: 4px;\n"
+"    padding: 8px;\n"
+"    font-size: 14px;\n"
+"    min-width: 200px;\n"
+"}\n"
+"QLineEdit:focus {\n"
+"    border-color: #3182ce;\n"
+"}")
+        self.new_agg_column_name_edit.setObjectName("new_agg_column_name_edit")
+        self.horizontalLayout_new_agg_column_name.addWidget(self.new_agg_column_name_edit)
+        self.verticalLayout_group_agg.addWidget(self.new_agg_column_name_frame)
+        self.group_columns_frame = QtWidgets.QFrame(parent=self.group_agg_frame)
+        self.group_columns_frame.setMinimumSize(QtCore.QSize(0, 400))
+        self.group_columns_frame.setStyleSheet("QFrame {\n"
+"    background-color: #edf2f7;\n"
+"    border: 1px solid #cbd5e0;\n"
+"    border-radius: 6px;\n"
+"    padding: 10px;\n"
+"    margin-bottom: 10px;\n"
+"}")
+        self.group_columns_frame.setObjectName("group_columns_frame")
+        self.verticalLayout_group_columns = QtWidgets.QVBoxLayout(self.group_columns_frame)
+        self.verticalLayout_group_columns.setObjectName("verticalLayout_group_columns")
+        self.group_columns_label = QtWidgets.QLabel(parent=self.group_columns_frame)
+        self.group_columns_label.setStyleSheet("color: #2c5282;\n"
+"font-size: 14px;\n"
+"font-weight: bold;\n"
+"margin-bottom: 8px;")
+        self.group_columns_label.setObjectName("group_columns_label")
+        self.verticalLayout_group_columns.addWidget(self.group_columns_label)
+        self.group_columns_scroll = QtWidgets.QScrollArea(parent=self.group_columns_frame)
+        self.group_columns_scroll.setWidgetResizable(True)
+        self.group_columns_scroll.setObjectName("group_columns_scroll")
+        self.scrollAreaWidgetContents_14 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_14.setGeometry(QtCore.QRect(0, 0, 836, 322))
+        self.scrollAreaWidgetContents_14.setObjectName("scrollAreaWidgetContents_14")
+        self.verticalLayout_27 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_14)
+        self.verticalLayout_27.setObjectName("verticalLayout_27")
+        self.group_columns_listwidget = QtWidgets.QListWidget(parent=self.scrollAreaWidgetContents_14)
+        self.group_columns_listwidget.setMinimumSize(QtCore.QSize(0, 300))
+        self.group_columns_listwidget.setStyleSheet("QListWidget {\n"
+"    background-color: white;\n"
+"    border: 1px solid #cbd5e0;\n"
+"    border-radius: 4px;\n"
+"    font-size: 13px;\n"
+"    max-height: 90px;\n"
+"}\n"
+"QListWidget::item {\n"
+"    padding: 6px 8px;\n"
+"    border-bottom: 1px solid #e2e8f0;\n"
+"}\n"
+"QListWidget::item:selected {\n"
+"    background-color: #3182ce;\n"
+"    color: white;\n"
+"    border-radius: 3px;\n"
+"}\n"
+"QListWidget::item:hover:!selected {\n"
+"    background-color: #e2e8f0;\n"
+"    border-radius: 3px;\n"
+"}")
+        self.group_columns_listwidget.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.ExtendedSelection)
+        self.group_columns_listwidget.setObjectName("group_columns_listwidget")
+        self.verticalLayout_27.addWidget(self.group_columns_listwidget)
+        self.group_columns_scroll.setWidget(self.scrollAreaWidgetContents_14)
+        self.verticalLayout_group_columns.addWidget(self.group_columns_scroll)
+        self.verticalLayout_group_agg.addWidget(self.group_columns_frame)
+        self.agg_column_frame = QtWidgets.QFrame(parent=self.group_agg_frame)
+        self.agg_column_frame.setMinimumSize(QtCore.QSize(0, 400))
+        self.agg_column_frame.setStyleSheet("QFrame {\n"
+"    background-color: #edf2f7;\n"
+"    border: 1px solid #cbd5e0;\n"
+"    border-radius: 6px;\n"
+"    padding: 10px;\n"
+"    margin-bottom: 10px;\n"
+"}")
+        self.agg_column_frame.setObjectName("agg_column_frame")
+        self.verticalLayout_agg_column = QtWidgets.QVBoxLayout(self.agg_column_frame)
+        self.verticalLayout_agg_column.setObjectName("verticalLayout_agg_column")
+        self.agg_column_label = QtWidgets.QLabel(parent=self.agg_column_frame)
+        self.agg_column_label.setStyleSheet("color: #2c5282;\n"
+"font-size: 14px;\n"
+"font-weight: bold;\n"
+"margin-bottom: 8px;")
+        self.agg_column_label.setObjectName("agg_column_label")
+        self.verticalLayout_agg_column.addWidget(self.agg_column_label)
+        self.agg_column_scroll = QtWidgets.QScrollArea(parent=self.agg_column_frame)
+        self.agg_column_scroll.setWidgetResizable(True)
+        self.agg_column_scroll.setObjectName("agg_column_scroll")
+        self.scrollAreaWidgetContents_15 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_15.setGeometry(QtCore.QRect(0, 0, 836, 322))
+        self.scrollAreaWidgetContents_15.setObjectName("scrollAreaWidgetContents_15")
+        self.verticalLayout_28 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_15)
+        self.verticalLayout_28.setObjectName("verticalLayout_28")
+        self.agg_column_listwidget = QtWidgets.QListWidget(parent=self.scrollAreaWidgetContents_15)
+        self.agg_column_listwidget.setMinimumSize(QtCore.QSize(0, 300))
+        self.agg_column_listwidget.setStyleSheet("QListWidget {\n"
+"    background-color: white;\n"
+"    border: 1px solid #cbd5e0;\n"
+"    border-radius: 4px;\n"
+"    font-size: 13px;\n"
+"    max-height: 90px;\n"
+"}\n"
+"QListWidget::item {\n"
+"    padding: 6px 8px;\n"
+"    border-bottom: 1px solid #e2e8f0;\n"
+"}\n"
+"QListWidget::item:selected {\n"
+"    background-color: #48bb78;\n"
+"    color: white;\n"
+"    border-radius: 3px;\n"
+"}\n"
+"QListWidget::item:hover:!selected {\n"
+"    background-color: #e2e8f0;\n"
+"    border-radius: 3px;\n"
+"}")
+        self.agg_column_listwidget.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.SingleSelection)
+        self.agg_column_listwidget.setObjectName("agg_column_listwidget")
+        self.verticalLayout_28.addWidget(self.agg_column_listwidget)
+        self.agg_column_scroll.setWidget(self.scrollAreaWidgetContents_15)
+        self.verticalLayout_agg_column.addWidget(self.agg_column_scroll)
+        self.verticalLayout_group_agg.addWidget(self.agg_column_frame)
+        self.agg_operation_frame = QtWidgets.QFrame(parent=self.group_agg_frame)
+        self.agg_operation_frame.setStyleSheet("QFrame {\n"
+"    background-color: #edf2f7;\n"
+"    border: 1px solid #cbd5e0;\n"
+"    border-radius: 6px;\n"
+"    padding: 10px;\n"
+"    margin-bottom: 10px;\n"
+"}")
+        self.agg_operation_frame.setObjectName("agg_operation_frame")
+        self.verticalLayout_agg_operation = QtWidgets.QVBoxLayout(self.agg_operation_frame)
+        self.verticalLayout_agg_operation.setObjectName("verticalLayout_agg_operation")
+        self.agg_operation_label = QtWidgets.QLabel(parent=self.agg_operation_frame)
+        self.agg_operation_label.setStyleSheet("color: #2c5282;\n"
+"font-size: 14px;\n"
+"font-weight: bold;\n"
+"margin-bottom: 8px;")
+        self.agg_operation_label.setObjectName("agg_operation_label")
+        self.verticalLayout_agg_operation.addWidget(self.agg_operation_label)
+        self.gridLayout_agg_operations = QtWidgets.QGridLayout()
+        self.gridLayout_agg_operations.setObjectName("gridLayout_agg_operations")
+        self.agg_sum_radio = QtWidgets.QRadioButton(parent=self.agg_operation_frame)
+        self.agg_sum_radio.setStyleSheet("QRadioButton {\n"
+"    font-size: 13px;\n"
+"    color: #2d3748;\n"
+"}\n"
+"QRadioButton::indicator {\n"
+"    width: 16px;\n"
+"    height: 16px;\n"
+"}\n"
+"QRadioButton::indicator:checked {\n"
+"    background-color: #48bb78;\n"
+"    border: 2px solid #48bb78;\n"
+"}")
+        self.agg_sum_radio.setChecked(True)
+        self.agg_sum_radio.setObjectName("agg_sum_radio")
+        self.gridLayout_agg_operations.addWidget(self.agg_sum_radio, 0, 0, 1, 1)
+        self.agg_mean_radio = QtWidgets.QRadioButton(parent=self.agg_operation_frame)
+        self.agg_mean_radio.setStyleSheet("QRadioButton {\n"
+"    font-size: 13px;\n"
+"    color: #2d3748;\n"
+"}")
+        self.agg_mean_radio.setObjectName("agg_mean_radio")
+        self.gridLayout_agg_operations.addWidget(self.agg_mean_radio, 0, 1, 1, 1)
+        self.agg_median_radio = QtWidgets.QRadioButton(parent=self.agg_operation_frame)
+        self.agg_median_radio.setStyleSheet("QRadioButton {\n"
+"    font-size: 13px;\n"
+"    color: #2d3748;\n"
+"}")
+        self.agg_median_radio.setObjectName("agg_median_radio")
+        self.gridLayout_agg_operations.addWidget(self.agg_median_radio, 0, 2, 1, 1)
+        self.agg_count_radio = QtWidgets.QRadioButton(parent=self.agg_operation_frame)
+        self.agg_count_radio.setStyleSheet("QRadioButton {\n"
+"    font-size: 13px;\n"
+"    color: #2d3748;\n"
+"}")
+        self.agg_count_radio.setObjectName("agg_count_radio")
+        self.gridLayout_agg_operations.addWidget(self.agg_count_radio, 1, 0, 1, 1)
+        self.agg_min_radio = QtWidgets.QRadioButton(parent=self.agg_operation_frame)
+        self.agg_min_radio.setStyleSheet("QRadioButton {\n"
+"    font-size: 13px;\n"
+"    color: #2d3748;\n"
+"}")
+        self.agg_min_radio.setObjectName("agg_min_radio")
+        self.gridLayout_agg_operations.addWidget(self.agg_min_radio, 1, 1, 1, 1)
+        self.agg_max_radio = QtWidgets.QRadioButton(parent=self.agg_operation_frame)
+        self.agg_max_radio.setStyleSheet("QRadioButton {\n"
+"    font-size: 13px;\n"
+"    color: #2d3748;\n"
+"}")
+        self.agg_max_radio.setObjectName("agg_max_radio")
+        self.gridLayout_agg_operations.addWidget(self.agg_max_radio, 1, 2, 1, 1)
+        self.agg_value_counts_radio = QtWidgets.QRadioButton(parent=self.agg_operation_frame)
+        self.agg_value_counts_radio.setStyleSheet("QRadioButton {\n"
+"    font-size: 13px;\n"
+"    color: #9C27B0;\n"
+"    font-weight: bold;\n"
+"}\n"
+"QRadioButton::indicator:checked {\n"
+"    background-color: #9C27B0;\n"
+"    border: 2px solid #9C27B0;\n"
+"}")
+        self.agg_value_counts_radio.setObjectName("agg_value_counts_radio")
+        self.gridLayout_agg_operations.addWidget(self.agg_value_counts_radio, 2, 0, 1, 3)
+        self.verticalLayout_agg_operation.addLayout(self.gridLayout_agg_operations)
+        self.verticalLayout_group_agg.addWidget(self.agg_operation_frame)
+        self.agg_preview_frame = QtWidgets.QFrame(parent=self.group_agg_frame)
+        self.agg_preview_frame.setMinimumSize(QtCore.QSize(0, 400))
+        self.agg_preview_frame.setStyleSheet("QFrame {\n"
+"    background-color: #edf2f7;\n"
+"    border: 1px solid #cbd5e0;\n"
+"    border-radius: 6px;\n"
+"    padding: 10px;\n"
+"    margin-bottom: 10px;\n"
+"}")
+        self.agg_preview_frame.setObjectName("agg_preview_frame")
+        self.verticalLayout_agg_preview = QtWidgets.QVBoxLayout(self.agg_preview_frame)
+        self.verticalLayout_agg_preview.setObjectName("verticalLayout_agg_preview")
+        self.agg_preview_label = QtWidgets.QLabel(parent=self.agg_preview_frame)
+        self.agg_preview_label.setStyleSheet("color: #1e3a5f;\n"
+"font-size: 14px;\n"
+"font-weight: bold;\n"
+"margin-bottom: 8px;")
+        self.agg_preview_label.setObjectName("agg_preview_label")
+        self.verticalLayout_agg_preview.addWidget(self.agg_preview_label)
+        self.agg_preview_scroll = QtWidgets.QScrollArea(parent=self.agg_preview_frame)
+        self.agg_preview_scroll.setMinimumSize(QtCore.QSize(0, 300))
+        self.agg_preview_scroll.setWidgetResizable(True)
+        self.agg_preview_scroll.setObjectName("agg_preview_scroll")
+        self.scrollAreaWidgetContents_16 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_16.setGeometry(QtCore.QRect(0, 0, 857, 258))
+        self.scrollAreaWidgetContents_16.setObjectName("scrollAreaWidgetContents_16")
+        self.verticalLayout_29 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_16)
+        self.verticalLayout_29.setObjectName("verticalLayout_29")
+        self.agg_preview_table = QtWidgets.QTableWidget(parent=self.scrollAreaWidgetContents_16)
+        self.agg_preview_table.setStyleSheet("QTableWidget {\n"
+"    background-color: white;\n"
+"    border: 1px solid #cbd5e0;\n"
+"    border-radius: 4px;\n"
+"    font-size: 11px;\n"
+"    min-height: 120px;\n"
+"    max-height: 140px;\n"
+"}\n"
+"QTableWidget::item {\n"
+"    padding: 4px;\n"
+"    border-bottom: 1px solid #e2e8f0;\n"
+"}\n"
+"QTableWidget::item:selected {\n"
+"    background-color: #3182ce;\n"
+"    color: white;\n"
+"}\n"
+"QHeaderView::section {\n"
+"    background-color: #3182ce;\n"
+"    color: white;\n"
+"    padding: 6px;\n"
+"    border: none;\n"
+"    font-weight: bold;\n"
+"    font-size: 10px;\n"
+"}")
+        self.agg_preview_table.setAlternatingRowColors(True)
+        self.agg_preview_table.setObjectName("agg_preview_table")
+        self.agg_preview_table.setColumnCount(0)
+        self.agg_preview_table.setRowCount(0)
+        self.verticalLayout_29.addWidget(self.agg_preview_table)
+        self.agg_preview_scroll.setWidget(self.scrollAreaWidgetContents_16)
+        self.verticalLayout_agg_preview.addWidget(self.agg_preview_scroll)
+        self.agg_preview_info_label = QtWidgets.QLabel(parent=self.agg_preview_frame)
+        self.agg_preview_info_label.setStyleSheet("color: #4a5568;\n"
+"font-size: 11px;\n"
+"padding: 3px;\n"
+"text-align: center;\n"
+"font-style: italic;")
+        self.agg_preview_info_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.agg_preview_info_label.setObjectName("agg_preview_info_label")
+        self.verticalLayout_agg_preview.addWidget(self.agg_preview_info_label)
+        self.verticalLayout_group_agg.addWidget(self.agg_preview_frame)
+        self.create_agg_column_button = QtWidgets.QPushButton(parent=self.group_agg_frame)
+        self.create_agg_column_button.setStyleSheet("QPushButton {\n"
+"    background-color: #3182ce;\n"
+"    color: white;\n"
+"    border: none;\n"
+"    padding: 10px 20px;\n"
+"    border-radius: 6px;\n"
+"    font-weight: bold;\n"
+"    font-size: 14px;\n"
+"    margin-top: 10px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #2c5282;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #1e3a5f;\n"
+"}\n"
+"QPushButton:disabled {\n"
+"    background: #a0aec0;\n"
+"    color: #e2e8f0;\n"
+"}")
+        self.create_agg_column_button.setObjectName("create_agg_column_button")
+        self.verticalLayout_group_agg.addWidget(self.create_agg_column_button)
+        self.verticalLayout_column_ops_selection.addWidget(self.group_agg_frame)
+        self.verticalLayout_column_ops_combined.addWidget(self.column_ops_selection_frame)
+        self.verticalLayout_column_ops_content.addWidget(self.column_ops_main_frame)
+        self.scrollArea_column_ops.setWidget(self.scrollAreaWidgetContents_column_ops)
+        self.verticalLayout_column_ops.addWidget(self.scrollArea_column_ops)
+        self.stackedWidget.addWidget(self.column_operations_page)
         self.verticalLayout.addWidget(self.stackedWidget)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -2540,7 +2996,7 @@ class Ui_Preprocessing(object):
         Preprocessing.setStatusBar(self.statusbar)
 
         self.retranslateUi(Preprocessing)
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(6)
         QtCore.QMetaObject.connectSlotsByName(Preprocessing)
 
     def retranslateUi(self, Preprocessing):
@@ -2680,6 +3136,25 @@ class Ui_Preprocessing(object):
         self.clear_column_btn.setText(_translate("Preprocessing", "Очистить столбец"))
         self.label_clear_all.setText(_translate("Preprocessing", "Очистить все пропуски:"))
         self.clear_all_btn.setText(_translate("Preprocessing", "Очистить все пропуски"))
+        self.column_ops_title_label.setText(_translate("Preprocessing", "<h1 style=\'color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;\'> 🔧 Управление столбцами </h1>"))
+        self.remove_column_label.setText(_translate("Preprocessing", "🗑️ Удаление столбцов"))
+        self.remove_column_button.setText(_translate("Preprocessing", "Удалить выбранные столбцы"))
+        self.group_agg_label.setText(_translate("Preprocessing", "📊 Создать столбец через группировку и агрегацию"))
+        self.new_agg_column_name_label.setText(_translate("Preprocessing", "Имя нового столбца:"))
+        self.new_agg_column_name_edit.setPlaceholderText(_translate("Preprocessing", "Например: total_sales, avg_price..."))
+        self.group_columns_label.setText(_translate("Preprocessing", "Столбцы для группировки (выберите один или несколько):"))
+        self.agg_column_label.setText(_translate("Preprocessing", "Столбец для агрегации (выберите один):"))
+        self.agg_operation_label.setText(_translate("Preprocessing", "Операция агрегации (выберите одну):"))
+        self.agg_sum_radio.setText(_translate("Preprocessing", "Сумма (Sum)"))
+        self.agg_mean_radio.setText(_translate("Preprocessing", "Среднее (Mean)"))
+        self.agg_median_radio.setText(_translate("Preprocessing", "Медиана (Median)"))
+        self.agg_count_radio.setText(_translate("Preprocessing", "Количество (Count)"))
+        self.agg_min_radio.setText(_translate("Preprocessing", "Минимум (Min)"))
+        self.agg_max_radio.setText(_translate("Preprocessing", "Максимум (Max)"))
+        self.agg_value_counts_radio.setText(_translate("Preprocessing", "Частота значений (Value Counts)"))
+        self.agg_preview_label.setText(_translate("Preprocessing", "📋 Предпросмотр результата группировки:"))
+        self.agg_preview_info_label.setText(_translate("Preprocessing", "Будет создан новый столбец с агрегированными данными"))
+        self.create_agg_column_button.setText(_translate("Preprocessing", "Создать новый столбец через агрегацию"))
         self.go_back.setText(_translate("Preprocessing", "Закрыть"))
         self.back_button.setText(_translate("Preprocessing", "Назад"))
         self.next_button.setText(_translate("Preprocessing", "Продолжить"))

@@ -23,12 +23,12 @@ class Ui_Visualization(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
         self.scrollArea = QtWidgets.QScrollArea(parent=self.centralwidget)
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAsNeeded)
         self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        self.scrollArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 980, 700))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 955, 779))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
@@ -53,8 +53,6 @@ class Ui_Visualization(object):
 "    border-radius: 8px;\n"
 "    padding: 15px;\n"
 "}")
-        self.left_frame.setMinimumWidth(350)
-        self.left_frame.setMaximumWidth(450)
         self.left_frame.setObjectName("left_frame")
         self.verticalLayout_left = QtWidgets.QVBoxLayout(self.left_frame)
         self.verticalLayout_left.setObjectName("verticalLayout_left")
@@ -357,6 +355,7 @@ class Ui_Visualization(object):
         self.scrollArea_line.setWidgetResizable(True)
         self.scrollArea_line.setObjectName("scrollArea_line")
         self.scrollAreaWidgetContents_line = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_line.setGeometry(QtCore.QRect(0, 0, 890, 1250))
         self.scrollAreaWidgetContents_line.setObjectName("scrollAreaWidgetContents_line")
         self.verticalLayout_line_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_line)
         self.verticalLayout_line_scroll.setObjectName("verticalLayout_line_scroll")
@@ -398,7 +397,6 @@ class Ui_Visualization(object):
         self.label_line_y.setObjectName("label_line_y")
         self.verticalLayout_line_data.addWidget(self.label_line_y)
         self.line_y_list = QtWidgets.QListWidget(parent=self.line_data_frame)
-        self.line_y_list.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.MultiSelection)
         self.line_y_list.setStyleSheet("QListWidget {\n"
 "    background-color: white;\n"
 "    border: 2px solid #cbd5e0;\n"
@@ -417,6 +415,7 @@ class Ui_Visualization(object):
 "    color: white;\n"
 "    border-radius: 4px;\n"
 "}")
+        self.line_y_list.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.MultiSelection)
         self.line_y_list.setObjectName("line_y_list")
         self.verticalLayout_line_data.addWidget(self.line_y_list)
         self.verticalLayout_line_scroll.addWidget(self.line_data_frame)
@@ -680,6 +679,7 @@ class Ui_Visualization(object):
         self.scrollArea_bar.setWidgetResizable(True)
         self.scrollArea_bar.setObjectName("scrollArea_bar")
         self.scrollAreaWidgetContents_bar = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_bar.setGeometry(QtCore.QRect(0, 0, 890, 793))
         self.scrollAreaWidgetContents_bar.setObjectName("scrollAreaWidgetContents_bar")
         self.verticalLayout_bar_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_bar)
         self.verticalLayout_bar_scroll.setObjectName("verticalLayout_bar_scroll")
@@ -922,6 +922,7 @@ class Ui_Visualization(object):
         self.scrollArea_pie.setWidgetResizable(True)
         self.scrollArea_pie.setObjectName("scrollArea_pie")
         self.scrollAreaWidgetContents_pie = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_pie.setGeometry(QtCore.QRect(0, 0, 890, 725))
         self.scrollAreaWidgetContents_pie.setObjectName("scrollAreaWidgetContents_pie")
         self.verticalLayout_pie_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_pie)
         self.verticalLayout_pie_scroll.setObjectName("verticalLayout_pie_scroll")
@@ -1138,6 +1139,7 @@ class Ui_Visualization(object):
         self.scrollArea_hist.setWidgetResizable(True)
         self.scrollArea_hist.setObjectName("scrollArea_hist")
         self.scrollAreaWidgetContents_hist = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_hist.setGeometry(QtCore.QRect(0, 0, 890, 669))
         self.scrollAreaWidgetContents_hist.setObjectName("scrollAreaWidgetContents_hist")
         self.verticalLayout_hist_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_hist)
         self.verticalLayout_hist_scroll.setObjectName("verticalLayout_hist_scroll")
@@ -1351,6 +1353,7 @@ class Ui_Visualization(object):
         self.scrollArea_scatter.setWidgetResizable(True)
         self.scrollArea_scatter.setObjectName("scrollArea_scatter")
         self.scrollAreaWidgetContents_scatter = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_scatter.setGeometry(QtCore.QRect(0, 0, 890, 849))
         self.scrollAreaWidgetContents_scatter.setObjectName("scrollAreaWidgetContents_scatter")
         self.verticalLayout_scatter_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_scatter)
         self.verticalLayout_scatter_scroll.setObjectName("verticalLayout_scatter_scroll")
@@ -1588,6 +1591,7 @@ class Ui_Visualization(object):
         self.scrollArea_box.setWidgetResizable(True)
         self.scrollArea_box.setObjectName("scrollArea_box")
         self.scrollAreaWidgetContents_box = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_box.setGeometry(QtCore.QRect(0, 0, 890, 793))
         self.scrollAreaWidgetContents_box.setObjectName("scrollAreaWidgetContents_box")
         self.verticalLayout_box_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_box)
         self.verticalLayout_box_scroll.setObjectName("verticalLayout_box_scroll")
@@ -1823,6 +1827,7 @@ class Ui_Visualization(object):
         self.scrollArea_layout.setWidgetResizable(True)
         self.scrollArea_layout.setObjectName("scrollArea_layout")
         self.scrollAreaWidgetContents_layout = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_layout.setGeometry(QtCore.QRect(0, -120, 890, 866))
         self.scrollAreaWidgetContents_layout.setObjectName("scrollAreaWidgetContents_layout")
         self.verticalLayout_layout_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_layout)
         self.verticalLayout_layout_scroll.setObjectName("verticalLayout_layout_scroll")
@@ -1847,6 +1852,14 @@ class Ui_Visualization(object):
         self.verticalLayout_layout_options.addWidget(self.label_layout_choice)
         self.gridLayout_radio = QtWidgets.QGridLayout()
         self.gridLayout_radio.setObjectName("gridLayout_radio")
+        self.radio_3x3 = QtWidgets.QRadioButton(parent=self.layout_options_frame)
+        self.radio_3x3.setStyleSheet("QRadioButton {\n"
+"    font-size: 14px;\n"
+"    color: #2d3748;\n"
+"    padding: 10px;\n"
+"}")
+        self.radio_3x3.setObjectName("radio_3x3")
+        self.gridLayout_radio.addWidget(self.radio_3x3, 0, 2, 1, 1)
         self.radio_1x1 = QtWidgets.QRadioButton(parent=self.layout_options_frame)
         self.radio_1x1.setStyleSheet("QRadioButton {\n"
 "    font-size: 14px;\n"
@@ -1872,30 +1885,6 @@ class Ui_Visualization(object):
 "}")
         self.radio_2x2.setObjectName("radio_2x2")
         self.gridLayout_radio.addWidget(self.radio_2x2, 0, 1, 1, 1)
-        self.radio_3x3 = QtWidgets.QRadioButton(parent=self.layout_options_frame)
-        self.radio_3x3.setStyleSheet("QRadioButton {\n"
-"    font-size: 14px;\n"
-"    color: #2d3748;\n"
-"    padding: 10px;\n"
-"}")
-        self.radio_3x3.setObjectName("radio_3x3")
-        self.gridLayout_radio.addWidget(self.radio_3x3, 0, 2, 1, 1)
-        self.radio_2x3 = QtWidgets.QRadioButton(parent=self.layout_options_frame)
-        self.radio_2x3.setStyleSheet("QRadioButton {\n"
-"    font-size: 14px;\n"
-"    color: #2d3748;\n"
-"    padding: 10px;\n"
-"}")
-        self.radio_2x3.setObjectName("radio_2x3")
-        self.gridLayout_radio.addWidget(self.radio_2x3, 1, 0, 1, 1)
-        self.radio_3x2 = QtWidgets.QRadioButton(parent=self.layout_options_frame)
-        self.radio_3x2.setStyleSheet("QRadioButton {\n"
-"    font-size: 14px;\n"
-"    color: #2d3748;\n"
-"    padding: 10px;\n"
-"}")
-        self.radio_3x2.setObjectName("radio_3x2")
-        self.gridLayout_radio.addWidget(self.radio_3x2, 1, 1, 1, 1)
         self.radio_4x4 = QtWidgets.QRadioButton(parent=self.layout_options_frame)
         self.radio_4x4.setStyleSheet("QRadioButton {\n"
 "    font-size: 14px;\n"
@@ -1904,6 +1893,38 @@ class Ui_Visualization(object):
 "}")
         self.radio_4x4.setObjectName("radio_4x4")
         self.gridLayout_radio.addWidget(self.radio_4x4, 1, 2, 1, 1)
+        self.radio_3x2 = QtWidgets.QRadioButton(parent=self.layout_options_frame)
+        self.radio_3x2.setStyleSheet("QRadioButton {\n"
+"    font-size: 14px;\n"
+"    color: #2d3748;\n"
+"    padding: 10px;\n"
+"}")
+        self.radio_3x2.setObjectName("radio_3x2")
+        self.gridLayout_radio.addWidget(self.radio_3x2, 1, 1, 1, 1)
+        self.radio_2x3 = QtWidgets.QRadioButton(parent=self.layout_options_frame)
+        self.radio_2x3.setStyleSheet("QRadioButton {\n"
+"    font-size: 14px;\n"
+"    color: #2d3748;\n"
+"    padding: 10px;\n"
+"}")
+        self.radio_2x3.setObjectName("radio_2x3")
+        self.gridLayout_radio.addWidget(self.radio_2x3, 1, 0, 1, 1)
+        self.radio_self = QtWidgets.QRadioButton(parent=self.layout_options_frame)
+        self.radio_self.setStyleSheet("QRadioButton {\n"
+"    font-size: 14px;\n"
+"    color: #2d3748;\n"
+"    padding: 10px;\n"
+"}\n"
+"QRadioButton::indicator {\n"
+"    width: 18px;\n"
+"    height: 18px;\n"
+"}\n"
+"QRadioButton::indicator:checked {\n"
+"    background-color: #3182ce;\n"
+"    border: 2px solid #3182ce;\n"
+"}")
+        self.radio_self.setObjectName("radio_self")
+        self.gridLayout_radio.addWidget(self.radio_self, 2, 0, 1, 1)
         self.verticalLayout_layout_options.addLayout(self.gridLayout_radio)
         self.custom_layout_frame = QtWidgets.QFrame(parent=self.layout_options_frame)
         self.custom_layout_frame.setStyleSheet("QFrame {\n"
@@ -2084,6 +2105,7 @@ class Ui_Visualization(object):
         self.scrollArea_display.setWidgetResizable(True)
         self.scrollArea_display.setObjectName("scrollArea_display")
         self.scrollAreaWidgetContents_display = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_display.setGeometry(QtCore.QRect(0, -4, 1022, 1651))
         self.scrollAreaWidgetContents_display.setObjectName("scrollAreaWidgetContents_display")
         self.verticalLayout_display_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_display)
         self.verticalLayout_display_scroll.setObjectName("verticalLayout_display_scroll")
@@ -2100,6 +2122,7 @@ class Ui_Visualization(object):
         self.current_layout_label.setObjectName("current_layout_label")
         self.verticalLayout_display_scroll.addWidget(self.current_layout_label)
         self.charts_container_frame = QtWidgets.QFrame(parent=self.scrollAreaWidgetContents_display)
+        self.charts_container_frame.setMinimumSize(QtCore.QSize(1000, 1500))
         self.charts_container_frame.setStyleSheet("QFrame {\n"
 "    background-color: white;\n"
 "    border: 2px dashed #cbd5e0;\n"
@@ -2249,7 +2272,7 @@ class Ui_Visualization(object):
         Visualization.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(Visualization)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(8)
         QtCore.QMetaObject.connectSlotsByName(Visualization)
 
     def retranslateUi(self, Visualization):
@@ -2426,12 +2449,13 @@ class Ui_Visualization(object):
         self.btn_box_save.setText(_translate("Visualization", "Сохранить график"))
         self.label_layout_title.setText(_translate("Visualization", "<h2 style=\'color: #1e3a5f; margin: 10px; text-align: center;\'>🎨 Компоновка графиков</h2>"))
         self.label_layout_choice.setText(_translate("Visualization", "Выберите компоновку графиков (subplots):"))
+        self.radio_3x3.setText(_translate("Visualization", "3 × 3 (9 графиков)"))
         self.radio_1x1.setText(_translate("Visualization", "1 × 1 (Один график)"))
         self.radio_2x2.setText(_translate("Visualization", "2 × 2 (4 графика)"))
-        self.radio_3x3.setText(_translate("Visualization", "3 × 3 (9 графиков)"))
-        self.radio_2x3.setText(_translate("Visualization", "2 × 3 (6 графиков)"))
-        self.radio_3x2.setText(_translate("Visualization", "3 × 2 (6 графиков)"))
         self.radio_4x4.setText(_translate("Visualization", "4 × 4 (16 графиков)"))
+        self.radio_3x2.setText(_translate("Visualization", "3 × 2 (6 графиков)"))
+        self.radio_2x3.setText(_translate("Visualization", "2 × 3 (6 графиков)"))
+        self.radio_self.setText(_translate("Visualization", "Своя компоновка"))
         self.label_custom_rows.setText(_translate("Visualization", "Строки:"))
         self.label_custom_cols.setText(_translate("Visualization", "Колонки:"))
         self.label_figsize_layout.setText(_translate("Visualization", "Размер общей фигуры (дюймы):"))
