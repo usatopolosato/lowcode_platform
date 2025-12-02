@@ -71,7 +71,7 @@ class ChartConfig:
         self.styling = styling
         self.fig_settings = fig_settings or {
             'figsize_width': 10,
-            'figsize_height': 6,
+            'figsize_height': 8,
             'dpi': 100
         }
         self.created_at = created_at or datetime.now().isoformat()
@@ -99,7 +99,7 @@ class ChartConfig:
             styling=data.get('styling', {}),
             fig_settings=data.get('fig_settings', {
                 'figsize_width': 10,
-                'figsize_height': 6,
+                'figsize_height': 8,
                 'dpi': 100
             }),
             created_at=data.get('created_at', datetime.now().isoformat())
@@ -161,12 +161,13 @@ class SingleChartCanvas(QWidget):
         self.layout.setSpacing(0)
 
         # Создаем канвас для matplotlib
-        self.figure = Figure(figsize=(10, 6), dpi=100)
+        self.figure = Figure(figsize=(12, 6), dpi=100)
         self.canvas = FigureCanvas(self.figure)
 
         # Настраиваем политику размеров для растягивания
         self.canvas.setSizePolicy(QSizePolicy.Policy.Expanding,
                                   QSizePolicy.Policy.Expanding)
+        self.canvas.setMinimumWidth(800)
 
         # Создаем панель инструментов для навигации
         self.toolbar = NavigationToolbar(self.canvas, self)
@@ -234,7 +235,7 @@ class ScrollableChartWidget(QScrollArea):
         self.container_layout.addWidget(self.chart_canvas)
 
         # Устанавливаем минимальные размеры для скролла
-        self.setMinimumSize(600, 400)
+        self.setMinimumSize(800, 400)
 
     def update_chart(self, figure):
         """Обновляет график в ScrollArea"""
@@ -282,22 +283,22 @@ class UnifiedChartRenderer:
         if total_charts == 1:
             # Для одного графика - больше размер
             fig_width = 10
-            fig_height = 6
+            fig_height = 8
             dpi = 100
         elif total_charts <= 4:
             # Для 2-4 графиков
-            fig_width = cols * 5
-            fig_height = rows * 4
+            fig_width = cols * 10
+            fig_height = rows * 8
             dpi = 100
         elif total_charts <= 9:
             # Для 5-9 графиков
-            fig_width = cols * 4.5
-            fig_height = rows * 3.5
+            fig_width = cols * 10
+            fig_height = rows * 8
             dpi = 90
         else:
             # Для многих графиков
-            fig_width = cols * 4
-            fig_height = rows * 3
+            fig_width = cols * 10
+            fig_height = rows * 8
             dpi = 80
 
         fig = Figure(figsize=(fig_width, fig_height), dpi=dpi)
@@ -337,13 +338,7 @@ class UnifiedChartRenderer:
         elif total_charts <= 9:
             fig.tight_layout(pad=2.0, h_pad=2.5, w_pad=2.0)
         else:
-            fig.tight_layout(pad=1.5, h_pad=2.0, w_pad=1.5)
-
-        # Добавляем общий заголовок если есть графики
-        if charts_to_render:
-            title_fontsize = 12 if total_charts <= 4 else 10
-            fig.suptitle(f'Отображено графиков: {len(charts_to_render)} из {len(charts)}',
-                         fontsize=title_fontsize, y=0.98)
+            fig.tight_layout()
 
         return fig
 
