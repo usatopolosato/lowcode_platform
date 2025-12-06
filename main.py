@@ -29,4 +29,5 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
+    app.setQuitOnLastWindowClosed(False)
     sys.exit(app.exec())

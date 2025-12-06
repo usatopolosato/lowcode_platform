@@ -164,6 +164,7 @@ class MainWindow(QMainWindow):
         self.preprocessing_window = None
         self.visualization_window = None
         self.modeling_window = None
+        self._processing_matplotlib_close = False
 
         # Создаем экземпляр UI класса
         self.ui = Ui_Platform()
@@ -408,6 +409,8 @@ class MainWindow(QMainWindow):
             QMessageBox.critical(self, "Ошибка", f"Файл {self.current_filename} не найден!")
             return
 
+        print(f"Открываем визуализацию для {self.current_filename}")
+
         # Скрываем главное окно
         self.hide()
 
@@ -423,15 +426,26 @@ class MainWindow(QMainWindow):
         # Отображаем окно визуализации
         self.visualization_window.show()
 
-        print(f"Открыто окно визуализации для файла: {self.current_filename}")
+        print(f"Окно визуализации показано")
 
     def on_visualization_closed(self):
         """Обработчик закрытия окна визуализации"""
-        print("Окно визуализации закрыто")
-        self.visualization_window = None
+        print("Сигнал on_visualization_closed получен")
+
+        # Удаляем ссылку на окно
+        if self.visualization_window:
+            print(f"Удаляем ссылку на окно визуализации")
+            self.visualization_window = None
+
+        # Показываем главное окно
+        print("Показываем главное окно")
         self.show()
-        self.activateWindow()
         self.raise_()
+        self.activateWindow()
+
+        # Обновляем список файлов
+        self.update_file_list()
+        print("Главное окно показано и активировано")
 
     def open_modeling(self):
         """Открытие окна моделирования"""
@@ -565,14 +579,29 @@ class MainWindow(QMainWindow):
 
     def closeEvent(self, event):
         """Обработчик закрытия главного окна"""
+        print(
+            f"closeEvent главного окна: _processing_matplotlib_close={self._processing_matplotlib_close}")
+
+        # Если это закрытие из-за matplotlib окон - игнорируем
+        if self._processing_matplotlib_close:
+            print("Игнорируем closeEvent главного окна (вызвано matplotlib)")
+            event.ignore()
+            return
+
+        # Нормальное закрытие главного окна
+        print("Нормальное закрытие главного окна")
+
         # Закрываем дочерние окна если они открыты
         if self.preprocessing_window and self.preprocessing_window.isVisible():
+            print("Закрываем окно препроцессинга")
             self.preprocessing_window.close()
 
         if self.visualization_window and self.visualization_window.isVisible():
+            print("Закрываем окно визуализации")
             self.visualization_window.close()
 
         if self.modeling_window and self.modeling_window.isVisible():
+            print("Закрываем окно моделирования")
             self.modeling_window.close()
 
         event.accept()

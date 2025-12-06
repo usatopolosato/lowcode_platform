@@ -784,6 +784,7 @@ class VisualizationWindow(QMainWindow):
         super().__init__(parent)
 
         self.filename = filename
+        self.parent_window = parent
         self.data = None
         self.charts = []
         self.current_chart_index = -1
@@ -791,6 +792,11 @@ class VisualizationWindow(QMainWindow):
         self.chart_manager = ChartManager()
         self.chart_renderer = None
         self.temp_dir = tempfile.mkdtemp(prefix="visualization_")
+
+        # Флаги для управления состоянием
+        self._closing_by_user = False  # Закрытие инициировано пользователем
+        self.charts_are_open = False   # Графики matplotlib открыты
+        self._ignore_close_events = False  # Игнорировать события закрытия
 
         # Маппинг типов графиков на страницы
         self.chart_type_to_page = {
@@ -828,7 +834,7 @@ class VisualizationWindow(QMainWindow):
         # Таймер для проверки закрытия графиков
         self.chart_check_timer = QTimer()
         self.chart_check_timer.timeout.connect(self.check_matplotlib_windows)
-        self.chart_check_timer.start(500)  # Проверка каждые 500 мс
+        self.chart_check_timer.start(500)
 
     def setup_connections(self):
         # Основные навигационные кнопки
@@ -897,6 +903,7 @@ class VisualizationWindow(QMainWindow):
         self.update_data_info()
 
     def load_data(self):
+        """Загрузка данных с определением сепаратора и правильных типов столбцов"""
         try:
             file_path = f"data/storage/{self.filename}"
             print(f"Попытка загрузить файл: {file_path}")
@@ -917,7 +924,16 @@ class VisualizationWindow(QMainWindow):
                 print(f"Созданы тестовые данные: {len(self.data)} строк")
             else:
                 if self.filename.endswith('.csv'):
-                    self.data = pd.read_csv(file_path)
+                    # Определяем сепаратор автоматически
+                    separator = self.detect_csv_separator(file_path)
+                    print(f"Определен сепаратор: '{separator}'")
+
+                    # Загружаем с автоматическим определением типов данных
+                    self.data = pd.read_csv(file_path, sep=separator)
+
+                    # Пробуем автоматически определить типы данных
+                    self.convert_data_types()
+
                 elif self.filename.endswith('.json'):
                     self.data = pd.read_json(file_path)
                 elif self.filename.endswith('.xlsx'):
@@ -927,6 +943,9 @@ class VisualizationWindow(QMainWindow):
                     return
 
             print(f"Данные загружены: {len(self.data)} строк, {len(self.data.columns)} колонок")
+            print(f"Типы данных столбцов:")
+            for col in self.data.columns:
+                print(f"  {col}: {self.data[col].dtype}")
 
         except Exception as e:
             print(f"Ошибка при загрузке данных: {e}")
@@ -939,6 +958,171 @@ class VisualizationWindow(QMainWindow):
                 'Товар': ['A', 'B', 'A', 'C', 'B'],
                 'Количество': [10, 15, 12, 8, 18]
             })
+            print("Использованы тестовые данные из-за ошибки")
+
+    def detect_csv_separator(self, file_path, sample_lines=10):
+        """Автоматическое определение разделителя в CSV файле"""
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                lines = []
+                for _ in range(sample_lines):
+                    line = f.readline()
+                    if not line:
+                        break
+                    lines.append(line)
+
+            if not lines:
+                return ','
+
+            # Подсчитываем количество различных разделителей
+            separators = [',', ';', '\t', '|']
+            separator_counts = {}
+
+            for sep in separators:
+                counts = []
+                for line in lines:
+                    # Игнорируем строки, которые выглядят как даты или содержат мало символов
+                    if len(line.strip()) > 10:
+                        count = line.count(sep)
+                        if count > 0:
+                            counts.append(count)
+
+                if counts:
+                    # Берем медианное значение для устойчивости к выбросам
+                    separator_counts[sep] = np.median(counts) if counts else 0
+
+            # Выбираем разделитель с максимальным количеством вхождений
+            if separator_counts:
+                best_separator = max(separator_counts, key=separator_counts.get)
+                if separator_counts[best_separator] > 0:
+                    return best_separator
+
+            # Если не нашли разделитель, пробуем определить по первой строке
+            first_line = lines[0].strip()
+            if '\t' in first_line and first_line.count('\t') > first_line.count(','):
+                return '\t'
+            elif ';' in first_line and first_line.count(';') > first_line.count(','):
+                return ';'
+            elif '|' in first_line:
+                return '|'
+
+            return ','
+
+        except Exception as e:
+            print(f"Ошибка при определении разделителя: {e}")
+            return ','
+
+    def convert_data_types(self):
+        """Автоматическое преобразование типов данных столбцов"""
+        if self.data is None or self.data.empty:
+            return
+
+        print("Преобразование типов данных столбцов...")
+
+        for column in self.data.columns:
+            try:
+                # Сохраняем исходные значения для отладки
+                original_type = self.data[column].dtype
+                original_sample = self.data[column].head(5).tolist() if len(self.data) > 0 else []
+
+                # Пробуем преобразовать к числовым типам
+                if not pd.api.types.is_numeric_dtype(self.data[column]):
+                    # Пробуем преобразовать к числам
+                    numeric_data = pd.to_numeric(self.data[column], errors='coerce')
+
+                    # Если удалось преобразовать хотя бы 70% значений
+                    non_null_count = numeric_data.notna().sum()
+                    total_count = len(numeric_data)
+
+                    if total_count > 0 and (non_null_count / total_count) > 0.7:
+                        self.data[column] = numeric_data
+                        new_type = self.data[column].dtype
+                        print(f"  {column}: {original_type} -> {new_type} "
+                              f"(успешно преобразовано: {non_null_count}/{total_count})")
+                    else:
+                        # Пробуем преобразовать к дате/времени
+                        try:
+                            date_data = pd.to_datetime(self.data[column], errors='coerce',
+                                                       dayfirst=True)
+                            non_null_dates = date_data.notna().sum()
+
+                            if total_count > 0 and (non_null_dates / total_count) > 0.7:
+                                self.data[column] = date_data
+                                new_type = self.data[column].dtype
+                                print(f"  {column}: {original_type} -> {new_type} "
+                                      f"(даты: {non_null_dates}/{total_count})")
+                            else:
+                                # Если не удалось преобразовать, оставляем как строки
+                                # Но пробуем убрать лишние пробелы
+                                if self.data[column].dtype == 'object':
+                                    self.data[column] = self.data[column].astype(str).str.strip()
+                                print(
+                                    f"  {column}: {original_type} -> остается как {self.data[column].dtype}")
+                        except:
+                            if self.data[column].dtype == 'object':
+                                self.data[column] = self.data[column].astype(str).str.strip()
+                            print(
+                                f"  {column}: {original_type} -> остается как {self.data[column].dtype}")
+                else:
+                    # Уже числовой тип, но проверяем на целочисленность
+                    if pd.api.types.is_float_dtype(self.data[column]):
+                        # Проверяем, можно ли преобразовать к целым числам
+                        if self.data[column].notna().all():
+                            int_data = self.data[column].astype(int)
+                            if (int_data == self.data[column]).all():
+                                self.data[column] = int_data
+                                print(
+                                    f"  {column}: {original_type} -> {self.data[column].dtype} (целые числа)")
+
+                    print(f"  {column}: уже числовой ({self.data[column].dtype})")
+
+            except Exception as e:
+                print(f"  Ошибка при преобразовании столбца {column}: {e}")
+                # В случае ошибки оставляем как есть
+                continue
+
+        print("Преобразование типов данных завершено")
+
+    def get_suitable_columns(self, chart_type, required_numeric=True):
+        """Возвращает подходящие столбцы для типа графика с учетом типов данных"""
+        if self.data is None or self.data.empty:
+            return []
+
+        columns = []
+        for column in self.data.columns:
+            try:
+                # Проверяем тип данных столбца
+                column_dtype = self.data[column].dtype
+                column_has_numeric = False
+
+                # Проверяем, содержит ли столбец числовые данные
+                if pd.api.types.is_numeric_dtype(column_dtype):
+                    column_has_numeric = True
+                elif column_dtype == 'object' or column_dtype == 'string':
+                    # Пробуем проверить, можно ли преобразовать к числам
+                    try:
+                        numeric_test = pd.to_numeric(self.data[column], errors='coerce')
+                        if numeric_test.notna().any():
+                            column_has_numeric = True
+                    except:
+                        pass
+
+                # Для разных типов графиков разные требования
+                if chart_type in ["Гистограмма (hist)", "Box Plot (boxplot)",
+                                  "График плотности (kde)", "Диаграмма рассеяния (scatter)"]:
+                    if column_has_numeric:
+                        columns.append(column)
+                elif chart_type in ["Круговая диаграмма (pie)", "Столбчатая диаграмма (bar)"]:
+                    # Для pie и bar можно использовать любые столбцы
+                    # Но для значений нужны числовые, для категорий - любые
+                    columns.append(column)
+                elif chart_type in ["Линейный график (plot)", "Площадной график (area)"]:
+                    columns.append(column)
+            except Exception as e:
+                print(f"Ошибка при проверке столбца {column}: {e}")
+                columns.append(column)
+
+        return columns
 
     def update_data_info(self):
         if self.data is not None and not self.data.empty:
@@ -947,27 +1131,6 @@ class VisualizationWindow(QMainWindow):
             if hasattr(self.ui, 'label_data_info'):
                 self.ui.label_data_info.setText(info_text)
             print(info_text)
-
-    def get_suitable_columns(self, chart_type, required_numeric=True):
-        """Возвращает подходящие столбцы для типа графика"""
-        if self.data is None or self.data.empty:
-            return []
-
-        columns = []
-        for column in self.data.columns:
-            try:
-                if chart_type in ["Гистограмма (hist)", "Box Plot (boxplot)",
-                                  "График плотности (kde)", "Диаграмма рассеяния (scatter)"]:
-                    if pd.api.types.is_numeric_dtype(self.data[column]):
-                        columns.append(column)
-                elif chart_type in ["Круговая диаграмма (pie)", "Столбчатая диаграмма (bar)"]:
-                    columns.append(column)
-                elif chart_type in ["Линейный график (plot)", "Площадной график (area)"]:
-                    columns.append(column)
-            except:
-                columns.append(column)
-
-        return columns
 
     def populate_column_comboboxes(self):
         if self.data is None or self.data.empty:
@@ -1520,8 +1683,9 @@ class VisualizationWindow(QMainWindow):
             # Закрываем предыдущие графики если есть
             self.chart_renderer.close_all_charts()
 
-            # Скрываем главное окно
+            # Скрываем главное окно визуализации
             self.hide()
+            self.charts_are_open = True  # Устанавливаем флаг, что графики открыты
 
             # Рендерим графики в отдельном окне matplotlib
             success = self.chart_renderer.render_all_charts(self.charts, self.layout_config)
@@ -1535,15 +1699,191 @@ class VisualizationWindow(QMainWindow):
                     f"Закройте окно дашборда чтобы вернуться к редактору."
                 )
             else:
+                # Если не удалось создать графики, показываем окно обратно
+                self.charts_are_open = False
                 self.show()
                 QMessageBox.warning(self, "Ошибка", "Не удалось создать графики!")
 
         except Exception as e:
+            self.charts_are_open = False
             self.show()
             QMessageBox.critical(self, "Ошибка", f"Ошибка при построении графиков: {str(e)}")
             print(f"Ошибка: {e}")
             import traceback
             traceback.print_exc()
+
+    def check_matplotlib_windows(self):
+        """Проверяет, есть ли открытые окна matplotlib"""
+        try:
+            # Если окно закрывается пользователем - не проверяем
+            if self._closing_by_user:
+                return
+
+            if not self.chart_renderer:
+                return
+
+            # Проверяем, есть ли открытые графики
+            has_open_charts = self.chart_renderer.check_open_charts()
+
+            print(
+                f"Проверка matplotlib окон: has_open_charts={has_open_charts}, charts_are_open={self.charts_are_open}")
+
+            # Если графики были открыты, но сейчас закрыты
+            if self.charts_are_open and not has_open_charts:
+                print("Все графики закрыты, возвращаемся в окно визуализации...")
+                self.charts_are_open = False
+
+                # Устанавливаем флаг игнорирования событий закрытия
+                self._ignore_close_events = True
+
+                # Показываем окно визуализации
+                self.show_main_window()
+
+                # Сбрасываем флаг через короткое время
+                QTimer.singleShot(100, self.reset_ignore_flag)
+
+                # Показываем сообщение пользователю
+                QMessageBox.information(
+                    self,
+                    "Возврат к редактору",
+                    "Все графики закрыты. Вы вернулись в редактор визуализации."
+                )
+
+        except Exception as e:
+            print(f"Ошибка при проверке окон matplotlib: {e}")
+
+    def reset_ignore_flag(self):
+        """Сбрасывает флаг игнорирования событий закрытия"""
+        self._ignore_close_events = False
+        print("Флаг игнорирования событий закрытия сброшен")
+
+    def show_main_window(self):
+        """Показывает главное окно и активирует его"""
+        try:
+            if not self.isVisible():
+                self.show()
+                self.raise_()
+                self.activateWindow()
+                # Даем фокус окну
+                QApplication.processEvents()
+                print("Окно визуализации показано после закрытия графиков")
+        except Exception as e:
+            print(f"Ошибка при показе окна визуализации: {e}")
+
+    def finish_visualization(self):
+        """Завершение работы с визуализацией (по нажатию кнопки 'Завершить')"""
+        print("Нажата кнопка 'Завершить работу' - безопасное закрытие")
+
+        # Устанавливаем флаг, что закрытие инициировано пользователем
+        self._closing_by_user = True
+
+        # Останавливаем таймер проверки
+        if hasattr(self, 'chart_check_timer'):
+            self.chart_check_timer.stop()
+            print("Таймер остановлен")
+
+        # Закрываем все графики matplotlib
+        self.close_all_charts_and_show()
+        print("Все графики закрыты")
+
+        # Сохраняем графики
+        if self.charts:
+            success = self.chart_manager.save_charts(self.filename, self.charts)
+            print(f"Графики сохранены: {success}")
+
+        # Закрываем окно визуализации
+        print("Закрываем окно визуализации...")
+        self.closed.emit()  # Испускаем сигнал перед закрытием
+        self.close()  # Вызываем закрытие окна
+
+    def close_all_charts_and_show(self):
+        """Принудительно закрывает все графики и показывает окно"""
+        if self.chart_renderer:
+            try:
+                self.chart_renderer.close_all_charts()
+                self.charts_are_open = False
+            except Exception as e:
+                print(f"Ошибка при закрытии графиков: {e}")
+
+        # Показываем окно если оно скрыто
+        if not self.isVisible():
+            self.show_main_window()
+
+    def closeEvent(self, event):
+        """Обработчик закрытия окна (при нажатии на крестик или Alt+F4)"""
+        print(
+            f"closeEvent окна визуализации: _closing_by_user={self._closing_by_user}, _ignore_close_events={self._ignore_close_events}")
+
+        # Если установлен флаг игнорирования - игнорируем событие
+        if self._ignore_close_events:
+            print("closeEvent: игнорируем событие (вызвано закрытием matplotlib окон)")
+            event.ignore()
+            return
+
+        # Если уже закрывается пользователем (например, по кнопке) - принимаем событие
+        if self._closing_by_user:
+            print("closeEvent: окно уже закрывается пользователем, принимаем событие")
+            event.accept()
+            return
+
+        # Если это системное закрытие (крестик, Alt+F4)
+        print("closeEvent: системное закрытие окна визуализации (крестик/Alt+F4)")
+
+        # Устанавливаем флаг закрытия пользователем
+        self._closing_by_user = True
+
+        # Останавливаем таймер
+        if hasattr(self, 'chart_check_timer'):
+            self.chart_check_timer.stop()
+            print("Таймер остановлен в closeEvent")
+
+        # Закрываем все графики matplotlib
+        if self.chart_renderer:
+            try:
+                self.chart_renderer.close_all_charts()
+                print("Графики закрыты в closeEvent")
+            except Exception as e:
+                print(f"Ошибка при закрытии графиков в closeEvent: {e}")
+
+        # Сохраняем графики
+        if self.charts:
+            try:
+                self.chart_manager.save_charts(self.filename, self.charts)
+                print("Графики сохранены в closeEvent")
+            except Exception as e:
+                print(f"Ошибка при сохранении графиков: {e}")
+
+        # Очистка временных файлов
+        if hasattr(self, 'temp_dir') and os.path.exists(self.temp_dir):
+            try:
+                shutil.rmtree(self.temp_dir)
+                print(f"Очищена временная директория: {self.temp_dir}")
+            except Exception as e:
+                print(f"Ошибка при очистке временной директории: {e}")
+
+        # Устанавливаем флаг в родительском окне (если есть)
+        if self.parent_window and hasattr(self.parent_window, '_processing_matplotlib_close'):
+            self.parent_window._processing_matplotlib_close = True
+            print("Установлен флаг _processing_matplotlib_close в родительском окне")
+
+        # Испускаем сигнал о закрытии
+        print("Испускаем сигнал closed")
+        self.closed.emit()
+
+        # Принимаем событие закрытия
+        event.accept()
+        print("Событие closeEvent принято")
+
+        # Сбрасываем флаг в родительском окне через небольшое время
+        if self.parent_window and hasattr(self.parent_window, '_processing_matplotlib_close'):
+            from PyQt6.QtCore import QTimer
+            QTimer.singleShot(100, self.reset_parent_flag)
+
+    def reset_parent_flag(self):
+        """Сбрасывает флаг в родительском окне"""
+        if self.parent_window and hasattr(self.parent_window, '_processing_matplotlib_close'):
+            self.parent_window._processing_matplotlib_close = False
+            print("Сброшен флаг _processing_matplotlib_close в родительском окне")
 
     def export_figure(self):
         """Экспорт выбранного графика в файл"""
@@ -1588,92 +1928,12 @@ class VisualizationWindow(QMainWindow):
                     QMessageBox.critical(self, "Ошибка", f"Ошибка при сохранении графика: {str(e)}")
                     print(f"Ошибка экспорта: {e}")
 
-    def check_matplotlib_windows(self):
-        """Проверяет, есть ли открытые окна matplotlib"""
-        try:
-            if not self.chart_renderer:
-                return
-
-            # Проверяем, есть ли открытые графики
-            has_open_charts = self.chart_renderer.check_open_charts()
-
-            # Если графики закрыты и главное окно скрыто, показываем его
-            if not has_open_charts and not self.isVisible():
-                print("Все графики закрыты, показываем главное окно...")
-                self.show_main_window()
-
-        except Exception as e:
-            print(f"Ошибка при проверке окон matplotlib: {e}")
-            # В случае ошибки все равно показываем главное окно
-            if not self.isVisible():
-                self.show_main_window()
-
-    def show_main_window(self):
-        """Показывает главное окно и активирует его"""
-        try:
-            if not self.isVisible():
-                self.show()
-                self.raise_()
-                self.activateWindow()
-                # Даем фокус окну
-                QApplication.processEvents()
-        except Exception as e:
-            print(f"Ошибка при показе главного окна: {e}")
-
-    def finish_visualization(self):
-        """Завершение работы с визуализацией"""
-        # Останавливаем таймер проверки
-        if hasattr(self, 'chart_check_timer'):
-            self.chart_check_timer.stop()
-
-        # Закрываем все графики matplotlib
-        if self.chart_renderer:
-            try:
-                self.chart_renderer.close_all_charts()
-            except:
-                pass
-
-        # Сохраняем графики
-        if self.charts:
-            self.chart_manager.save_charts(self.filename, self.charts)
-
-        # Закрываем окно
-        self.close()
-
     def load_saved_charts(self):
         """Загрузка сохраненных графиков"""
         self.charts = self.chart_manager.load_charts(self.filename)
         if self.charts:
             print(f"Загружено {len(self.charts)} сохраненных графиков")
             self.update_charts_list()
-
-    def closeEvent(self, event):
-        """Обработка закрытия окна"""
-        # Останавливаем таймер
-        if hasattr(self, 'chart_check_timer'):
-            self.chart_check_timer.stop()
-
-        # Закрываем все графики matplotlib
-        if self.chart_renderer:
-            try:
-                self.chart_renderer.close_all_charts()
-            except:
-                pass
-
-        # Сохраняем графики
-        if self.charts:
-            self.chart_manager.save_charts(self.filename, self.charts)
-
-        # Очистка временных файлов
-        if os.path.exists(self.temp_dir):
-            try:
-                shutil.rmtree(self.temp_dir)
-                print(f"Очищена временная директория: {self.temp_dir}")
-            except Exception as e:
-                print(f"Ошибка при очистке временной директории: {e}")
-
-        self.closed.emit()
-        event.accept()
 
 
 # Для тестирования модуля
