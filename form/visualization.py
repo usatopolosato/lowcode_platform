@@ -15,7 +15,7 @@ class Ui_Visualization(object):
         Visualization.resize(1141, 700)
         Visualization.setMinimumSize(QtCore.QSize(900, 700))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../resource/icon.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap("resource/icon.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         Visualization.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(parent=Visualization)
         self.centralwidget.setStyleSheet("QPushButton:disabled {\n"

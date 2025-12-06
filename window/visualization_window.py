@@ -398,13 +398,17 @@ class UnifiedChartRenderer:
                     ha='center', va='center', transform=ax.transAxes, color='red')
             return
 
+        # Получаем доступные цвета для линий
+        colors = plt.cm.Set2(np.linspace(0, 1, len(y_cols))) if len(y_cols) > 1 else ['blue']
+
         for i, y_col in enumerate(y_cols):
             if y_col not in self.data.columns:
                 continue
 
-            line_style = styling.get('line_style', 'solid (сплошная)').split(' ')[0]
+            # Парсим параметры стиля
+            line_style = self._parse_line_style(styling.get('line_style', 'solid (сплошная)'))
             line_width = styling.get('line_width', 2.0)
-            markers = styling.get('markers', 'None (нет)').split(' ')[0]
+            markers = self._parse_marker(styling.get('markers', 'None (нет)'))
             markersize = styling.get('markersize', 6)
             alpha = styling.get('alpha', 1.0)
 
@@ -416,10 +420,13 @@ class UnifiedChartRenderer:
             y_clean = y_data[mask]
 
             if len(x_clean) > 0:
-                ax.plot(x_clean, y_clean, linestyle=line_style,
+                ax.plot(x_clean, y_clean,
+                        linestyle=line_style,
                         linewidth=line_width,
-                        marker=markers if markers != 'None' else None,
-                        markersize=markersize, alpha=alpha,
+                        marker=markers,
+                        markersize=markersize,
+                        alpha=alpha,
+                        color=colors[i] if len(y_cols) > 1 else None,
                         label=y_col)
 
         if len(y_cols) > 1 and styling.get('show_legend', True):
@@ -430,205 +437,360 @@ class UnifiedChartRenderer:
         ax.set_xlabel(xlabel, fontsize=9)
         ax.set_ylabel(ylabel, fontsize=9)
 
+        # Настройка сетки
+        if styling.get('show_grid', True):
+            ax.grid(True, alpha=0.3, linestyle='--')
+
+        # Настройка подписей осей
+        if len(ax.get_xticklabels()) > 0:
+            plt.setp(ax.get_xticklabels(), rotation=45, ha='right', fontsize=8)
+
     def _render_bar_chart(self, ax, data_config: Dict, styling: Dict):
         categories_col = data_config.get('categories_column')
         values_col = data_config.get('values_column')
 
-        if categories_col in self.data.columns and values_col in self.data.columns:
-            orientation = styling.get('orientation', 'vertical (вертикальная)').split(' ')[0]
-            edgecolor = styling.get('edgecolor', 'black (черный)').split(' ')[0]
-            edgewidth = styling.get('edgewidth', 1.0)
-            alpha = styling.get('alpha', 0.8)
-            width = styling.get('width', 0.8)
+        if categories_col not in self.data.columns or values_col not in self.data.columns:
+            ax.text(0.5, 0.5, "Не указаны данные",
+                    ha='center', va='center', transform=ax.transAxes, color='red')
+            return
 
-            categories = self.data[categories_col].astype(str)
-            values = self.data[values_col]
+        # Парсим параметры стиля
+        orientation = styling.get('orientation', 'vertical (вертикальная)')
+        edgecolor = self._parse_color(styling.get('edgecolor', 'black (черный)'))
+        edgewidth = styling.get('edgewidth', 1.0)
+        alpha = styling.get('alpha', 0.8)
+        width = styling.get('width', 0.8)
 
-            if orientation == 'vertical':
-                ax.bar(categories, values,
-                       edgecolor=edgecolor if edgecolor != 'none' else None,
-                       linewidth=edgewidth, alpha=alpha, width=width)
-                ax.set_xlabel(categories_col, fontsize=9)
-                ax.set_ylabel(values_col, fontsize=9)
-                plt.setp(ax.get_xticklabels(), rotation=45, ha='right', fontsize=8)
-            else:
-                ax.barh(categories, values,
-                        edgecolor=edgecolor if edgecolor != 'none' else None,
-                        linewidth=edgewidth, alpha=alpha, height=width)
-                ax.set_xlabel(values_col, fontsize=9)
-                ax.set_ylabel(categories_col, fontsize=9)
-                plt.setp(ax.get_yticklabels(), fontsize=8)
+        # Получаем цвета для столбцов
+        categories = self.data[categories_col].astype(str)
+        values = self.data[values_col]
+
+        # Создаем массив цветов
+        colors = plt.cm.tab20c(np.linspace(0, 1, len(categories)))
+
+        if 'вертикальная' in orientation.lower():
+            # Вертикальная ориентация
+            bars = ax.bar(categories, values,
+                          color=colors,
+                          edgecolor=edgecolor if edgecolor != 'none' else None,
+                          linewidth=edgewidth,
+                          alpha=alpha,
+                          width=width)
+            ax.set_xlabel(categories_col, fontsize=9)
+            ax.set_ylabel(values_col, fontsize=9)
+
+            # Добавляем значения на столбцы
+            for bar in bars:
+                height = bar.get_height()
+                ax.text(bar.get_x() + bar.get_width() / 2., height,
+                        f'{height:.1f}', ha='center', va='bottom', fontsize=7)
+
+            plt.setp(ax.get_xticklabels(), rotation=45, ha='right', fontsize=8)
+        else:
+            # Горизонтальная ориентация
+            bars = ax.barh(categories, values,
+                           color=colors,
+                           edgecolor=edgecolor if edgecolor != 'none' else None,
+                           linewidth=edgewidth,
+                           alpha=alpha,
+                           height=width)
+            ax.set_xlabel(values_col, fontsize=9)
+            ax.set_ylabel(categories_col, fontsize=9)
+
+            # Добавляем значения на столбцы
+            for bar in bars:
+                width_val = bar.get_width()
+                ax.text(width_val, bar.get_y() + bar.get_height() / 2.,
+                        f'{width_val:.1f}', ha='left', va='center', fontsize=7)
+
+            plt.setp(ax.get_yticklabels(), fontsize=8)
 
     def _render_pie_chart(self, ax, data_config: Dict, styling: Dict):
         labels_col = data_config.get('labels_column')
         values_col = data_config.get('values_column')
 
-        if labels_col in self.data.columns and values_col in self.data.columns:
-            start_angle = styling.get('start_angle', 90)
-            explode = styling.get('explode', 0.1)
-            autopct = styling.get('autopct', 'Не показывать')
-            show_shadow = styling.get('shadow', False)
-            colormap = styling.get('colormap', 'tab20c')
+        if labels_col not in self.data.columns or values_col not in self.data.columns:
+            ax.text(0.5, 0.5, "Не указаны данные",
+                    ha='center', va='center', transform=ax.transAxes, color='red')
+            return
 
-            labels = self.data[labels_col].astype(str)
-            values = self.data[values_col]
+        # Парсим параметры стиля
+        start_angle = styling.get('start_angle', 90)
+        explode = styling.get('explode', 0.1)
+        autopct = styling.get('autopct', 'Не показывать')
+        show_shadow = styling.get('shadow', False)
 
-            # Берем только первые 8 значений для читаемости
-            if len(values) > 8:
-                values = values[:8]
-                labels = labels[:8]
+        labels = self.data[labels_col].astype(str)
+        values = self.data[values_col]
 
-            autopct_format = None
-            if autopct != 'Не показывать':
-                if '%1.1f%%' in autopct:
-                    autopct_format = '%1.1f%%'
-                elif '%1.2f%%' in autopct:
-                    autopct_format = '%1.2f%%'
-                elif '%d%%' in autopct:
-                    autopct_format = '%d%%'
+        # Берем только первые 8 значений для читаемости
+        if len(values) > 8:
+            values = values[:8]
+            labels = labels[:8]
 
-            if explode > 0:
-                explode_values = [explode] + [0] * (len(values) - 1)
+        # Создаем цвета
+        colors = plt.cm.Set3(np.linspace(0, 1, len(values)))
+
+        autopct_format = None
+        if autopct != 'Не показывать':
+            if '%1.1f%%' in autopct:
+                autopct_format = '%1.1f%%'
+            elif '%1.2f%%' in autopct:
+                autopct_format = '%1.2f%%'
+            elif '%d%%' in autopct:
+                autopct_format = '%d%%'
             else:
-                explode_values = None
+                autopct_format = '%1.1f%%'
 
-            try:
-                cmap = plt.colormaps[colormap]
-            except:
-                cmap = cm.get_cmap('tab20c')
+        if explode > 0:
+            explode_values = [explode] + [0] * (len(values) - 1)
+        else:
+            explode_values = None
 
-            wedges, texts, autotexts = ax.pie(
-                values, labels=labels, autopct=autopct_format,
-                startangle=start_angle, explode=explode_values,
-                shadow=show_shadow,
-                textprops={'fontsize': 8}
-            )
+        wedges, texts, autotexts = ax.pie(
+            values,
+            labels=labels,
+            autopct=autopct_format,
+            colors=colors,
+            startangle=start_angle,
+            explode=explode_values,
+            shadow=show_shadow,
+            textprops={'fontsize': 8}
+        )
 
-            for autotext in autotexts:
-                autotext.set_color('white')
-                autotext.set_fontweight('bold')
+        for autotext in autotexts:
+            autotext.set_color('white')
+            autotext.set_fontweight('bold')
 
-            ax.axis('equal')
+        # Добавляем легенду
+        ax.legend(wedges, labels, title=labels_col,
+                  loc="center left", bbox_to_anchor=(1, 0, 0.5, 1),
+                  fontsize=7)
+
+        ax.axis('equal')
 
     def _render_histogram(self, ax, data_config: Dict, styling: Dict):
         column = data_config.get('column')
 
-        if column in self.data.columns:
-            bins = styling.get('bins', 'auto (автоматически)')
-            hist_type = styling.get('hist_type', 'bar (столбчатая)').split(' ')[0]
-            alpha = styling.get('alpha', 0.7)
-            show_density = styling.get('density', False)
-            show_cumulative = styling.get('cumulative', False)
+        if column not in self.data.columns:
+            ax.text(0.5, 0.5, "Не указаны данные",
+                    ha='center', va='center', transform=ax.transAxes, color='red')
+            return
 
-            data = self.data[column].dropna()
+        # Парсим параметры стиля
+        bins = styling.get('bins', 'auto (автоматически)')
+        hist_type = styling.get('hist_type', 'bar (столбчатая)')
+        alpha = styling.get('alpha', 0.7)
+        show_density = styling.get('density', False)
+        show_cumulative = styling.get('cumulative', False)
 
-            if bins.startswith('auto'):
-                bins = 'auto'
-            else:
-                try:
-                    bins = int(bins)
-                except:
-                    bins = 10
+        data = self.data[column].dropna()
 
-            ax.hist(data, bins=bins, histtype=hist_type,
-                    alpha=alpha, density=show_density, cumulative=show_cumulative,
-                    edgecolor='black')
+        # Парсим количество bins
+        if isinstance(bins, str) and 'auto' in bins.lower():
+            bins = 'auto'
+        else:
+            try:
+                bins = int(bins)
+            except:
+                bins = 10
 
-            ax.set_xlabel(column, fontsize=9)
-            ax.set_ylabel('Плотность' if show_density else 'Частота', fontsize=9)
+        # Парсим тип гистограммы
+        if 'bar' in hist_type.lower():
+            hist_type_parsed = 'bar'
+        elif 'step' in hist_type.lower():
+            hist_type_parsed = 'step'
+        elif 'stepfilled' in hist_type.lower():
+            hist_type_parsed = 'stepfilled'
+        else:
+            hist_type_parsed = 'bar'
+
+        # Выбираем цвет
+        color = plt.cm.Blues(0.6)
+
+        ax.hist(data, bins=bins, histtype=hist_type_parsed,
+                color=color,
+                alpha=alpha,
+                density=show_density,
+                cumulative=show_cumulative,
+                edgecolor='black',
+                linewidth=0.5)
+
+        ax.set_xlabel(column, fontsize=9)
+        ylabel = 'Плотность вероятности' if show_density else 'Частота'
+        ax.set_ylabel(ylabel, fontsize=9)
+
+        # Добавляем линии среднего и медианы
+        ax.axvline(data.mean(), color='red', linestyle='dashed', linewidth=1,
+                   label=f'Среднее: {data.mean():.2f}')
+        ax.axvline(data.median(), color='green', linestyle='dashed', linewidth=1,
+                   label=f'Медиана: {data.median():.2f}')
+
+        if not show_cumulative:  # Легенду только для некумулятивной гистограммы
+            ax.legend(fontsize=7)
 
     def _render_scatter(self, ax, data_config: Dict, styling: Dict):
         x_col = data_config.get('x_column')
         y_col = data_config.get('y_column')
-        color_col = data_config.get('color_column')
+        color_col = data_config.get('color_column', 'Нет')
 
-        if x_col in self.data.columns and y_col in self.data.columns:
-            point_size = styling.get('point_size', 50)
-            point_alpha = styling.get('point_alpha', 0.6)
-            marker = styling.get('marker', 'o (круг)').split(' ')[0]
-            show_regression = styling.get('regression', False)
-            colormap = styling.get('colormap', 'viridis')
+        if x_col not in self.data.columns or y_col not in self.data.columns:
+            ax.text(0.5, 0.5, "Не указаны данные",
+                    ha='center', va='center', transform=ax.transAxes, color='red')
+            return
 
-            x_data = self.data[x_col]
-            y_data = self.data[y_col]
+        # Парсим параметры стиля
+        point_size = styling.get('point_size', 50)
+        point_alpha = styling.get('point_alpha', 0.6)
+        marker = self._parse_marker(styling.get('marker', 'o (круг)'))
+        show_regression = styling.get('regression', False)
+        colormap_name = styling.get('colormap', 'viridis')
 
-            mask = x_data.notna() & y_data.notna()
-            x_clean = x_data[mask]
-            y_clean = y_data[mask]
+        x_data = self.data[x_col]
+        y_data = self.data[y_col]
 
-            if color_col and color_col in self.data.columns and color_col != "Нет":
-                color_data = self.data[color_col][mask]
+        mask = x_data.notna() & y_data.notna()
+        x_clean = x_data[mask]
+        y_clean = y_data[mask]
 
-                # Проверяем тип данных для цвета
-                try:
-                    # Пробуем преобразовать к числовому типу
-                    color_numeric = pd.to_numeric(color_data, errors='coerce')
+        # Обработка цветового кодирования
+        if color_col and color_col != "Нет" and color_col in self.data.columns:
+            color_data = self.data[color_col][mask]
 
-                    if color_numeric.isnull().all():
-                        # Если все значения стали NaN, значит это не числовые данные
-                        # Используем категориальные данные
-                        color_data_categorical = color_data.astype('category').cat.codes
-                        scatter = ax.scatter(x_clean, y_clean, c=color_data_categorical,
-                                             s=point_size / 2, alpha=point_alpha,
-                                             marker=marker, cmap=colormap)
+            try:
+                # Пробуем преобразовать к числовому типу
+                color_numeric = pd.to_numeric(color_data, errors='coerce')
 
-                        # Создаем кастомную легенду для категорий
-                        categories = color_data.unique()
-                        handles = []
-                        labels = []
+                if color_numeric.notna().all():
+                    # Числовые данные - используем colormap
+                    scatter = ax.scatter(x_clean, y_clean,
+                                         c=color_numeric,
+                                         s=point_size,
+                                         alpha=point_alpha,
+                                         marker=marker,
+                                         cmap=colormap_name,
+                                         edgecolors='black',
+                                         linewidth=0.5)
 
-                        # Создаем цветовую карту для категорий
-                        cmap = plt.colormaps[colormap]
-                        colors = cmap(np.linspace(0, 1, len(categories)))
+                    # Добавляем colorbar
+                    cbar = plt.colorbar(scatter, ax=ax)
+                    cbar.set_label(color_col, fontsize=8)
+                    cbar.ax.tick_params(labelsize=7)
 
-                        for i, category in enumerate(categories):
-                            handles.append(plt.Line2D([0], [0], marker='o', color='w',
-                                                      markerfacecolor=colors[i],
-                                                      markersize=8, alpha=point_alpha))
-                            labels.append(str(category))
+                else:
+                    # Категориальные данные
+                    categories = color_data.astype('category')
+                    color_codes = categories.cat.codes
 
-                        ax.legend(handles, labels, title=color_col, fontsize=7)
+                    # Создаем цветовую карту для категорий
+                    cmap = plt.cm.get_cmap(colormap_name)
+                    num_categories = len(categories.cat.categories)
 
-                    else:
-                        # Числовые данные
-                        scatter = ax.scatter(x_clean, y_clean, c=color_numeric,
-                                             s=point_size / 2, alpha=point_alpha,
-                                             marker=marker, cmap=colormap)
-                        plt.colorbar(scatter, ax=ax, label=color_col)
+                    scatter = ax.scatter(x_clean, y_clean,
+                                         c=color_codes,
+                                         s=point_size,
+                                         alpha=point_alpha,
+                                         marker=marker,
+                                         cmap=cmap,
+                                         edgecolors='black',
+                                         linewidth=0.5)
 
-                except Exception as e:
-                    print(f"Ошибка при обработке данных цвета: {e}")
-                    # В случае ошибки используем цвет по умолчанию
-                    ax.scatter(x_clean, y_clean, s=point_size / 2, alpha=point_alpha,
-                               marker=marker, color='blue')
-            else:
-                # Без цветового кодирования
-                ax.scatter(x_clean, y_clean, s=point_size / 2, alpha=point_alpha,
-                           marker=marker, color='blue')
+                    # Создаем кастомную легенду
+                    handles = []
+                    labels = []
 
-            if show_regression and len(x_clean) > 1:
-                try:
-                    z = np.polyfit(x_clean, y_clean, 1)
-                    p = np.poly1d(z)
-                    ax.plot(x_clean, p(x_clean), "r--", linewidth=1, label='Линия тренда')
-                    ax.legend(fontsize=7)
-                except:
-                    pass  # Игнорируем ошибку регрессии
+                    for i, category in enumerate(categories.cat.categories):
+                        color = cmap(i / max(1, num_categories - 1))
+                        handles.append(plt.Line2D([0], [0],
+                                                  marker='o',
+                                                  color='w',
+                                                  markerfacecolor=color,
+                                                  markersize=8,
+                                                  alpha=point_alpha,
+                                                  markeredgecolor='black',
+                                                  markeredgewidth=0.5))
+                        labels.append(str(category))
 
-            ax.set_xlabel(x_col, fontsize=9)
-            ax.set_ylabel(y_col, fontsize=9)
+                    ax.legend(handles, labels, title=color_col,
+                              fontsize=7, loc='upper right')
+
+            except Exception as e:
+                print(f"Ошибка при обработке данных цвета: {e}")
+                # В случае ошибки используем цвет по умолчанию
+                ax.scatter(x_clean, y_clean,
+                           s=point_size,
+                           alpha=point_alpha,
+                           marker=marker,
+                           color='blue',
+                           edgecolors='black',
+                           linewidth=0.5)
+        else:
+            # Без цветового кодирования
+            ax.scatter(x_clean, y_clean,
+                       s=point_size,
+                       alpha=point_alpha,
+                       marker=marker,
+                       color='blue',
+                       edgecolors='black',
+                       linewidth=0.5)
+
+        # Линия регрессии
+        if show_regression and len(x_clean) > 1:
+            try:
+                # Линейная регрессия
+                z = np.polyfit(x_clean, y_clean, 1)
+                p = np.poly1d(z)
+
+                # Сортировка для гладкой линии
+                x_sorted = np.sort(x_clean)
+                y_reg = p(x_sorted)
+
+                ax.plot(x_sorted, y_reg, "r--", linewidth=2, label='Линия тренда')
+
+                # Добавляем уравнение линии
+                slope = z[0]
+                intercept = z[1]
+                eq_text = f"y = {slope:.2f}x + {intercept:.2f}"
+                ax.text(0.05, 0.95, eq_text,
+                        transform=ax.transAxes,
+                        fontsize=8,
+                        verticalalignment='top',
+                        bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
+
+                ax.legend(fontsize=7)
+            except Exception as e:
+                print(f"Ошибка при построении линии регрессии: {e}")
+
+        ax.set_xlabel(x_col, fontsize=9)
+        ax.set_ylabel(y_col, fontsize=9)
+
+        # Настройка сетки
+        ax.grid(True, alpha=0.3, linestyle='--')
 
     def _render_boxplot(self, ax, data_config: Dict, styling: Dict):
-        category_col = data_config.get('category_column')
+        category_col = data_config.get('category_column', 'Нет (один бокс)')
         values_col = data_config.get('values_column')
 
-        orientation = styling.get('orientation', 'vertical (вертикальная)').split(' ')[0]
-        show_points = styling.get('show_points', 'outliers (только выбросы)').split(' ')[0]
+        if values_col not in self.data.columns:
+            ax.text(0.5, 0.5, "Не указаны данные",
+                    ha='center', va='center', transform=ax.transAxes, color='red')
+            return
+
+        # Парсим параметры стиля
+        orientation = styling.get('orientation', 'vertical (вертикальная)')
+        show_points = styling.get('show_points', 'outliers (только выбросы)')
         show_notch = styling.get('notch', False)
         linewidth = styling.get('linewidth', 1.5)
         whis = styling.get('whis', 1.5)
 
-        if category_col and category_col in self.data.columns:
+        # Определяем, показывать ли выбросы
+        showfliers = 'outliers' in show_points.lower() or 'all' in show_points.lower()
+
+        # Определяем ориентацию
+        vert = 'вертикальная' in orientation.lower()
+
+        if category_col != "Нет (один бокс)" and category_col in self.data.columns:
+            # Группировка по категориям
             data = []
             labels = []
 
@@ -637,62 +799,120 @@ class UnifiedChartRenderer:
                 if len(subset) > 0:
                     data.append(subset.dropna().values)
                     labels.append(str(category))
+
+            # Цвета для boxplot
+            colors = plt.cm.Set3(np.linspace(0, 1, len(data)))
         else:
+            # Один boxplot
             data = [self.data[values_col].dropna().values]
             labels = [values_col]
+            colors = ['lightblue']
 
-        showfliers = show_points in ['outliers', 'all']
-
-        bp = ax.boxplot(data, tick_labels=labels, notch=show_notch, showfliers=showfliers,
-                        patch_artist=True, boxprops=dict(linewidth=linewidth),
-                        whiskerprops=dict(linewidth=linewidth), capprops=dict(linewidth=linewidth),
+        # Создаем boxplot
+        bp = ax.boxplot(data,
+                        tick_labels=labels,
+                        notch=show_notch,
+                        showfliers=showfliers,
+                        patch_artist=True,
+                        boxprops=dict(linewidth=linewidth, color='black'),
+                        whiskerprops=dict(linewidth=linewidth, color='black'),
+                        capprops=dict(linewidth=linewidth, color='black'),
                         medianprops=dict(linewidth=linewidth, color='red'),
-                        flierprops=dict(marker='o', markersize=3, alpha=0.5), whis=whis)
+                        flierprops=dict(marker='o', markersize=4, alpha=0.5,
+                                        markeredgecolor='black'),
+                        whis=whis,
+                        vert=vert)
 
-        if orientation == 'horizontal':
-            ax.invert_yaxis()
+        # Заполняем box'ы цветом
+        for patch, color in zip(bp['boxes'], colors):
+            patch.set_facecolor(color)
+            patch.set_alpha(0.7)
 
-        plt.setp(ax.get_xticklabels(), rotation=45, ha='right', fontsize=8)
-        ax.set_ylabel(values_col if orientation == 'vertical' else '', fontsize=9)
-        ax.set_xlabel('' if orientation == 'vertical' else values_col, fontsize=9)
+        # Настройка осей в зависимости от ориентации
+        if vert:
+            ax.set_ylabel(values_col, fontsize=9)
+            ax.set_xlabel(category_col if category_col != "Нет (один бокс)" else '', fontsize=9)
+            plt.setp(ax.get_xticklabels(), rotation=45, ha='right', fontsize=8)
+        else:
+            ax.set_xlabel(values_col, fontsize=9)
+            ax.set_ylabel(category_col if category_col != "Нет (один бокс)" else '', fontsize=9)
+            plt.setp(ax.get_yticklabels(), fontsize=8)
+
+        # Добавляем сетку
+        ax.grid(True, alpha=0.3, linestyle='--', axis='y' if vert else 'x')
+
+        # Добавляем точки данных если нужно
+        if 'all' in show_points.lower():
+            for i, d in enumerate(data):
+                if vert:
+                    # Для вертикальной ориентации
+                    x = np.random.normal(i + 1, 0.04, size=len(d))
+                    ax.plot(x, d, 'r.', alpha=0.5, markersize=3)
+                else:
+                    # Для горизонтальной ориентации
+                    y = np.random.normal(i + 1, 0.04, size=len(d))
+                    ax.plot(d, y, 'r.', alpha=0.5, markersize=3)
 
     def _render_area_chart(self, ax, data_config: Dict, styling: Dict):
         x_col = data_config.get('x_column')
         y_cols = data_config.get('y_columns', [])
 
-        if x_col in self.data.columns:
-            alpha = styling.get('alpha', 0.5)
-            colormap = styling.get('colormap', 'viridis')
+        if x_col not in self.data.columns:
+            ax.text(0.5, 0.5, "Не указаны данные",
+                    ha='center', va='center', transform=ax.transAxes, color='red')
+            return
 
-            x_data = self.data[x_col]
-            y_data_list = []
-            valid_cols = []
+        # Парсим параметры стиля
+        alpha = styling.get('alpha', 0.5)
+        colormap = styling.get('colormap', 'viridis')
 
-            for y_col in y_cols:
-                if y_col in self.data.columns:
-                    y_data = self.data[y_col]
-                    mask = x_data.notna() & y_data.notna()
-                    if len(x_data[mask]) > 0:
-                        y_data_list.append(y_data[mask].values)
-                        valid_cols.append(y_col)
+        x_data = self.data[x_col]
+        y_data_list = []
+        valid_cols = []
 
-            if y_data_list:
-                try:
-                    cmap = plt.colormaps[colormap]
-                except:
-                    cmap = cm.get_cmap(colormap)
-                colors = cmap(np.linspace(0, 1, len(y_data_list)))
+        for y_col in y_cols:
+            if y_col in self.data.columns:
+                y_data = self.data[y_col]
+                mask = x_data.notna() & y_data.notna()
+                if len(x_data[mask]) > 0:
+                    y_data_list.append(y_data[mask].values)
+                    valid_cols.append(y_col)
 
-                ax.stackplot(x_data[x_data.notna()].values, *y_data_list,
-                             labels=valid_cols, colors=colors, alpha=alpha)
+        if y_data_list:
+            try:
+                cmap = plt.cm.get_cmap(colormap)
+            except:
+                cmap = plt.cm.viridis
 
-                ax.set_xlabel(x_col, fontsize=9)
-                ax.set_ylabel('Значения', fontsize=9)
-                if len(valid_cols) > 1:
-                    ax.legend(fontsize=7)
+            colors = cmap(np.linspace(0.2, 0.8, len(y_data_list)))
+
+            ax.stackplot(x_data[x_data.notna()].values, *y_data_list,
+                         labels=valid_cols, colors=colors, alpha=alpha)
+
+            ax.set_xlabel(x_col, fontsize=9)
+            ax.set_ylabel('Значения', fontsize=9)
+
+            # Настройка сетки
+            ax.grid(True, alpha=0.3, linestyle='--')
+
+            if len(valid_cols) > 1:
+                ax.legend(fontsize=7, loc='upper right')
+
+            # Настройка формата дат если x_col это дата
+            if pd.api.types.is_datetime64_any_dtype(x_data):
+                ax.xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%Y-%m-%d'))
+                plt.setp(ax.get_xticklabels(), rotation=45, ha='right', fontsize=8)
+        else:
+            ax.text(0.5, 0.5, "Нет данных для отображения",
+                    ha='center', va='center', transform=ax.transAxes, color='red')
 
     def _render_kde_chart(self, ax, data_config: Dict, styling: Dict):
         columns = data_config.get('columns', [])
+
+        if not columns:
+            ax.text(0.5, 0.5, "Не указаны столбцы",
+                    ha='center', va='center', transform=ax.transAxes, color='red')
+            return
 
         alpha = styling.get('alpha', 0.5)
         colormap = styling.get('colormap', 'viridis')
@@ -707,28 +927,98 @@ class UnifiedChartRenderer:
             return
 
         try:
-            cmap = plt.colormaps[colormap]
+            cmap = plt.cm.get_cmap(colormap)
         except:
-            cmap = cm.get_cmap(colormap)
+            cmap = plt.cm.viridis
+
         colors = cmap(np.linspace(0, 1, len(columns)))
 
         for i, column in enumerate(columns):
             if column in self.data.columns:
                 data = self.data[column].dropna()
                 if len(data) > 1:
-                    kde = stats.gaussian_kde(data, bw_method=bandwidth)
-                    x_range = np.linspace(data.min(), data.max(), 100)
-                    y_kde = kde(x_range)
+                    try:
+                        kde = stats.gaussian_kde(data, bw_method=bandwidth)
+                        x_range = np.linspace(data.min(), data.max(), 100)
+                        y_kde = kde(x_range)
 
-                    if show_fill:
-                        ax.fill_between(x_range, y_kde, alpha=alpha * 0.7, color=colors[i])
+                        if show_fill:
+                            ax.fill_between(x_range, y_kde, alpha=alpha * 0.7, color=colors[i])
 
-                    ax.plot(x_range, y_kde, color=colors[i], linewidth=1.5, label=column)
+                        ax.plot(x_range, y_kde, color=colors[i], linewidth=2, label=column)
+
+                        # Добавляем вертикальную линию для среднего
+                        mean_val = data.mean()
+                        ax.axvline(mean_val, color=colors[i], linestyle='--', linewidth=1,
+                                   alpha=0.7)
+
+                    except Exception as e:
+                        print(f"Ошибка при построении KDE для {column}: {e}")
+                        continue
 
         ax.set_xlabel('Значения', fontsize=9)
         ax.set_ylabel('Плотность вероятности', fontsize=9)
+
+        # Настройка сетки
+        ax.grid(True, alpha=0.3, linestyle='--')
+
         if columns:
             ax.legend(fontsize=7)
+
+        # Добавляем подпись
+        ax.text(0.02, 0.98, 'KDE (Ядерная оценка плотности)',
+                transform=ax.transAxes,
+                fontsize=8,
+                verticalalignment='top',
+                bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
+
+    def _parse_line_style(self, style_str: str) -> str:
+        """Парсит строку стиля линии"""
+        style_mapping = {
+            'solid (сплошная)': '-',
+            'dashed (пунктирная)': '--',
+            'dashdot (штрих-пунктир)': '-.',
+            'dotted (точки)': ':'
+        }
+        return style_mapping.get(style_str, '-')
+
+    def _parse_marker(self, marker_str: str) -> str:
+        """Парсит строку маркера"""
+        if 'None' in marker_str or 'нет' in marker_str.lower():
+            return None
+
+        marker_mapping = {
+            'o (круг)': 'o',
+            's (квадрат)': 's',
+            '^ (треугольник)': '^',
+            'D (ромб)': 'D',
+            '+ (плюс)': '+',
+            'x (крест)': 'x',
+            'v (треугольник вниз)': 'v',
+            '< (треугольник влево)': '<',
+            '> (треугольник вправо)': '>',
+            '8 (восьмиугольник)': '8'
+        }
+
+        # Извлекаем символ маркера из строки
+        for key, value in marker_mapping.items():
+            if key.startswith(marker_str.split(' ')[0]):
+                return value
+        return 'o'
+
+    def _parse_color(self, color_str: str) -> str:
+        """Парсит строку цвета"""
+        if 'none' in color_str.lower() or 'без' in color_str.lower():
+            return 'none'
+
+        color_mapping = {
+            'black (черный)': 'black',
+            'darkgray': 'darkgray',
+            'red': 'red',
+            'blue': 'blue',
+            'green': 'green'
+        }
+        return color_mapping.get(color_str, color_str.split(' ')[0])
 
     def close_all_charts(self):
         """Закрывает все открытые графики"""
