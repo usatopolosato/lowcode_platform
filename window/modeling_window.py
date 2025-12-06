@@ -1,5 +1,4 @@
 import os
-import sys
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -7,23 +6,23 @@ from scipy.stats import shapiro, chi2_contingency
 import seaborn as sns
 
 from PyQt6.QtWidgets import (
-    QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
-    QLabel, QComboBox, QListWidget, QPushButton,
-    QSpinBox, QTableView, QTextEdit, QFrame,
-    QScrollArea, QHeaderView, QMessageBox,
-    QAbstractItemView, QSizePolicy
+    QMainWindow, QHeaderView, QMessageBox,
 )
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QStandardItemModel, QStandardItem
 
 from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 from sklearn.metrics import (
     r2_score, mean_absolute_percentage_error,
-    mean_absolute_error, mean_squared_error
+    mean_absolute_error, mean_squared_error,
+    accuracy_score, precision_score, recall_score,
+    f1_score, confusion_matrix, classification_report, roc_auc_score
 )
 import matplotlib
+
 matplotlib.use('QtAgg')
 # Импортируем скомпилированный UI
 from form.modeling_window_ui import Ui_ModelingWindow
@@ -51,8 +50,11 @@ class ModelingWindow(QMainWindow):
         self.df = None
         self.model = None
         self.ohe = OneHotEncoder(sparse_output=False, drop='first')
+        self.label_encoder = LabelEncoder()
         self.categorical_features = []
         self.numerical_features = []
+        self.task_type = None  # 'regression' или 'classification'
+        self.is_classification = False
 
         # Настройка интерфейса
         self.setup_ui()
@@ -66,7 +68,9 @@ class ModelingWindow(QMainWindow):
     def setup_ui(self):
         """Настройка элементов интерфейса"""
         # Установка списка моделей
-        self.ui.modelComboBox.addItems(["LinearRegression"])
+        self.ui.modelComboBox.addItems(["LinearRegression", "RandomForestClassifier"])
+        self.setMinimumWidth(865)
+        self.setMinimumHeight(812)
 
         # Настройка таблицы предсказаний
         self.predictions_model = QStandardItemModel()
@@ -102,7 +106,7 @@ class ModelingWindow(QMainWindow):
 
             # Загружаем данные с правильным разделителем
             if separator:
-                self.df = pd.read_csv(file_path, sep=separator)
+                self.df = pd.read_csv(file_path, sep=separator, encoding='utf-8')
                 print(f"Загружены данные с разделителем: '{separator}'")
             else:
                 # Пробуем разные разделители
@@ -113,9 +117,6 @@ class ModelingWindow(QMainWindow):
 
             # Заполняем выпадающие списки
             self.populate_selection_lists()
-
-            # Устанавливаем целевой по умолчанию
-            self.set_default_target()
 
             print(f"Успешно загружено: {len(self.df)} строк, {len(self.df.columns)} столбцов")
 
@@ -162,7 +163,7 @@ class ModelingWindow(QMainWindow):
 
         for sep in separators:
             try:
-                df = pd.read_csv(file_path, sep=sep, engine='python')
+                df = pd.read_csv(file_path, sep=sep, engine='python', encoding='utf-8')
                 # Проверяем, что загрузилось больше одной колонки
                 if len(df.columns) > 1:
                     print(f"Найден разделитель: '{sep}'")
@@ -173,11 +174,12 @@ class ModelingWindow(QMainWindow):
         # Если ничего не помогло, пробуем загрузить с разделителем по умолчанию
         try:
             print("Использую разделитель по умолчанию ','")
-            return pd.read_csv(file_path)
+            return pd.read_csv(file_path, encoding='utf-8')
         except Exception as e:
             # Последняя попытка - загрузить с параметром error_bad_lines=False
             try:
-                return pd.read_csv(file_path, sep=None, engine='python', on_bad_lines='skip')
+                return pd.read_csv(file_path, sep=None, engine='python', on_bad_lines='skip',
+                                   encoding='utf-8')
             except:
                 raise Exception(f"Не удалось загрузить файл {self.filename} с любым разделителем")
 
@@ -190,11 +192,14 @@ class ModelingWindow(QMainWindow):
             return
 
         for column in self.df.columns:
+            # Пропускаем полностью пустые колонки
+            if self.df[column].isnull().all():
+                continue
+
             # Проверяем на строки, которые могут быть числами
             if self.df[column].dtype in ['object', 'bool', 'category']:
                 # Пробуем преобразовать в числа, если это возможно
                 try:
-                    # Пробуем преобразовать в числовой тип
                     numeric_col = pd.to_numeric(self.df[column], errors='coerce')
                     # Если более 70% значений удалось преобразовать, считаем числовым
                     if numeric_col.notna().sum() / len(numeric_col) > 0.7:
@@ -212,8 +217,8 @@ class ModelingWindow(QMainWindow):
 
         print(f"Найдено числовых признаков: {len(self.numerical_features)}")
         print(f"Найдено категориальных признаков: {len(self.categorical_features)}")
-        print(f"Числовые: {self.numerical_features}")
-        print(f"Категориальные: {self.categorical_features}")
+        print(f"Числовые: {self.numerical_features[:10]}...")
+        print(f"Категориальные: {self.categorical_features[:10]}...")
 
     def populate_selection_lists(self):
         """Заполнение списков выбора"""
@@ -224,28 +229,6 @@ class ModelingWindow(QMainWindow):
         # Список признаков
         self.ui.featuresListWidget.clear()
         self.ui.featuresListWidget.addItems(self.df.columns.tolist())
-
-        # Автоматически выбираем все признаки кроме первого
-        for i in range(1, self.ui.featuresListWidget.count()):
-            item = self.ui.featuresListWidget.item(i)
-            item.setSelected(True)
-
-    def set_default_target(self):
-        """Установка целевой переменной по умолчанию"""
-        # Пытаемся найти подходящую целевую переменную
-        possible_targets = []
-
-        for col in self.numerical_features:
-            # Проверяем, что в колонке нет пропусков и это не индекс
-            if not self.df[col].isnull().any() and len(self.df[col].unique()) > 10:
-                possible_targets.append(col)
-
-        if possible_targets:
-            # Выбираем первую подходящую целевую
-            default_target = possible_targets[0]
-            index = self.ui.targetComboBox.findText(default_target)
-            if index >= 0:
-                self.ui.targetComboBox.setCurrentIndex(index)
 
     def connect_signals(self):
         """Подключение сигналов к слотам"""
@@ -376,23 +359,49 @@ class ModelingWindow(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Ошибка", f"Не удалось построить тепловую карту: {str(e)}")
 
-    def get_ohe(self, train, categ):
+    def get_ohe(self, data, categ_columns):
         """Преобразует категориальные признаки в one-hot encoding"""
-        temp_df = pd.DataFrame(
-            data=self.ohe.transform(train[categ]),
-            columns=self.ohe.get_feature_names_out()
-        )
-        data = pd.concat([train.reset_index(drop=True), temp_df], axis=1)
-        data = data.drop(columns=categ, axis=1)
-        return data
+        try:
+            # Проверяем, что все категориальные признаки присутствуют в данных
+            missing_cols = [col for col in categ_columns if col not in data.columns]
+            if missing_cols:
+                raise ValueError(f"Категориальные признаки отсутствуют в данных: {missing_cols}")
 
-    def calculate_metrics(self, fact, prediction):
-        """Вычисление метрик модели"""
+            # Преобразуем категориальные признаки
+            temp_df = pd.DataFrame(
+                data=self.ohe.transform(data[categ_columns]),
+                columns=self.ohe.get_feature_names_out(categ_columns)
+            )
+
+            # Объединяем данные: оставляем только некатегориальные столбцы + one-hot столбцы
+            non_categ_cols = [col for col in data.columns if col not in categ_columns]
+            result = pd.concat([data[non_categ_cols].reset_index(drop=True),
+                                temp_df.reset_index(drop=True)], axis=1)
+
+            return result
+
+        except Exception as e:
+            print(f"Ошибка в get_ohe: {e}")
+            raise
+
+    def calculate_regression_metrics(self, fact, prediction, n_features=None):
+        """Вычисление метрик для регрессии"""
         metrics = {}
         try:
             metrics['R2'] = round(r2_score(fact, prediction), 4)
         except:
             metrics['R2'] = 0.0
+
+        # Скорректированный R² (Adjusted R²)
+        try:
+            n = len(fact)
+            if n_features is not None and n > n_features + 1:
+                adj_r2 = 1 - (1 - metrics['R2']) * (n - 1) / (n - n_features - 1)
+                metrics['Adj_R2'] = round(max(adj_r2, -1), 4)  # Ограничиваем снизу -1
+            else:
+                metrics['Adj_R2'] = metrics['R2']
+        except:
+            metrics['Adj_R2'] = metrics['R2']
 
         try:
             metrics['MAPE'] = round(mean_absolute_percentage_error(fact, prediction) * 100, 3)
@@ -401,6 +410,52 @@ class ModelingWindow(QMainWindow):
 
         metrics['MAE'] = round(mean_absolute_error(fact, prediction), 4)
         metrics['RMSE'] = round(mean_squared_error(fact, prediction) ** 0.5, 4)
+
+        # Дополнительные метрики
+        metrics['MaxError'] = round(max(abs(fact - prediction)), 4)
+
+        # Средняя абсолютная ошибка в процентах
+        try:
+            metrics['MAE_percent'] = round(100 * metrics['MAE'] / np.mean(np.abs(fact)), 2)
+        except:
+            metrics['MAE_percent'] = 0.0
+
+        return metrics
+
+    def calculate_classification_metrics(self, y_true, y_pred):
+        """Вычисление метрик для классификации"""
+        metrics = {}
+
+        try:
+            metrics['Accuracy'] = round(accuracy_score(y_true, y_pred), 4)
+            metrics['Precision'] = round(
+                precision_score(y_true, y_pred, average='weighted', zero_division=0), 4)
+            metrics['Recall'] = round(
+                recall_score(y_true, y_pred, average='weighted', zero_division=0), 4)
+            metrics['F1-Score'] = round(
+                f1_score(y_true, y_pred, average='weighted', zero_division=0), 4)
+
+            # Для бинарной классификации считаем дополнительные метрики
+            if len(np.unique(y_true)) == 2:
+                try:
+                    metrics['ROC-AUC'] = round(roc_auc_score(y_true, y_pred), 4)
+                except:
+                    metrics['ROC-AUC'] = np.nan
+            else:
+                metrics['ROC-AUC'] = np.nan
+
+            # Матрица ошибок
+            cm = confusion_matrix(y_true, y_pred)
+            metrics['ConfusionMatrix'] = cm
+
+            # Отчет классификации
+            report = classification_report(y_true, y_pred, output_dict=True)
+            metrics['ClassificationReport'] = report
+
+        except Exception as e:
+            print(f"Ошибка при вычислении метрик классификации: {e}")
+            metrics = {'Error': str(e)}
+
         return metrics
 
     def build_model(self):
@@ -410,6 +465,7 @@ class ModelingWindow(QMainWindow):
             target = self.ui.targetComboBox.currentText()
             test_size = self.ui.testSizeSpinBox.value() / 100
             random_state = self.ui.randomSeedSpinBox.value()
+            model_type = self.ui.modelComboBox.currentText()
 
             # Получаем выбранные признаки
             selected_features = [
@@ -434,6 +490,27 @@ class ModelingWindow(QMainWindow):
                                     f"В целевой переменной '{target}' есть пропущенные значения!")
                 return
 
+            # Определяем тип задачи на основе целевой переменной
+            target_unique = self.df[target].nunique()
+            # Если уникальных значений <= 10, считаем это классификацией
+            self.is_classification = target_unique <= 10 and target_unique >= 2
+
+            # Проверяем, что выбранная модель подходит для типа задачи
+            if self.is_classification and 'Regression' in model_type:
+                QMessageBox.warning(self, "Ошибка",
+                                    f"Модель {model_type} предназначена для регрессии, "
+                                    f"а целевая переменная '{target}' имеет {target_unique} "
+                                    f"уникальных значений (классификация).\n"
+                                    f"Выберите RandomForestClassifier.")
+                return
+            elif not self.is_classification and 'Classifier' in model_type:
+                QMessageBox.warning(self, "Ошибка",
+                                    f"Модель {model_type} предназначена для классификации, "
+                                    f"а целевая переменная '{target}' имеет {target_unique} "
+                                    f"уникальных значений (регрессия).\n"
+                                    f"Выберите LinearRegression.")
+                return
+
             # Определяем категориальные и числовые признаки
             categorical_features = [f for f in selected_features if f in self.categorical_features]
             numerical_features = [f for f in selected_features if f in self.numerical_features]
@@ -451,91 +528,177 @@ class ModelingWindow(QMainWindow):
                                     f"Слишком мало данных после очистки: {len(df_clean)} строк")
                 return
 
-            # Разделяем данные
-            X_train, X_test, y_train, y_test = train_test_split(
-                df_clean[selected_features],
-                df_clean[target],
-                test_size=test_size,
-                random_state=random_state
-            )
+            # Для классификации проверяем, что есть хотя бы 2 класса
+            if self.is_classification:
+                unique_classes = df_clean[target].nunique()
+                if unique_classes < 2:
+                    QMessageBox.warning(self, "Ошибка",
+                                        f"Для классификации нужно минимум 2 класса. Найдено: {unique_classes}")
+                    return
+
+            # Проверяем, можно ли использовать стратификацию для классификации
+            use_stratify = False
+            if self.is_classification:
+                # Проверяем, что в каждом классе минимум 2 элемента для стратификации
+                class_counts = df_clean[target].value_counts()
+                min_class_size = class_counts.min()
+
+                if min_class_size >= 2:
+                    use_stratify = True
+                    print(f"Используем стратификацию. Размеры классов: {dict(class_counts)}")
+                else:
+                    print(
+                        f"Не используем стратификацию. Минимальный размер класса: {min_class_size}")
+                    QMessageBox.warning(self, "Предупреждение",
+                                        f"Самый малочисленный класс содержит только {min_class_size} элемент(а).\n"
+                                        f"Стратификация не будет использована. Классы: {dict(class_counts)}")
+
+            try:
+                # Разделяем данные
+                if use_stratify:
+                    X_train, X_test, y_train, y_test = train_test_split(
+                        df_clean[selected_features],
+                        df_clean[target],
+                        test_size=test_size,
+                        random_state=random_state,
+                        stratify=df_clean[target]
+                    )
+                else:
+                    X_train, X_test, y_train, y_test = train_test_split(
+                        df_clean[selected_features],
+                        df_clean[target],
+                        test_size=test_size,
+                        random_state=random_state
+                    )
+            except Exception as e:
+                # Если возникает ошибка при разделении, пробуем без стратификации
+                print(f"Ошибка при разделении данных: {e}. Пробуем без стратификации...")
+                X_train, X_test, y_train, y_test = train_test_split(
+                    df_clean[selected_features],
+                    df_clean[target],
+                    test_size=test_size,
+                    random_state=random_state
+                )
+
+            print(f"Обучающая выборка: {len(X_train)} записей")
+            print(f"Тестовая выборка: {len(X_test)} записей")
+            print(f"Тип задачи: {'Классификация' if self.is_classification else 'Регрессия'}")
+            print(f"Уникальных классов: {df_clean[target].nunique()}")
+            if self.is_classification:
+                print(
+                    f"Распределение классов в обучающей выборке: {y_train.value_counts().to_dict()}")
+                print(
+                    f"Распределение классов в тестовой выборке: {y_test.value_counts().to_dict()}")
 
             # Обрабатываем категориальные признаки
             if categorical_features:
                 try:
-                    self.ohe.fit(X_train[categorical_features])
+                    # Объединяем тренировочные и тестовые данные для корректного обучения
+                    combined_categ_data = pd.concat([
+                        X_train[categorical_features],
+                        X_test[categorical_features]
+                    ], axis=0)
+
+                    # Обучаем кодировщик на объединенных данных
+                    self.ohe.fit(combined_categ_data)
+
+                    # Преобразуем тренировочные и тестовые данные
                     X_train = self.get_ohe(X_train, categorical_features)
                     X_test = self.get_ohe(X_test, categorical_features)
+
+                    # Убеждаемся, что X_test имеет те же столбцы, что и X_train
+                    missing_cols = set(X_train.columns) - set(X_test.columns)
+                    for col in missing_cols:
+                        X_test[col] = 0
+
+                    # Упорядочиваем столбцы в X_test так же, как в X_train
+                    X_test = X_test[X_train.columns]
+
                 except Exception as e:
                     QMessageBox.warning(self, "Предупреждение",
                                         f"Ошибка при обработке категориальных признаков: {str(e)}")
                     return
 
-            # Выбираем модель
-            model_type = self.ui.modelComboBox.currentText()
-
+            # Создаем и обучаем модель
             if model_type == "LinearRegression":
                 self.model = LinearRegression()
+            elif model_type == "RandomForestClassifier":
+                # Для RandomForest используем 100 деревьев по умолчанию
+                self.model = RandomForestClassifier(
+                    n_estimators=100,
+                    random_state=random_state,
+                    max_depth=None,  # Неограниченная глубина
+                    min_samples_split=2,
+                    min_samples_leaf=1
+                )
             else:
-                self.model = LinearRegression()  # По умолчанию
+                QMessageBox.warning(self, "Ошибка", f"Неизвестный тип модели: {model_type}")
+                return
 
-            # Обучаем модель
-            self.model.fit(X_train, y_train)
+            print(f"Обучаем модель: {model_type}")
+            print(f"Размер X_train: {X_train.shape}")
+            print(f"Размер y_train: {y_train.shape}")
 
-            # Делаем предсказания
-            y_pred = self.model.predict(X_test)
+            # Для классификации кодируем целевую переменную если она строковая
+            if self.is_classification and y_train.dtype == 'object':
+                y_train_encoded = self.label_encoder.fit_transform(y_train)
+                y_test_encoded = self.label_encoder.transform(y_test)
+                self.model.fit(X_train, y_train_encoded)
+                y_pred = self.model.predict(X_test)
+                y_pred_original = self.label_encoder.inverse_transform(y_pred)
+                y_test_original = self.label_encoder.inverse_transform(y_test_encoded)
+            else:
+                self.model.fit(X_train, y_train)
+                y_pred = self.model.predict(X_test)
+                y_pred_original = y_pred
+                y_test_original = y_test
 
             # Вычисляем метрики
-            metrics = self.calculate_metrics(y_test, y_pred)
+            if self.is_classification:
+                if y_train.dtype == 'object':
+                    metrics = self.calculate_classification_metrics(y_test_encoded, y_pred)
+                else:
+                    metrics = self.calculate_classification_metrics(y_test, y_pred)
+            else:
+                n_features = X_train.shape[1]
+                metrics = self.calculate_regression_metrics(y_test, y_pred, n_features)
 
             # Обновляем интерфейс
-            self.update_metrics_display(metrics)
-            self.update_predictions_table(y_test, y_pred)
-            self.update_model_info(target, model_type, len(y_train), len(y_test))
+            if self.is_classification:
+                self.update_classification_metrics_display(metrics)
+                headers = ['Фактическое', 'Предсказанное']
+            else:
+                self.update_regression_metrics_display(metrics)
+                headers = ['Фактическое', 'Предсказанное']
+
+            self.update_predictions_table(y_test_original, y_pred_original, headers)
+            self.update_model_info(target, model_type, len(y_train), len(y_test),
+                                   self.is_classification, metrics)
 
             # Выводим информацию о модели
-            self.show_model_info(metrics, len(y_train), len(y_test))
+            self.show_model_info(metrics, len(y_train), len(y_test),
+                                 self.is_classification, model_type, target)
 
         except Exception as e:
             QMessageBox.critical(self, "Ошибка", f"Не удалось построить модель: {str(e)}")
+            import traceback
+            traceback.print_exc()
 
-    def update_metrics_display(self, metrics):
-        """Обновление отображения метрик"""
-        metrics_text = f"""
-        <div style='color: #2d3748; line-height: 1.6;'>
-            <div style='margin-bottom: 12px;'>
-                <span style='font-weight: bold; color: #3182ce; font-size: 13px;'>Коэффициент детерминации (R²):</span><br>
-                <span style='font-size: 16px; color: #2c5282; font-weight: bold;'>{metrics['R2']}</span>
-            </div>
-
-            <div style='margin-bottom: 12px;'>
-                <span style='font-weight: bold; color: #3182ce; font-size: 13px;'>Средняя абсолютная процентная ошибка (MAPE):</span><br>
-                <span style='font-size: 16px; color: #2c5282; font-weight: bold;'>{metrics['MAPE']}%</span>
-            </div>
-
-            <div style='margin-bottom: 12px;'>
-                <span style='font-weight: bold; color: #3182ce; font-size: 13px;'>Средняя абсолютная ошибка (MAE):</span><br>
-                <span style='font-size: 16px; color: #2c5282; font-weight: bold;'>{metrics['MAE']}</span>
-            </div>
-
-            <div style='margin-bottom: 12px;'>
-                <span style='font-weight: bold; color: #3182ce; font-size: 13px;'>Среднеквадратичная ошибка (RMSE):</span><br>
-                <span style='font-size: 16px; color: #2c5282; font-weight: bold;'>{metrics['RMSE']}</span>
-            </div>
-        </div>
-        """
-        self.ui.metricsTextEdit.setHtml(metrics_text)
-
-    def update_predictions_table(self, y_true, y_pred):
+    def update_predictions_table(self, y_true, y_pred, headers):
         """Обновление таблицы с предсказаниями"""
         # Создаем DataFrame для отображения
         df_display = pd.DataFrame({
-            'Фактическое': y_true.values,
-            'Предсказанное': y_pred
-        }).round(4)
+            headers[0]: y_true.values if hasattr(y_true, 'values') else y_true,
+            headers[1]: y_pred
+        })
+
+        # Округляем числовые значения
+        if not self.is_classification:
+            df_display = df_display.round(4)
 
         # Создаем модель для таблицы
         model = QStandardItemModel()
-        model.setHorizontalHeaderLabels(['Фактическое', 'Предсказанное'])
+        model.setHorizontalHeaderLabels(headers)
 
         # Заполняем данными (первые 100 строк)
         max_rows = min(100, len(df_display))
@@ -549,37 +712,235 @@ class ModelingWindow(QMainWindow):
         self.ui.predictionsTableView.setModel(model)
 
         # Настраиваем отображение
-        header = self.ui.predictionsTableView.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        header_view = self.ui.predictionsTableView.horizontalHeader()
+        header_view.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
 
-    def update_model_info(self, target, model_type, train_size, test_size):
+    def update_model_info(self, target, model_type, train_size, test_size,
+                          is_classification, metrics):
         """Обновление информации о модели"""
-        info_text = f"Модель: {model_type} | Целевая переменная: {target} | "
-        info_text += f"Обучающая выборка: {train_size} строк | "
-        info_text += f"Тестовая выборка: {test_size} строк"
+        task_type = "Классификация" if is_classification else "Регрессия"
+
+        if is_classification:
+            main_metric = f"Accuracy: {metrics.get('Accuracy', 'N/A')}"
+        else:
+            main_metric = f"R²: {metrics.get('R2', 'N/A')}"
+
+        info_text = f"Модель: {model_type} | Задача: {task_type} | Целевая: {target} | "
+        info_text += f"Обучающая: {train_size} | Тестовая: {test_size} | {main_metric}"
         self.ui.modelInfoLabel.setText(info_text)
 
-    def show_model_info(self, metrics, train_size, test_size):
+    def update_regression_metrics_display(self, metrics):
+        """Обновление отображения метрик для регрессии с пояснениями"""
+        metrics_text = f"""
+        <div style='color: #2d3748; line-height: 1.6;'>
+            <div style='margin-bottom: 16px; background-color: #f7fafc; padding: 10px; border-radius: 6px; border-left: 4px solid #3182ce;'>
+                <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;'>
+                    <span style='font-weight: bold; color: #3182ce; font-size: 13px;'>Коэффициент детерминации (R²):</span>
+                    <span style='font-size: 16px; color: #2c5282; font-weight: bold;'>{metrics.get('R2', 'N/A')}</span>
+                </div>
+                <div style='font-size: 11px; color: #718096;'>
+                    Показывает, какая доля дисперсии зависимой переменной объясняется моделью.<br>
+                    <b>Интерпретация:</b> от 0 до 1. Чем ближе к 1, тем лучше.
+                </div>
+            </div>
+
+            <div style='margin-bottom: 16px; background-color: #f7fafc; padding: 10px; border-radius: 6px; border-left: 4px solid #3182ce;'>
+                <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;'>
+                    <span style='font-weight: bold; color: #3182ce; font-size: 13px;'>Скорректированный R² (Adj R²):</span>
+                    <span style='font-size: 16px; color: #2c5282; font-weight: bold;'>{metrics.get('Adj_R2', 'N/A')}</span>
+                </div>
+                <div style='font-size: 11px; color: #718096;'>
+                    R² с поправкой на количество признаков. Учитывает сложность модели.<br>
+                    <b>Интерпретация:</b> Более честная оценка, чем R², особенно при многих признаках.
+                </div>
+            </div>
+
+            <div style='margin-bottom: 16px; background-color: #f7fafc; padding: 10px; border-radius: 6px; border-left: 4px solid #e53e3e;'>
+                <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;'>
+                    <span style='font-weight: bold; color: #3182ce; font-size: 13px;'>Средняя абсолютная процентная ошибка (MAPE):</span>
+                    <span style='font-size: 16px; color: #c53030; font-weight: bold;'>{metrics.get('MAPE', 'N/A')}%</span>
+                </div>
+                <div style='font-size: 11px; color: #718096;'>
+                    Средняя абсолютная ошибка в процентах от фактических значений.<br>
+                    <b>Интерпретация:</b> Чем меньше, тем лучше. Например, MAPE=10% означает среднюю ошибку 10%.
+                </div>
+            </div>
+
+            <div style='margin-bottom: 16px; background-color: #f7fafc; padding: 10px; border-radius: 6px; border-left: 4px solid #e53e3e;'>
+                <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;'>
+                    <span style='font-weight: bold; color: #3182ce; font-size: 13px;'>Средняя абсолютная ошибка (MAE):</span>
+                    <div>
+                        <span style='font-size: 16px; color: #c53030; font-weight: bold;'>{metrics.get('MAE', 'N/A')}</span>
+                        <span style='font-size: 12px; color: #a0aec0; margin-left: 5px;'>({metrics.get('MAE_percent', 'N/A')}% от среднего)</span>
+                    </div>
+                </div>
+                <div style='font-size: 11px; color: #718096;'>
+                    Среднее абсолютное значение разницы между предсказанными и фактическими значениями.<br>
+                    <b>Интерпретация:</b> Менее чувствительна к выбросам, чем RMSE. Чем меньше, тем лучше.
+                </div>
+            </div>
+
+            <div style='margin-bottom: 16px; background-color: #f7fafc; padding: 10px; border-radius: 6px; border-left: 4px solid #e53e3e;'>
+                <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;'>
+                    <span style='font-weight: bold; color: #3182ce; font-size: 13px;'>Среднеквадратичная ошибка (RMSE):</span>
+                    <span style='font-size: 16px; color: #c53030; font-weight: bold;'>{metrics.get('RMSE', 'N/A')}</span>
+                </div>
+                <div style='font-size: 11px; color: #718096;'>
+                    Корень из среднего квадрата разностей между предсказанными и фактическими значениями.<br>
+                    <b>Интерпретация:</b> Более чувствительна к большим ошибкам (выбросам). Чем меньше, тем лучше.
+                </div>
+            </div>
+        </div>
+        """
+        self.ui.metricsTextEdit.setHtml(metrics_text)
+
+    def update_classification_metrics_display(self, metrics):
+        """Обновление отображения метрик для классификации с пояснениями"""
+        # Формируем текст для ROC-AUC
+        roc_auc_text = ""
+        if 'ROC-AUC' in metrics and not pd.isna(metrics['ROC-AUC']):
+            roc_auc_value = metrics.get('ROC-AUC', 'N/A')
+            roc_auc_interpretation = self.get_roc_auc_interpretation(roc_auc_value)
+            roc_auc_text = f"""
+            <div style='margin-bottom: 16px; background-color: #f7fafc; padding: 10px; border-radius: 6px; border-left: 4px solid #38a169;'>
+                <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;'>
+                    <span style='font-weight: bold; color: #3182ce; font-size: 13px;'>ROC-AUC (Площадь под ROC-кривой):</span>
+                    <span style='font-size: 16px; color: #2f855a; font-weight: bold;'>{roc_auc_value}</span>
+                </div>
+                <div style='font-size: 11px; color: #718096;'>
+                    Показывает способность модели различать классы.<br>
+                    <b>Интерпретация:</b> {roc_auc_interpretation}
+                </div>
+            </div>
+            """
+
+        metrics_text = f"""
+        <div style='color: #2d3748; line-height: 1.6;'>
+            <div style='margin-bottom: 16px; background-color: #f7fafc; padding: 10px; border-radius: 6px; border-left: 4px solid #38a169;'>
+                <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;'>
+                    <span style='font-weight: bold; color: #3182ce; font-size: 13px;'>Точность (Accuracy):</span>
+                    <span style='font-size: 16px; color: #2f855a; font-weight: bold;'>{metrics.get('Accuracy', 'N/A')}</span>
+                </div>
+                <div style='font-size: 11px; color: #718096;'>
+                    Доля правильных предсказаний среди всех предсказаний.<br>
+                    <b>Интерпретация:</b> от 0 до 1. Чем ближе к 1, тем лучше.
+                </div>
+            </div>
+
+            <div style='margin-bottom: 16px; background-color: #f7fafc; padding: 10px; border-radius: 6px; border-left: 4px solid #38a169;'>
+                <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;'>
+                    <span style='font-weight: bold; color: #3182ce; font-size: 13px;'>Precision (Точность):</span>
+                    <span style='font-size: 16px; color: #2f855a; font-weight: bold;'>{metrics.get('Precision', 'N/A')}</span>
+                </div>
+                <div style='font-size: 11px; color: #718096;'>
+                    Из всех предсказанных положительных случаев, сколько действительно положительных.<br>
+                    <b>Интерпретация:</b> Чем выше, тем меньше ложных срабатываний.
+                </div>
+            </div>
+
+            <div style='margin-bottom: 16px; background-color: #f7fafc; padding: 10px; border-radius: 6px; border-left: 4px solid #38a169;'>
+                <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;'>
+                    <span style='font-weight: bold; color: #3182ce; font-size: 13px;'>Recall (Полнота):</span>
+                    <span style='font-size: 16px; color: #2f855a; font-weight: bold;'>{metrics.get('Recall', 'N/A')}</span>
+                </div>
+                <div style='font-size: 11px; color: #718096;'>
+                    Из всех реальных положительных случаев, сколько правильно предсказано.<br>
+                    <b>Интерпретация:</b> Чем выше, тем меньше пропущенных положительных случаев.
+                </div>
+            </div>
+
+            <div style='margin-bottom: 16px; background-color: #f7fafc; padding: 10px; border-radius: 6px; border-left: 4px solid #38a169;'>
+                <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;'>
+                    <span style='font-weight: bold; color: #3182ce; font-size: 13px;'>F1-Score (F-мера):</span>
+                    <span style='font-size: 16px; color: #2f855a; font-weight: bold;'>{metrics.get('F1-Score', 'N/A')}</span>
+                </div>
+                <div style='font-size: 11px; color: #718096;'>
+                    Гармоническое среднее между Precision и Recall.<br>
+                    <b>Интерпретация:</b> Баланс между точностью и полнотой. Особенно важен при несбалансированных классах.
+                </div>
+            </div>
+
+            {roc_auc_text}
+        </div>
+        """
+        self.ui.metricsTextEdit.setHtml(metrics_text)
+
+    def get_roc_auc_interpretation(self, value):
+        """Возвращает текстовую интерпретацию значения ROC-AUC"""
+        if value == 'N/A' or pd.isna(value):
+            return "Не вычислено (только для бинарной классификации)"
+
+        try:
+            value = float(value)
+            if value >= 0.9:
+                return "Отлично! Очень высокая разделяющая способность"
+            elif value >= 0.8:
+                return "Хорошо. Хорошая разделяющая способность"
+            elif value >= 0.7:
+                return "Удовлетворительно. Приемлемая разделяющая способность"
+            elif value >= 0.6:
+                return "Слабо. Разделяющая способность ниже среднего"
+            elif value >= 0.5:
+                return "Плохо. Модель почти не лучше случайного угадывания"
+            else:
+                return "Очень плохо. Модель работает хуже случайного угадывания"
+        except:
+            return "Не удалось интерпретировать значение"
+
+    def show_model_info(self, metrics, train_size, test_size,
+                        is_classification, model_type, target):
         """Показ информации о построенной модели"""
+        if is_classification:
+            # Формируем текст для ROC-AUC в сообщении
+            roc_auc_info = ""
+            if 'ROC-AUC' in metrics and not pd.isna(metrics['ROC-AUC']):
+                roc_auc_value = metrics.get('ROC-AUC', 'N/A')
+                roc_auc_interpretation = self.get_roc_auc_interpretation(roc_auc_value)
+                roc_auc_info = f"<b style='color: #3182ce;'>ROC-AUC:</b> {roc_auc_value} - {roc_auc_interpretation}<br>"
+
+            metrics_text = f"""
+            <div style='background-color: #f0fff4; padding: 10px; border-radius: 8px; margin: 8px 0;'>
+                <h4 style='color: #2f855a; margin-top: 0; margin-bottom: 6px;'>Метрики качества классификации:</h4>
+                <b style='color: #3182ce;'>Accuracy (Точность):</b> {metrics.get('Accuracy', 'N/A')} - доля правильных предсказаний<br>
+                <b style='color: #3182ce;'>Precision (Точность положительных):</b> {metrics.get('Precision', 'N/A')} - точность определения положительных классов<br>
+                <b style='color: #3182ce;'>Recall (Полнота):</b> {metrics.get('Recall', 'N/A')} - способность находить положительные классы<br>
+                <b style='color: #3182ce;'>F1-Score (F-мера):</b> {metrics.get('F1-Score', 'N/A')} - баланс между точностью и полнотой<br>
+                {roc_auc_info}
+            </div>
+            """
+        else:
+            metrics_text = f"""
+            <div style='background-color: #f0fff4; padding: 10px; border-radius: 8px; margin: 8px 0;'>
+                <h4 style='color: #2f855a; margin-top: 0; margin-bottom: 6px;'>Метрики качества регрессии:</h4>
+                <b style='color: #3182ce;'>R² (Коэффициент детерминации):</b> {metrics.get('R2', 'N/A')} - доля объясненной дисперсии<br>
+                <b style='color: #3182ce;'>Adj R² (Скорректированный R²):</b> {metrics.get('Adj_R2', 'N/A')} - R² с учетом сложности модели<br>
+                <b style='color: #3182ce;'>MAPE (Средняя абсолютная процентная ошибка):</b> {metrics.get('MAPE', 'N/A')}% - средняя ошибка в процентах<br>
+                <b style='color: #3182ce;'>MAE (Средняя абсолютная ошибка):</b> {metrics.get('MAE', 'N/A')} ({metrics.get('MAE_percent', 'N/A')}% от среднего)<br>
+                <b style='color: #3182ce;'>RMSE (Среднеквадратичная ошибка):</b> {metrics.get('RMSE', 'N/A')} - чувствительна к выбросам
+            </div>
+            """
+
         info_message = f"""
         <div style='font-size: 13px; line-height: 1.5;'>
-            <h3 style='color: #1e3a5f; text-align: center; margin-top: 0; margin-bottom: 15px;'>✅ Модель успешно построена!</h3>
+            <h3 style='color: #1e3a5f; text-align: center; margin-top: 0; margin-bottom: 15px;'>Модель успешно построена!</h3>
 
             <div style='background-color: #ebf8ff; padding: 10px; border-radius: 8px; margin: 8px 0;'>
-                <b>Использованная модель:</b> {self.ui.modelComboBox.currentText()}<br>
-                <b>Целевая переменная:</b> {self.ui.targetComboBox.currentText()}<br>
+                <b>Использованная модель:</b> {model_type}<br>
+                <b>Тип задачи:</b> {"Классификация" if is_classification else "Регрессия"}<br>
+                <b>Целевая переменная:</b> {target}<br>
                 <b>Размер обучающей выборки:</b> {train_size} строк<br>
                 <b>Размер тестовой выборки:</b> {test_size} строк<br>
                 <b>Тестовая выборка:</b> {self.ui.testSizeSpinBox.value()}%<br>
                 <b>Random seed:</b> {self.ui.randomSeedSpinBox.value()}
             </div>
 
-            <div style='background-color: #f0fff4; padding: 10px; border-radius: 8px; margin: 8px 0;'>
-                <h4 style='color: #2f855a; margin-top: 0; margin-bottom: 6px;'>Метрики качества:</h4>
-                <b style='color: #3182ce;'>R²:</b> {metrics['R2']} (чем ближе к 1, тем лучше)<br>
-                <b style='color: #3182ce;'>MAPE:</b> {metrics['MAPE']}% (чем меньше, тем лучше)<br>
-                <b style='color: #3182ce;'>MAE:</b> {metrics['MAE']} (чем меньше, тем лучше)<br>
-                <b style='color: #3182ce;'>RMSE:</b> {metrics['RMSE']} (чем меньше, тем лучше)
+            {metrics_text}
+
+            <div style='background-color: #fed7d7; padding: 8px; border-radius: 6px; margin: 8px 0; font-size: 12px;'>
+                <b>Совет:</b> {"Для улучшения точности классификации попробуйте:" if is_classification else "Для улучшения качества регрессии попробуйте:"}<br>
+                {"• Добавить больше признаков" if is_classification else "• Добавить больше признаков"}<br>
+                {"• Увеличить количество данных" if is_classification else "• Увеличить количество данных"}<br>
+                {"• Убрать несбалансированные классы" if is_classification else "• Убрать выбросы в данных"}
             </div>
         </div>
         """
@@ -596,138 +957,3 @@ class ModelingWindow(QMainWindow):
         """Обработка события закрытия окна"""
         self.closed.emit()
         super().closeEvent(event)
-
-
-if __name__ == "__main__":
-    import sys
-    from PyQt6.QtWidgets import QApplication
-    import numpy as np
-    import pandas as pd
-
-
-    # Создаем тестовый датасет
-    def create_test_dataset():
-        np.random.seed(42)
-        n_samples = 1000
-
-        # Создаем синтетические данные
-        data = {
-            # Числовые признаки
-            'возраст': np.random.randint(18, 70, n_samples),
-            'зарплата': np.random.normal(50000, 15000, n_samples),
-            'стаж_работы': np.random.randint(0, 40, n_samples),
-            'кредитный_скор': np.random.normal(650, 100, n_samples),
-            'долг': np.random.exponential(5000, n_samples),
-            'сбережения': np.random.normal(20000, 10000, n_samples),
-            'расходы_в_месяц': np.random.normal(30000, 8000, n_samples),
-
-            # Категориальные признаки
-            'образование': np.random.choice(
-                ['среднее', 'высшее', 'неполное_высшее', 'среднее_специальное'], n_samples),
-            'семейное_положение': np.random.choice(
-                ['холост/не замужем', 'женат/замужем', 'разведен/разведена', 'вдовец/вдова'],
-                n_samples),
-            'город': np.random.choice(
-                ['Москва', 'Санкт-Петербург', 'Новосибирск', 'Екатеринбург', 'Казань'], n_samples),
-            'пол': np.random.choice(['мужской', 'женский'], n_samples),
-            'наличие_детей': np.random.choice(['да', 'нет'], n_samples),
-
-            # Логические признаки
-            'ипотека': np.random.choice([True, False], n_samples),
-            'автомобиль': np.random.choice([True, False], n_samples),
-
-            # Целевые переменные для тестирования
-            'стоимость_страховки': np.random.normal(30000, 8000, n_samples),
-            'вероятность_дефолта': np.random.uniform(0, 1, n_samples),
-            'ежемесячный_платеж': np.random.normal(15000, 4000, n_samples),
-            'рейтинг_клиента': np.random.randint(1, 10, n_samples)
-        }
-
-        df = pd.DataFrame(data)
-
-        # Добавляем целевую переменную с зависимостью от других признаков
-        df['стоимость_страховки'] = (
-                20000 +
-                df['возраст'] * 100 +
-                df['зарплата'] * 0.1 +
-                df['кредитный_скор'] * 10 +
-                (df['город'] == 'Москва') * 5000 +
-                (df['город'] == 'Санкт-Петербург') * 3000 +
-                np.random.normal(0, 2000, n_samples)
-        )
-
-        # Добавляем еще одну целевую переменную
-        df['ежемесячный_платеж'] = (
-                10000 +
-                df['долг'] * 0.2 +
-                df['сбережения'] * (-0.05) +
-                df['стаж_работы'] * 200 +
-                np.random.normal(0, 1500, n_samples)
-        )
-
-        return df
-
-
-    # Основная функция тестирования
-    def main():
-        app = QApplication(sys.argv)
-
-        # Создаем тестовый датасет
-        test_df = create_test_dataset()
-        print(f"Создан тестовый датасет: {test_df.shape[0]} строк, {test_df.shape[1]} столбцов")
-        print("\nСтолбцы датасета:")
-        print(test_df.columns.tolist())
-        print("\nТипы данных:")
-        print(test_df.dtypes)
-
-        # Сохраняем датасет в CSV для тестирования
-        test_file = "test_modeling_dataset.csv"
-        test_df.to_csv(test_file, index=False)
-        print(f"\nДатасет сохранен в файл: {test_file}")
-
-        # Создаем и показываем окно моделирования
-        window = ModelingWindow(test_file, parent=None)
-        window.show()
-
-        # Совет по выбору таргетов и фичей:
-        print("\n" + "=" * 80)
-        print("СОВЕТЫ ПО ИСПОЛЬЗОВАНИЮ:")
-        print("=" * 80)
-        print("\n📊 ЦЕЛЕВЫЕ ПЕРЕМЕННЫЕ (таргеты) для тестирования:")
-        print("   1. 'стоимость_страховки' - хорошая числовая целевая переменная")
-        print("   2. 'ежемесячный_платеж' - еще одна хорошая числовая целевая")
-        print("   3. 'рейтинг_клиента' - дискретная числовая переменная")
-
-        print("\n🔧 ПРИЗНАКИ (фичи) для тестирования:")
-        print("   Числовые признаки:")
-        print("   - 'возраст', 'зарплата', 'стаж_работы', 'кредитный_скор'")
-        print("   - 'долг', 'сбережения', 'расходы_в_месяц'")
-
-        print("\n   Категориальные признаки:")
-        print("   - 'образование', 'семейное_положение', 'город', 'пол'")
-        print("   - 'наличие_детей'")
-
-        print("\n   Логические признаки:")
-        print("   - 'ипотека', 'автомобиль'")
-
-        print("\n💡 ПРИМЕРЫ КОМБИНАЦИЙ:")
-        print("   1. Таргет: 'стоимость_страховки'")
-        print("      Фичи: ['возраст', 'зарплата', 'кредитный_скор', 'город', 'образование']")
-
-        print("\n   2. Таргет: 'ежемесячный_платеж'")
-        print("      Фичи: ['долг', 'сбережения', 'стаж_работы', 'семейное_положение']")
-
-        print("\n   3. Таргет: 'рейтинг_клиента'")
-        print("      Фичи: ['зарплата', 'кредитный_скор', 'образование', 'город', 'ипотека']")
-
-        print("\n⚠️  ПРЕДУПРЕЖДЕНИЯ:")
-        print("   - Не выбирайте целевой переменной: 'вероятность_дефолта' (может быть проблемной)")
-        print("   - Для категориальных признаков будет применен One-Hot Encoding")
-        print("   - Начните с 15% тестовой выборки и random seed = 42")
-        print("\n" + "=" * 80)
-
-        sys.exit(app.exec())
-
-
-    # Запускаем тестирование
-    main()

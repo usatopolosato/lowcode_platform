@@ -3,7 +3,7 @@ import sys
 import shutil
 import pandas as pd
 import json
-from PyQt6.QtWidgets import (QMainWindow, QFileDialog,
+from PyQt6.QtWidgets import (QApplication, QMainWindow, QFileDialog,
                              QMessageBox, QListWidgetItem)
 from PyQt6.QtCore import Qt
 from form.choice import Ui_Platform
@@ -605,6 +605,7 @@ class MainWindow(QMainWindow):
             self.modeling_window.close()
 
         event.accept()
+        QApplication.instance().quit()
 
     # НОВЫЕ МЕТОДЫ ДЛЯ ОБНОВЛЕНИЯ СОСТОЯНИЯ ФАЙЛА
     def update_file_state(self, state_type, completed=True):
