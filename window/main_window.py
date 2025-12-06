@@ -9,6 +9,7 @@ from PyQt6.QtCore import Qt
 from form.choice import Ui_Platform
 from window.visualization_window import VisualizationWindow
 from window.preprocessing_window import PreprocessingWindow
+from window.modeling_window import ModelingWindow
 
 
 class AppDataManager:
@@ -225,7 +226,7 @@ class MainWindow(QMainWindow):
             self.ui.stats_label.setText(stats_text)
 
         except FileNotFoundError:
-            self.ui.stats_label.setText("❌ Папка не найдена")
+            self.ui.stats_label.setText("Папка не найдена")
 
     def update_file_list(self):
         """Обновление списка файлов"""
@@ -444,9 +445,37 @@ class MainWindow(QMainWindow):
                                 "Сначала завершите предобработку данных!")
             return
 
-        # TODO: Реализовать открытие окна моделирования
-        QMessageBox.information(self, "Моделирование",
-                                f"Открытие инструментов моделирования для файла: {self.current_filename}")
+        # Проверяем, существует ли файл
+        file_path = os.path.join(self.data_folder, self.current_filename)
+        if not os.path.exists(file_path):
+            QMessageBox.critical(self, "Ошибка", f"Файл {self.current_filename} не найден!")
+            return
+
+        # Скрываем главное окно
+        self.hide()
+
+        # Создаем окно моделирования
+        self.modeling_window = ModelingWindow(
+            filename=self.current_filename,
+            parent=self
+        )
+
+        # Подключаем сигнал закрытия
+        self.modeling_window.closed.connect(self.on_modeling_closed)
+
+        # Отображаем окно моделирования
+        self.modeling_window.show()
+
+        print(f"Открыто окно моделирования для файла: {self.current_filename}")
+
+    # Добавьте метод-обработчик:
+    def on_modeling_closed(self):
+        """Обработчик закрытия окна моделирования"""
+        print("Окно моделирования закрыто")
+        self.modeling_window = None
+        self.show()
+        self.activateWindow()
+        self.raise_()
 
     def is_preprocessing_completed(self):
         """Проверяет, завершена ли предобработка для текущего файла"""
@@ -483,7 +512,7 @@ class MainWindow(QMainWindow):
         reply = QMessageBox.question(
             self,
             "Подтверждение удаления",
-            f"🗑️ Вы уверены, что хотите удалить датасет '{filename}'?\n"
+            f"Вы уверены, что хотите удалить датасет '{filename}'?\n"
             f"Все связанные конфигурации (графики, настройки) также будут удалены.",
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
         )

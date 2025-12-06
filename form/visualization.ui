@@ -65,7 +65,7 @@ QPushButton:disabled {
 }</string>
           </property>
           <property name="currentIndex">
-           <number>8</number>
+           <number>6</number>
           </property>
           <widget class="QWidget" name="charts_setup_page">
            <layout class="QHBoxLayout" name="horizontalLayout_main">
@@ -1305,7 +1305,7 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1052</width>
+                 <width>493</width>
                  <height>657</height>
                 </rect>
                </property>
@@ -1631,7 +1631,7 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1052</width>
+                 <width>635</width>
                  <height>601</height>
                 </rect>
                </property>
@@ -1972,7 +1972,7 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1052</width>
+                 <width>458</width>
                  <height>849</height>
                 </rect>
                </property>
@@ -2396,9 +2396,9 @@ QPushButton:pressed {
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
+                 <y>-229</y>
                  <width>1052</width>
-                 <height>793</height>
+                 <height>725</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_box_scroll">
@@ -2485,15 +2485,15 @@ margin-top: 10px;</string>
 }</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_box_style">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_box_orientation">
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_box_notch">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
 font-size: 14px;
 font-weight: bold;</string>
                      </property>
                      <property name="text">
-                      <string>Ориентация:</string>
+                      <string>Выемка (notch):</string>
                      </property>
                     </widget>
                    </item>
@@ -2562,15 +2562,15 @@ font-weight: bold;</string>
                      </item>
                     </widget>
                    </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_box_notch">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_box_orientation">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
 font-size: 14px;
 font-weight: bold;</string>
                      </property>
                      <property name="text">
-                      <string>Выемка (notch):</string>
+                      <string>Ориентация:</string>
                      </property>
                     </widget>
                    </item>
@@ -2590,65 +2590,19 @@ font-weight: bold;</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="0">
-                    <widget class="QLabel" name="label_box_color">
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="label_box_whis">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
 font-size: 14px;
 font-weight: bold;</string>
                      </property>
                      <property name="text">
-                      <string>Цвет бокса:</string>
+                      <string>Длина усов (whiskers):</string>
                      </property>
                     </widget>
                    </item>
                    <item row="3" column="1">
-                    <widget class="QComboBox" name="box_color_combo">
-                     <property name="styleSheet">
-                      <string notr="true">QComboBox {
-    background-color: white;
-    border: 2px solid #cbd5e0;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 14px;
-    min-width: 150px;
-}</string>
-                     </property>
-                     <item>
-                      <property name="text">
-                       <string>lightblue</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>lightgreen</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>lightcoral</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>wheat</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                   <item row="4" column="0">
-                    <widget class="QLabel" name="label_box_linewidth">
-                     <property name="styleSheet">
-                      <string notr="true">color: #1e3a5f;
-font-size: 14px;
-font-weight: bold;</string>
-                     </property>
-                     <property name="text">
-                      <string>Толщина линий:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="4" column="1">
                     <widget class="QDoubleSpinBox" name="box_linewidth_spin">
                      <property name="styleSheet">
                       <string notr="true">QDoubleSpinBox {
@@ -2674,19 +2628,19 @@ font-weight: bold;</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="0">
-                    <widget class="QLabel" name="label_box_whis">
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="label_box_linewidth">
                      <property name="styleSheet">
                       <string notr="true">color: #1e3a5f;
 font-size: 14px;
 font-weight: bold;</string>
                      </property>
                      <property name="text">
-                      <string>Длина усов (whiskers):</string>
+                      <string>Толщина линий:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="1">
+                   <item row="4" column="1">
                     <widget class="QDoubleSpinBox" name="box_whis_spin">
                      <property name="styleSheet">
                       <string notr="true">QDoubleSpinBox {
@@ -3009,7 +2963,7 @@ QSpinBox:focus {
                          <number>1</number>
                         </property>
                         <property name="maximum">
-                         <number>6</number>
+                         <number>4</number>
                         </property>
                         <property name="value">
                          <number>2</number>
@@ -3052,7 +3006,7 @@ QSpinBox:focus {
                          <number>1</number>
                         </property>
                         <property name="maximum">
-                         <number>6</number>
+                         <number>4</number>
                         </property>
                         <property name="value">
                          <number>2</number>
@@ -3115,7 +3069,7 @@ font-weight: bold;</string>
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-180</y>
+                 <y>0</y>
                  <width>1122</width>
                  <height>655</height>
                 </rect>

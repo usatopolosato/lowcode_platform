@@ -779,11 +779,11 @@ class PreprocessingWindow(QMainWindow):
             file_size_kb = file_size / 1024
 
             info_text = f"""
-            📄 Файл: {self.filename}
-            📏 Размер: {file_size_kb:.2f} KB
-            📊 Строк: {len(self.data):,}
-            📈 Столбцов: {len(self.data.columns)}
-            ⚠️ Пропусков: {self.data.isnull().sum().sum():,}
+             Файл: {self.filename}
+             Размер: {file_size_kb:.2f} KB
+             Строк: {len(self.data):,}
+             Столбцов: {len(self.data.columns)}
+             Пропусков: {self.data.isnull().sum().sum():,}
             """
 
             self.ui.file_info_label.setText(info_text)
@@ -949,9 +949,9 @@ class PreprocessingWindow(QMainWindow):
         try:
             # Обновляем информацию о наборе данных
             info_text = f"""
-            📄 Файл: {self.filename}
-            📊 Строк: {len(self.data):,}
-            📈 Столбцов: {len(self.data.columns)}
+             Файл: {self.filename}
+             Строк: {len(self.data):,}
+             Столбцов: {len(self.data.columns)}
             """
             self.ui.dataset_info_label.setText(info_text)
 
@@ -2205,14 +2205,14 @@ class PreprocessingWindow(QMainWindow):
             columns_with_missing = missing_by_column[missing_by_column > 0].index.tolist()
 
             # Формируем текст информации
-            info_text = f"""📊 Общая статистика пропусков:
+            info_text = f"""Общая статистика пропусков:
 
 Всего строк: {total_rows:,}
 Всего пропусков: {total_missing:,}
 Строк с пропусками: {rows_with_any_missing:,} ({rows_with_any_missing / total_rows * 100:.1f}%)
 Строк полностью пустых: {rows_with_all_missing:,}
 
-📈 Пропуски по столбцам:
+Пропуски по столбцам:
 """
 
             # Добавляем информацию по каждому столбцу с пропусками
@@ -2222,7 +2222,7 @@ class PreprocessingWindow(QMainWindow):
                 info_text += f"\n{col}: {missing_count:,} ({percentage:.1f}%)"
 
             if not columns_with_missing:
-                info_text += "\n\n🎉 В данных нет пропусков!"
+                info_text += "\n\nВ данных нет пропусков!"
 
             self.ui.missing_info_text.setText(info_text)
 
@@ -2390,11 +2390,11 @@ class PreprocessingWindow(QMainWindow):
                 self.parent_window.update_analysis_buttons_state()
 
             QMessageBox.information(self, "Успех",
-                                    f"✅ Предобработка файла '{self.filename}' завершена!\n\n"
-                                    f"📊 Теперь доступны:\n"
+                                    f"Предобработка файла '{self.filename}' завершена!\n\n"
+                                    f"Теперь доступны:\n"
                                     f"• Визуализация данных\n"
                                     f"• Моделирование\n\n"
-                                    f"💾 Данные сохранены.")
+                                    f" Данные сохранены.")
             self.close_window()
 
         except Exception as e:
@@ -2431,11 +2431,11 @@ class PreprocessingWindow(QMainWindow):
         # Сохраняем данные при закрытии на последней странице
         if current_index == max_index:
             QMessageBox.information(self, "Успех",
-                                    f"✅ Предобработка файла '{self.filename}' завершена!\n\n"
-                                    f"📊 Теперь доступны:\n"
+                                    f"Предобработка файла '{self.filename}' завершена!\n\n"
+                                    f"Теперь доступны:\n"
                                     f"• Визуализация данных\n"
                                     f"• Моделирование\n\n"
-                                    f"💾 Данные сохранены.")
+                                    f" Данные сохранены.")
 
         self.save_data_only()
 

@@ -15,7 +15,7 @@ class Ui_Visualization(object):
         Visualization.resize(1141, 700)
         Visualization.setMinimumSize(QtCore.QSize(900, 700))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("resource/icon.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap("../resource/icon.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         Visualization.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(parent=Visualization)
         self.centralwidget.setStyleSheet("QPushButton:disabled {\n"
@@ -802,7 +802,7 @@ class Ui_Visualization(object):
         self.scrollArea_pie.setWidgetResizable(True)
         self.scrollArea_pie.setObjectName("scrollArea_pie")
         self.scrollAreaWidgetContents_pie = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_pie.setGeometry(QtCore.QRect(0, 0, 1052, 657))
+        self.scrollAreaWidgetContents_pie.setGeometry(QtCore.QRect(0, 0, 493, 657))
         self.scrollAreaWidgetContents_pie.setObjectName("scrollAreaWidgetContents_pie")
         self.verticalLayout_pie_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_pie)
         self.verticalLayout_pie_scroll.setObjectName("verticalLayout_pie_scroll")
@@ -996,7 +996,7 @@ class Ui_Visualization(object):
         self.scrollArea_hist.setWidgetResizable(True)
         self.scrollArea_hist.setObjectName("scrollArea_hist")
         self.scrollAreaWidgetContents_hist = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_hist.setGeometry(QtCore.QRect(0, 0, 1052, 601))
+        self.scrollAreaWidgetContents_hist.setGeometry(QtCore.QRect(0, 0, 635, 601))
         self.scrollAreaWidgetContents_hist.setObjectName("scrollAreaWidgetContents_hist")
         self.verticalLayout_hist_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_hist)
         self.verticalLayout_hist_scroll.setObjectName("verticalLayout_hist_scroll")
@@ -1189,7 +1189,7 @@ class Ui_Visualization(object):
         self.scrollArea_scatter.setWidgetResizable(True)
         self.scrollArea_scatter.setObjectName("scrollArea_scatter")
         self.scrollAreaWidgetContents_scatter = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_scatter.setGeometry(QtCore.QRect(0, 0, 1052, 849))
+        self.scrollAreaWidgetContents_scatter.setGeometry(QtCore.QRect(0, 0, 458, 849))
         self.scrollAreaWidgetContents_scatter.setObjectName("scrollAreaWidgetContents_scatter")
         self.verticalLayout_scatter_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_scatter)
         self.verticalLayout_scatter_scroll.setObjectName("verticalLayout_scatter_scroll")
@@ -1427,7 +1427,7 @@ class Ui_Visualization(object):
         self.scrollArea_box.setWidgetResizable(True)
         self.scrollArea_box.setObjectName("scrollArea_box")
         self.scrollAreaWidgetContents_box = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_box.setGeometry(QtCore.QRect(0, 0, 1052, 793))
+        self.scrollAreaWidgetContents_box.setGeometry(QtCore.QRect(0, -229, 1052, 725))
         self.scrollAreaWidgetContents_box.setObjectName("scrollAreaWidgetContents_box")
         self.verticalLayout_box_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_box)
         self.verticalLayout_box_scroll.setObjectName("verticalLayout_box_scroll")
@@ -1488,12 +1488,12 @@ class Ui_Visualization(object):
         self.box_style_frame.setObjectName("box_style_frame")
         self.gridLayout_box_style = QtWidgets.QGridLayout(self.box_style_frame)
         self.gridLayout_box_style.setObjectName("gridLayout_box_style")
-        self.label_box_orientation = QtWidgets.QLabel(parent=self.box_style_frame)
-        self.label_box_orientation.setStyleSheet("color: #1e3a5f;\n"
+        self.label_box_notch = QtWidgets.QLabel(parent=self.box_style_frame)
+        self.label_box_notch.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
-        self.label_box_orientation.setObjectName("label_box_orientation")
-        self.gridLayout_box_style.addWidget(self.label_box_orientation, 0, 0, 1, 1)
+        self.label_box_notch.setObjectName("label_box_notch")
+        self.gridLayout_box_style.addWidget(self.label_box_notch, 2, 0, 1, 1)
         self.box_orientation_combo = QtWidgets.QComboBox(parent=self.box_style_frame)
         self.box_orientation_combo.setStyleSheet("QComboBox {\n"
 "    background-color: white;\n"
@@ -1527,12 +1527,12 @@ class Ui_Visualization(object):
         self.box_show_points_combo.addItem("")
         self.box_show_points_combo.addItem("")
         self.gridLayout_box_style.addWidget(self.box_show_points_combo, 1, 1, 1, 1)
-        self.label_box_notch = QtWidgets.QLabel(parent=self.box_style_frame)
-        self.label_box_notch.setStyleSheet("color: #1e3a5f;\n"
+        self.label_box_orientation = QtWidgets.QLabel(parent=self.box_style_frame)
+        self.label_box_orientation.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
-        self.label_box_notch.setObjectName("label_box_notch")
-        self.gridLayout_box_style.addWidget(self.label_box_notch, 2, 0, 1, 1)
+        self.label_box_orientation.setObjectName("label_box_orientation")
+        self.gridLayout_box_style.addWidget(self.label_box_orientation, 0, 0, 1, 1)
         self.box_notch_checkbox = QtWidgets.QCheckBox(parent=self.box_style_frame)
         self.box_notch_checkbox.setStyleSheet("QCheckBox {\n"
 "    font-size: 14px;\n"
@@ -1541,33 +1541,12 @@ class Ui_Visualization(object):
         self.box_notch_checkbox.setChecked(False)
         self.box_notch_checkbox.setObjectName("box_notch_checkbox")
         self.gridLayout_box_style.addWidget(self.box_notch_checkbox, 2, 1, 1, 1)
-        self.label_box_color = QtWidgets.QLabel(parent=self.box_style_frame)
-        self.label_box_color.setStyleSheet("color: #1e3a5f;\n"
+        self.label_box_whis = QtWidgets.QLabel(parent=self.box_style_frame)
+        self.label_box_whis.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
-        self.label_box_color.setObjectName("label_box_color")
-        self.gridLayout_box_style.addWidget(self.label_box_color, 3, 0, 1, 1)
-        self.box_color_combo = QtWidgets.QComboBox(parent=self.box_style_frame)
-        self.box_color_combo.setStyleSheet("QComboBox {\n"
-"    background-color: white;\n"
-"    border: 2px solid #cbd5e0;\n"
-"    border-radius: 6px;\n"
-"    padding: 8px 12px;\n"
-"    font-size: 14px;\n"
-"    min-width: 150px;\n"
-"}")
-        self.box_color_combo.setObjectName("box_color_combo")
-        self.box_color_combo.addItem("")
-        self.box_color_combo.addItem("")
-        self.box_color_combo.addItem("")
-        self.box_color_combo.addItem("")
-        self.gridLayout_box_style.addWidget(self.box_color_combo, 3, 1, 1, 1)
-        self.label_box_linewidth = QtWidgets.QLabel(parent=self.box_style_frame)
-        self.label_box_linewidth.setStyleSheet("color: #1e3a5f;\n"
-"font-size: 14px;\n"
-"font-weight: bold;")
-        self.label_box_linewidth.setObjectName("label_box_linewidth")
-        self.gridLayout_box_style.addWidget(self.label_box_linewidth, 4, 0, 1, 1)
+        self.label_box_whis.setObjectName("label_box_whis")
+        self.gridLayout_box_style.addWidget(self.label_box_whis, 4, 0, 1, 1)
         self.box_linewidth_spin = QtWidgets.QDoubleSpinBox(parent=self.box_style_frame)
         self.box_linewidth_spin.setStyleSheet("QDoubleSpinBox {\n"
 "    background-color: white;\n"
@@ -1582,13 +1561,13 @@ class Ui_Visualization(object):
         self.box_linewidth_spin.setSingleStep(0.5)
         self.box_linewidth_spin.setProperty("value", 1.5)
         self.box_linewidth_spin.setObjectName("box_linewidth_spin")
-        self.gridLayout_box_style.addWidget(self.box_linewidth_spin, 4, 1, 1, 1)
-        self.label_box_whis = QtWidgets.QLabel(parent=self.box_style_frame)
-        self.label_box_whis.setStyleSheet("color: #1e3a5f;\n"
+        self.gridLayout_box_style.addWidget(self.box_linewidth_spin, 3, 1, 1, 1)
+        self.label_box_linewidth = QtWidgets.QLabel(parent=self.box_style_frame)
+        self.label_box_linewidth.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
 "font-weight: bold;")
-        self.label_box_whis.setObjectName("label_box_whis")
-        self.gridLayout_box_style.addWidget(self.label_box_whis, 5, 0, 1, 1)
+        self.label_box_linewidth.setObjectName("label_box_linewidth")
+        self.gridLayout_box_style.addWidget(self.label_box_linewidth, 3, 0, 1, 1)
         self.box_whis_spin = QtWidgets.QDoubleSpinBox(parent=self.box_style_frame)
         self.box_whis_spin.setStyleSheet("QDoubleSpinBox {\n"
 "    background-color: white;\n"
@@ -1603,7 +1582,7 @@ class Ui_Visualization(object):
         self.box_whis_spin.setSingleStep(0.5)
         self.box_whis_spin.setProperty("value", 1.5)
         self.box_whis_spin.setObjectName("box_whis_spin")
-        self.gridLayout_box_style.addWidget(self.box_whis_spin, 5, 1, 1, 1)
+        self.gridLayout_box_style.addWidget(self.box_whis_spin, 4, 1, 1, 1)
         self.verticalLayout_box_scroll.addWidget(self.box_style_frame)
         self.scrollArea_box.setWidget(self.scrollAreaWidgetContents_box)
         self.verticalLayout_box.addWidget(self.scrollArea_box)
@@ -1794,7 +1773,7 @@ class Ui_Visualization(object):
 "    border-color: #3182ce;\n"
 "}")
         self.custom_rows_spin.setMinimum(1)
-        self.custom_rows_spin.setMaximum(6)
+        self.custom_rows_spin.setMaximum(4)
         self.custom_rows_spin.setProperty("value", 2)
         self.custom_rows_spin.setObjectName("custom_rows_spin")
         self.horizontalLayout_custom.addWidget(self.custom_rows_spin)
@@ -1820,7 +1799,7 @@ class Ui_Visualization(object):
 "    border-color: #3182ce;\n"
 "}")
         self.custom_cols_spin.setMinimum(1)
-        self.custom_cols_spin.setMaximum(6)
+        self.custom_cols_spin.setMaximum(4)
         self.custom_cols_spin.setProperty("value", 2)
         self.custom_cols_spin.setObjectName("custom_cols_spin")
         self.horizontalLayout_custom.addWidget(self.custom_cols_spin)
@@ -1854,7 +1833,7 @@ class Ui_Visualization(object):
         self.scrollArea_display.setWidgetResizable(True)
         self.scrollArea_display.setObjectName("scrollArea_display")
         self.scrollAreaWidgetContents_display = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_display.setGeometry(QtCore.QRect(0, -180, 1122, 655))
+        self.scrollAreaWidgetContents_display.setGeometry(QtCore.QRect(0, 0, 1122, 655))
         self.scrollAreaWidgetContents_display.setObjectName("scrollAreaWidgetContents_display")
         self.verticalLayout_display_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_display)
         self.verticalLayout_display_scroll.setObjectName("verticalLayout_display_scroll")
@@ -2021,7 +2000,7 @@ class Ui_Visualization(object):
         Visualization.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(Visualization)
-        self.stackedWidget.setCurrentIndex(8)
+        self.stackedWidget.setCurrentIndex(6)
         QtCore.QMetaObject.connectSlotsByName(Visualization)
 
     def retranslateUi(self, Visualization):
@@ -2146,22 +2125,17 @@ class Ui_Visualization(object):
         self.label_box_category.setText(_translate("Visualization", "Категории (X - опционально):"))
         self.box_category_combo.setItemText(0, _translate("Visualization", "Нет (один бокс)"))
         self.label_box_values.setText(_translate("Visualization", "Значения (Y):"))
-        self.label_box_orientation.setText(_translate("Visualization", "Ориентация:"))
+        self.label_box_notch.setText(_translate("Visualization", "Выемка (notch):"))
         self.box_orientation_combo.setItemText(0, _translate("Visualization", "vertical (вертикальная)"))
         self.box_orientation_combo.setItemText(1, _translate("Visualization", "horizontal (горизонтальная)"))
         self.label_box_show_points.setText(_translate("Visualization", "Отображение точек:"))
         self.box_show_points_combo.setItemText(0, _translate("Visualization", "Не показывать"))
         self.box_show_points_combo.setItemText(1, _translate("Visualization", "outliers (только выбросы)"))
         self.box_show_points_combo.setItemText(2, _translate("Visualization", "all (все точки)"))
-        self.label_box_notch.setText(_translate("Visualization", "Выемка (notch):"))
+        self.label_box_orientation.setText(_translate("Visualization", "Ориентация:"))
         self.box_notch_checkbox.setText(_translate("Visualization", "Показать доверительный интервал медианы"))
-        self.label_box_color.setText(_translate("Visualization", "Цвет бокса:"))
-        self.box_color_combo.setItemText(0, _translate("Visualization", "lightblue"))
-        self.box_color_combo.setItemText(1, _translate("Visualization", "lightgreen"))
-        self.box_color_combo.setItemText(2, _translate("Visualization", "lightcoral"))
-        self.box_color_combo.setItemText(3, _translate("Visualization", "wheat"))
-        self.label_box_linewidth.setText(_translate("Visualization", "Толщина линий:"))
         self.label_box_whis.setText(_translate("Visualization", "Длина усов (whiskers):"))
+        self.label_box_linewidth.setText(_translate("Visualization", "Толщина линий:"))
         self.btn_box_back.setText(_translate("Visualization", "Назад"))
         self.btn_box_save.setText(_translate("Visualization", "Сохранить график"))
         self.label_layout_title.setText(_translate("Visualization", "<h2 style=\'color: #1e3a5f; margin: 10px; text-align: center;\'>🎨 Компоновка графиков</h2>"))

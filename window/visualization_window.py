@@ -15,13 +15,12 @@ from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
                              QFrame, QStackedWidget, QCheckBox, QGridLayout,
                              QRadioButton, QMessageBox, QScrollArea,
                              QSizePolicy, QGroupBox, QAbstractItemView,
-                             QFileDialog, QScrollBar)
-from PyQt6.QtCore import Qt, pyqtSignal, QSize, QRect
+                             QFileDialog, QScrollBar, QApplication)
+from PyQt6.QtCore import Qt, pyqtSignal, QSize, QRect, QTimer
 from PyQt6.QtGui import QIcon, QPixmap, QPainter, QWheelEvent
 
 # Matplotlib imports
 import matplotlib
-
 matplotlib.use('QtAgg')
 
 import matplotlib.pyplot as plt
@@ -134,202 +133,222 @@ class ChartManager:
             return []
 
 
-class SingleChartCanvas(QWidget):
-    """Виджет для отображения одного общего графика с субграфиками"""
-
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.figure = None
-        self.canvas = None
-        self.toolbar = None
-        self.init_ui()
-
-    def init_ui(self):
-        self.layout = QVBoxLayout(self)
-        self.layout.setContentsMargins(0, 0, 0, 0)
-        self.layout.setSpacing(0)
-
-        # Создаем канвас для matplotlib
-        self.figure = Figure(figsize=(12, 6), dpi=100)
-        self.canvas = FigureCanvas(self.figure)
-
-        # Настраиваем политику размеров для растягивания
-        self.canvas.setSizePolicy(QSizePolicy.Policy.Expanding,
-                                  QSizePolicy.Policy.Expanding)
-        self.canvas.setMinimumWidth(800)
-
-        # Создаем панель инструментов для навигации
-        self.toolbar = NavigationToolbar(self.canvas, self)
-
-        self.layout.addWidget(self.toolbar)
-        self.layout.addWidget(self.canvas)
-
-    def update_figure(self, figure):
-        """Обновляет фигуру на канвасе"""
-        if self.canvas:
-            # Удаляем старую фигуру
-            self.canvas.deleteLater()
-
-        # Создаем новый канвас с новой фигурой
-        self.figure = figure
-        self.canvas = FigureCanvas(self.figure)
-
-        # Настраиваем политику размеров для растягивания
-        self.canvas.setSizePolicy(QSizePolicy.Policy.Expanding,
-                                  QSizePolicy.Policy.Expanding)
-
-        # Обновляем тулбар
-        self.toolbar = NavigationToolbar(self.canvas, self)
-
-        # Обновляем layout
-        while self.layout.count():
-            item = self.layout.takeAt(0)
-            if item.widget():
-                item.widget().deleteLater()
-
-        self.layout.addWidget(self.toolbar)
-        self.layout.addWidget(self.canvas)
-
-        # Обновляем отображение
-        self.canvas.draw()
-
-
-class ScrollableChartWidget(QScrollArea):
-    """ScrollArea с возможностью масштабирования и панорамирования"""
-
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.chart_canvas = None
-        self.init_ui()
-
-    def init_ui(self):
-        self.setWidgetResizable(True)
-        self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
-        self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
-
-        # Создаем контейнер с растягивающимся layout
-        container = QWidget()
-        container.setSizePolicy(QSizePolicy.Policy.Expanding,
-                                QSizePolicy.Policy.Expanding)
-        self.setWidget(container)
-
-        self.container_layout = QVBoxLayout(container)
-        self.container_layout.setContentsMargins(5, 5, 5, 5)
-        self.container_layout.setSpacing(0)
-
-        # Создаем виджет с канвасом
-        self.chart_canvas = SingleChartCanvas()
-        self.chart_canvas.setSizePolicy(QSizePolicy.Policy.Expanding,
-                                        QSizePolicy.Policy.Expanding)
-        self.container_layout.addWidget(self.chart_canvas)
-
-        # Устанавливаем минимальные размеры для скролла
-        self.setMinimumSize(800, 400)
-
-    def update_chart(self, figure):
-        """Обновляет график в ScrollArea"""
-        if self.chart_canvas:
-            self.chart_canvas.update_figure(figure)
-
-            # НАСТРОЙКИ РАЗМЕРОВ ДЛЯ КОРРЕКТНОГО ОТОБРАЖЕНИЯ:
-
-            # 1. Рассчитываем размеры фигуры в пикселях
-            fig_width_inches, fig_height_inches = figure.get_size_inches()
-            fig_width_px = int(fig_width_inches * figure.dpi)
-            fig_height_px = int(fig_height_inches * figure.dpi)
-
-            # 2. Добавляем отступы для тулбара и других элементов
-            toolbar_height = 40  # Примерная высота тулбара
-            total_width = fig_width_px + 20  # + отступы
-            total_height = fig_height_px + toolbar_height + 20
-
-            # 3. Устанавливаем минимальные размеры контейнера
-            # Это важно для корректного скроллинга
-            self.widget().setMinimumSize(total_width, total_height)
-
-            # 4. Обновляем виджет
-            self.widget().updateGeometry()
-
-            print(f"Размер фигуры: {fig_width_inches:.1f}×{fig_height_inches:.1f} дюймов")
-            print(f"Размер в пикселях: {fig_width_px}×{fig_height_px}")
-            print(f"Общий размер контейнера: {total_width}×{total_height}")
-
-
 class UnifiedChartRenderer:
-    """Рендерер, который создает одну общую фигуру со всеми субграфиками"""
+    """Рендерер, который создает отдельные окна matplotlib для каждого графика"""
 
-    def __init__(self, data: pd.DataFrame):
+    def __init__(self, data: pd.DataFrame, main_window=None, filename: str = ""):
         self.data = data
+        self.main_window = main_window  # Ссылка на главное окно для скрытия/показа
+        self.filename = filename  # Название файла для заголовка
+        self.figures = []  # Список созданных фигур
+        self.is_closing = False  # Флаг для предотвращения рекурсии
 
-    def render_all_charts(self, charts: List[ChartConfig], layout_config: Dict) -> Figure:
-        """Создает одну фигуру со всеми графиками в указанной компоновке"""
+    def render_single_chart(self, chart: ChartConfig, show_window=True) -> Optional[Figure]:
+        """Создает отдельную фигуру для одного графика"""
+        try:
+            chart_type = chart.chart_type
+            data_config = chart.data_config
+            styling = chart.styling
+
+            if show_window:
+                # Создаем фигуру через plt.figure
+                fig = plt.figure(figsize=(10, 7), dpi=100)
+                ax = fig.add_subplot(111)
+
+                # Рендерим график
+                self._render_chart_on_axes(ax, chart)
+
+                # Устанавливаем заголовок
+                ax.set_title(chart.title, fontsize=14, pad=12)
+
+                # Настройки сетки
+                if styling.get('show_grid', True):
+                    ax.grid(True, alpha=0.3, linestyle='--')
+
+                fig.tight_layout()
+
+                # Устанавливаем заголовок окна с названием файла
+                if self.filename:
+                    # Убираем расширение файла для красивого отображения
+                    base_name = os.path.splitext(self.filename)[0]
+                    window_title = f"Дашборд: {base_name}"
+                else:
+                    window_title = "Дашборд"
+
+                fig.canvas.manager.set_window_title(window_title)
+
+                # Сохраняем ссылку на фигуру
+                self.figures.append(fig)
+
+                # Настраиваем обработчик закрытия окна
+                def on_close(event):
+                    try:
+                        if fig in self.figures:
+                            self.figures.remove(fig)
+                        # Показываем главное окно при закрытии графика
+                        if self.main_window and not self.is_closing:
+                            self.main_window.show_main_window()
+                    except Exception as e:
+                        print(f"Ошибка в обработчике закрытия: {e}")
+
+                fig.canvas.mpl_connect('close_event', on_close)
+
+                # Показываем график неблокирующим образом
+                plt.show(block=False)
+
+                return fig
+            else:
+                # Для экспорта используем обычную фигуру
+                fig = Figure(figsize=(10, 7), dpi=100)
+                ax = fig.add_subplot(111)
+
+                self._render_chart_on_axes(ax, chart)
+                ax.set_title(chart.title, fontsize=14, pad=12)
+
+                if styling.get('show_grid', True):
+                    ax.grid(True, alpha=0.3, linestyle='--')
+
+                fig.tight_layout()
+                return fig
+
+        except Exception as e:
+            print(f"Ошибка при создании графика: {e}")
+            import traceback
+            traceback.print_exc()
+            return None
+
+    def _render_multiple_charts_in_grid(self, charts: List[ChartConfig], rows: int, cols: int):
+        """Создает одну фигуру с несколькими субграфиками в сетке"""
+        try:
+            # Адаптивная высота: больше строк = больше высота на график
+            base_height_per_row = 4.0  # Базовая высота на строку
+
+            if rows == 1:
+                height_multiplier = 5.0  # Для одной строки делаем выше
+            elif rows == 2:
+                height_multiplier = 4.5
+            elif rows == 3:
+                height_multiplier = 4.0
+            else:  # 4 строки
+                height_multiplier = 3.8
+
+            fig_width = cols * 5
+            fig_height = rows * height_multiplier
+
+            fig = plt.figure(figsize=(fig_width, fig_height), dpi=100)
+
+            # Адаптивные отступы в зависимости от размера сетки
+            if rows * cols <= 4:
+                hspace, wspace = 0.5, 0.4
+            elif rows * cols <= 9:
+                hspace, wspace = 0.4, 0.3
+            else:
+                hspace, wspace = 0.35, 0.25
+
+            plt.subplots_adjust(hspace=hspace, wspace=wspace)
+
+            for i, chart in enumerate(charts):
+                if i >= rows * cols:
+                    break
+
+                ax = fig.add_subplot(rows, cols, i + 1)
+                self._render_chart_on_axes(ax, chart)
+
+                # Адаптивный размер заголовка
+                if rows * cols <= 4:
+                    title_size = 10
+                    title_pad = 10
+                elif rows * cols <= 9:
+                    title_size = 9
+                    title_pad = 8
+                else:
+                    title_size = 8
+                    title_pad = 6
+
+                ax.set_title(chart.title, fontsize=title_size, pad=title_pad)
+
+                if chart.styling.get('show_grid', True):
+                    ax.grid(True, alpha=0.3, linestyle='--')
+
+                # Адаптивный размер шрифта
+                label_size = 8 if rows * cols <= 9 else 7
+                tick_size = 7 if rows * cols <= 9 else 6
+
+                ax.xaxis.label.set_size(label_size)
+                ax.yaxis.label.set_size(label_size)
+                ax.tick_params(axis='both', labelsize=tick_size)
+
+                # Автоповорот для длинных подписей
+                if len(ax.get_xticklabels()) > 0:
+                    plt.setp(ax.get_xticklabels(), rotation=45, ha='right', fontsize=tick_size)
+
+            # Пустые ячейки
+            for i in range(len(charts), rows * cols):
+                ax = fig.add_subplot(rows, cols, i + 1)
+                ax.axis('off')
+                ax.text(0.5, 0.5, 'Пусто',
+                        ha='center', va='center',
+                        transform=ax.transAxes,
+                        fontsize=10, color='gray')
+
+            fig.tight_layout(pad=3.0, h_pad=2.0 if rows > 1 else 1.5, w_pad=3.5)
+
+            # Заголовок окна
+            if self.filename:
+                base_name = os.path.splitext(self.filename)[0]
+                window_title = f"Дашборд: {base_name}"
+            else:
+                window_title = "Дашборд"
+
+            fig.canvas.manager.set_window_title(window_title)
+            plt.show(block=False)
+            self.figures.append(fig)
+
+            def on_close(event):
+                try:
+                    if fig in self.figures:
+                        self.figures.remove(fig)
+                    if self.main_window and not self.is_closing:
+                        self.main_window.show_main_window()
+                except Exception as e:
+                    print(f"Ошибка в обработчике закрытия: {e}")
+
+            fig.canvas.mpl_connect('close_event', on_close)
+
+        except Exception as e:
+            print(f"Ошибка при создании сетки графиков: {e}")
+            import traceback
+            traceback.print_exc()
+
+    def render_all_charts(self, charts: List[ChartConfig], layout_config: Dict) -> bool:
+        """Создает отдельные окна для всех графиков"""
+        if not charts:
+            return False
+
+        # Закрываем предыдущие графики если есть
+        self.close_all_charts()
 
         rows = layout_config['rows']
         cols = layout_config['cols']
-        total_charts = rows * cols
+        total_slots = rows * cols
+        charts_to_render = charts[:total_slots]
 
-        # Адаптивные размеры фигуры в зависимости от количества графиков
-        if total_charts == 1:
-            # Для одного графика - больше размер
-            fig_width = 10
-            fig_height = 8
-            dpi = 100
-        elif total_charts <= 4:
-            # Для 2-4 графиков
-            fig_width = cols * 10
-            fig_height = rows * 8
-            dpi = 100
-        elif total_charts <= 9:
-            # Для 5-9 графиков
-            fig_width = cols * 10
-            fig_height = rows * 8
-            dpi = 90
+        print(f"Создаем {len(charts_to_render)} графиков в компоновке {rows}x{cols}")
+
+        # Скрываем главное окно
+        if self.main_window:
+            self.main_window.hide()
+
+        # Рендерим каждый график в отдельном окне или в субграфиках одной фигуры
+        if rows == 1 and cols == 1:
+            # Для одного графика - отдельное окно
+            if charts_to_render:
+                self.render_single_chart(charts_to_render[0])
         else:
-            # Для многих графиков
-            fig_width = cols * 10
-            fig_height = rows * 8
-            dpi = 80
+            # Для нескольких графиков - создаем одну фигуру с субграфиками
+            self._render_multiple_charts_in_grid(charts_to_render, rows, cols)
 
-        fig = Figure(figsize=(fig_width, fig_height), dpi=dpi)
-
-        charts_to_render = charts[:total_charts]
-
-        for i, chart in enumerate(charts_to_render):
-            if i >= total_charts:
-                break
-
-            # Создаем субграфик
-            ax = fig.add_subplot(rows, cols, i + 1)
-            self._render_chart_on_axes(ax, chart)
-
-            # Добавляем заголовок субграфика
-            ax.set_title(chart.title, fontsize=10 if total_charts <= 4 else 9, pad=6)
-
-            # Включаем сетку если нужно
-            if chart.styling.get('show_grid', True):
-                ax.grid(True, alpha=0.3, linestyle='--')
-
-        # Если остались пустые ячейки, скрываем их
-        for i in range(len(charts_to_render), total_charts):
-            ax = fig.add_subplot(rows, cols, i + 1)
-            ax.axis('off')
-            ax.text(0.5, 0.5, 'Пусто',
-                    ha='center', va='center',
-                    transform=ax.transAxes,
-                    fontsize=10, color='gray')
-
-        # Настраиваем tight_layout в зависимости от количества графиков
-        if total_charts == 1:
-            # Для одного графика - минимальные отступы
-            fig.tight_layout(pad=2.0)
-        elif total_charts <= 4:
-            fig.tight_layout(pad=2.5, h_pad=3.0, w_pad=2.5)
-        elif total_charts <= 9:
-            fig.tight_layout(pad=2.0, h_pad=2.5, w_pad=2.0)
-        else:
-            fig.tight_layout()
-
-        return fig
+        return True
 
     def _render_chart_on_axes(self, ax, chart_config: ChartConfig):
         """Рендерит конкретный график на заданных осях"""
@@ -537,20 +556,64 @@ class UnifiedChartRenderer:
             x_clean = x_data[mask]
             y_clean = y_data[mask]
 
-            if color_col and color_col in self.data.columns:
+            if color_col and color_col in self.data.columns and color_col != "Нет":
                 color_data = self.data[color_col][mask]
-                scatter = ax.scatter(x_clean, y_clean, c=color_data, s=point_size / 2,
-                                     alpha=point_alpha, marker=marker, cmap=colormap)
-                plt.colorbar(scatter, ax=ax, label=color_col)
+
+                # Проверяем тип данных для цвета
+                try:
+                    # Пробуем преобразовать к числовому типу
+                    color_numeric = pd.to_numeric(color_data, errors='coerce')
+
+                    if color_numeric.isnull().all():
+                        # Если все значения стали NaN, значит это не числовые данные
+                        # Используем категориальные данные
+                        color_data_categorical = color_data.astype('category').cat.codes
+                        scatter = ax.scatter(x_clean, y_clean, c=color_data_categorical,
+                                             s=point_size / 2, alpha=point_alpha,
+                                             marker=marker, cmap=colormap)
+
+                        # Создаем кастомную легенду для категорий
+                        categories = color_data.unique()
+                        handles = []
+                        labels = []
+
+                        # Создаем цветовую карту для категорий
+                        cmap = plt.colormaps[colormap]
+                        colors = cmap(np.linspace(0, 1, len(categories)))
+
+                        for i, category in enumerate(categories):
+                            handles.append(plt.Line2D([0], [0], marker='o', color='w',
+                                                      markerfacecolor=colors[i],
+                                                      markersize=8, alpha=point_alpha))
+                            labels.append(str(category))
+
+                        ax.legend(handles, labels, title=color_col, fontsize=7)
+
+                    else:
+                        # Числовые данные
+                        scatter = ax.scatter(x_clean, y_clean, c=color_numeric,
+                                             s=point_size / 2, alpha=point_alpha,
+                                             marker=marker, cmap=colormap)
+                        plt.colorbar(scatter, ax=ax, label=color_col)
+
+                except Exception as e:
+                    print(f"Ошибка при обработке данных цвета: {e}")
+                    # В случае ошибки используем цвет по умолчанию
+                    ax.scatter(x_clean, y_clean, s=point_size / 2, alpha=point_alpha,
+                               marker=marker, color='blue')
             else:
+                # Без цветового кодирования
                 ax.scatter(x_clean, y_clean, s=point_size / 2, alpha=point_alpha,
                            marker=marker, color='blue')
 
             if show_regression and len(x_clean) > 1:
-                z = np.polyfit(x_clean, y_clean, 1)
-                p = np.poly1d(z)
-                ax.plot(x_clean, p(x_clean), "r--", linewidth=1, label='Линия тренда')
-                ax.legend(fontsize=7)
+                try:
+                    z = np.polyfit(x_clean, y_clean, 1)
+                    p = np.poly1d(z)
+                    ax.plot(x_clean, p(x_clean), "r--", linewidth=1, label='Линия тренда')
+                    ax.legend(fontsize=7)
+                except:
+                    pass  # Игнорируем ошибку регрессии
 
             ax.set_xlabel(x_col, fontsize=9)
             ax.set_ylabel(y_col, fontsize=9)
@@ -667,6 +730,52 @@ class UnifiedChartRenderer:
         if columns:
             ax.legend(fontsize=7)
 
+    def close_all_charts(self):
+        """Закрывает все открытые графики"""
+        self.is_closing = True
+        try:
+            import matplotlib.pyplot as plt
+
+            # Создаем копию списка чтобы избежать проблем с итерацией
+            for fig in self.figures[:]:
+                try:
+                    plt.close(fig.number if hasattr(fig, 'number') else fig)
+                except Exception as e:
+                    print(f"Ошибка при закрытии графика: {e}")
+                    try:
+                        plt.close(fig)
+                    except:
+                        pass
+
+            # Очищаем список
+            self.figures.clear()
+
+            # Закрываем все окна matplotlib
+            try:
+                plt.close('all')
+            except:
+                pass
+        finally:
+            self.is_closing = False
+
+    def check_open_charts(self):
+        """Проверяет, есть ли открытые графики"""
+        try:
+            import matplotlib.pyplot as plt
+            from matplotlib._pylab_helpers import Gcf
+
+            # Проверяем, есть ли открытые фигуры
+            fig_managers = Gcf.get_all_fig_managers()
+            has_open_figures = len(fig_managers) > 0
+
+            # Обновляем наш список фигур
+            current_figures = [manager.canvas.figure for manager in fig_managers]
+            self.figures = [fig for fig in self.figures if fig in current_figures]
+
+            return has_open_figures
+        except:
+            return len(self.figures) > 0
+
 
 class VisualizationWindow(QMainWindow):
     closed = pyqtSignal()
@@ -682,9 +791,6 @@ class VisualizationWindow(QMainWindow):
         self.chart_manager = ChartManager()
         self.chart_renderer = None
         self.temp_dir = tempfile.mkdtemp(prefix="visualization_")
-
-        # Ссылка на ScrollableChartWidget
-        self.scrollable_chart_widget = None
 
         # Маппинг типов графиков на страницы
         self.chart_type_to_page = {
@@ -717,56 +823,12 @@ class VisualizationWindow(QMainWindow):
 
         # Инициализация рендерера после загрузки данных
         if self.data is not None:
-            self.chart_renderer = UnifiedChartRenderer(self.data)
+            self.chart_renderer = UnifiedChartRenderer(self.data, self, self.filename)
 
-        # Заменяем контейнер графиков на ScrollableChartWidget
-        self.setup_charts_container()
-
-    def setup_charts_container(self):
-        """Настройка контейнера для отображения единого графика"""
-        if hasattr(self.ui, 'gridLayout_charts'):
-            # Очищаем существующий layout
-            self.clear_layout(self.ui.gridLayout_charts)
-
-            # Настраиваем свойства gridLayout для растягивания
-            self.ui.gridLayout_charts.setContentsMargins(2, 2, 2, 2)
-            self.ui.gridLayout_charts.setSpacing(0)
-
-            # Создаем ScrollableChartWidget
-            self.scrollable_chart_widget = ScrollableChartWidget()
-
-            # Настраиваем политику размеров для растягивания
-            self.scrollable_chart_widget.setSizePolicy(
-                QSizePolicy.Policy.Expanding,
-                QSizePolicy.Policy.Expanding
-            )
-
-            # Добавляем его в gridLayout с растягиванием
-            self.ui.gridLayout_charts.addWidget(
-                self.scrollable_chart_widget,
-                0, 0,  # row, column
-                1, 1,  # rowSpan, columnSpan
-                Qt.AlignmentFlag.AlignCenter  # Выравнивание
-            )
-
-            # Устанавливаем stretch factors для растягивания
-            self.ui.gridLayout_charts.setRowStretch(0, 1)
-            self.ui.gridLayout_charts.setColumnStretch(0, 1)
-
-            print("ScrollableChartWidget создан и добавлен в контейнер")
-
-    def clear_layout(self, layout):
-        """Безопасная очистка layout"""
-        if layout is not None:
-            while layout.count():
-                item = layout.takeAt(0)
-                widget = item.widget()
-                if widget is not None:
-                    widget.deleteLater()
-                else:
-                    sub_layout = item.layout()
-                    if sub_layout is not None:
-                        self.clear_layout(sub_layout)
+        # Таймер для проверки закрытия графиков
+        self.chart_check_timer = QTimer()
+        self.chart_check_timer.timeout.connect(self.check_matplotlib_windows)
+        self.chart_check_timer.start(500)  # Проверка каждые 500 мс
 
     def setup_connections(self):
         # Основные навигационные кнопки
@@ -821,7 +883,10 @@ class VisualizationWindow(QMainWindow):
         QMessageBox.information(self, "Тест", "Программа запущена успешно!")
 
     def setup_initial_state(self):
-        self.setWindowTitle(f"DataLite - Визуализация: {self.filename}")
+        # Получаем базовое имя файла для заголовка
+        base_name = os.path.splitext(self.filename)[0]
+        self.setWindowTitle(f"DataLite - Визуализация: {base_name}")
+
         if hasattr(self.ui, 'stackedWidget'):
             self.max_page_index = self.ui.stackedWidget.count() - 1
             print(f"Всего страниц в stackedWidget: {self.max_page_index + 1}")
@@ -877,7 +942,8 @@ class VisualizationWindow(QMainWindow):
 
     def update_data_info(self):
         if self.data is not None and not self.data.empty:
-            info_text = f"Данные загружены: {len(self.data)} строк, {len(self.data.columns)} колонки"
+            base_name = os.path.splitext(self.filename)[0]
+            info_text = f"Дашборд: {base_name} | Данные: {len(self.data)} строк, {len(self.data.columns)} колонки"
             if hasattr(self.ui, 'label_data_info'):
                 self.ui.label_data_info.setText(info_text)
             print(info_text)
@@ -1016,15 +1082,12 @@ class VisualizationWindow(QMainWindow):
                     self.ui.btn_next.clicked.disconnect()
                     self.ui.btn_next.clicked.connect(self.generate_layout)
                     self.ui.btn_next.setEnabled(len(self.charts) > 0)
-                elif current_index == 8:
-                    self.ui.btn_next.setEnabled(False)
-                    self.ui.btn_next.setText("Далее")
                 else:
                     self.ui.btn_next.setEnabled(False)
-                    self.ui.btn_next.setText("Далее(недоступно)")
+                    self.ui.btn_next.setText("Далее")
 
             if hasattr(self.ui, 'btn_finish'):
-                self.ui.btn_finish.setEnabled(current_index in [0, 8])
+                self.ui.btn_finish.setEnabled(current_index == 0)
 
     def configure_chart(self):
         """Настройка параметров графика - переход на страницу конкретного типа графика"""
@@ -1209,7 +1272,6 @@ class VisualizationWindow(QMainWindow):
                     'orientation': self.ui.box_orientation_combo.currentText(),
                     'show_points': self.ui.box_show_points_combo.currentText(),
                     'notch': self.ui.box_notch_checkbox.isChecked(),
-                    'color': self.ui.box_color_combo.currentText(),
                     'linewidth': self.ui.box_linewidth_spin.value(),
                     'whis': self.ui.box_whis_spin.value()
                 }
@@ -1385,7 +1447,6 @@ class VisualizationWindow(QMainWindow):
         self.ui.box_show_points_combo.setCurrentText(
             styling.get('show_points', 'outliers (только выбросы)'))
         self.ui.box_notch_checkbox.setChecked(styling.get('notch', False))
-        self.ui.box_color_combo.setCurrentText(styling.get('color', 'lightblue'))
         self.ui.box_linewidth_spin.setValue(styling.get('linewidth', 1.5))
         self.ui.box_whis_spin.setValue(styling.get('whis', 1.5))
 
@@ -1420,6 +1481,10 @@ class VisualizationWindow(QMainWindow):
             self.ui.custom_rows_spin.setEnabled(False)
             self.ui.custom_cols_spin.setEnabled(False)
 
+            if hasattr(self.ui, 'current_layout_label'):
+                total_charts = rows * cols
+                self.ui.current_layout_label.setText(
+                    f"Компоновка: {rows} × {cols} | Графиков: {total_charts}")
 
     def on_custom_layout_toggled(self, checked):
         """Обработка выбора кастомной компоновки"""
@@ -1441,7 +1506,7 @@ class VisualizationWindow(QMainWindow):
                     f"Компоновка: {rows} × {cols} | Графиков: {total_charts}")
 
     def generate_layout(self):
-        """Генерация единого графика со всеми субграфиками"""
+        """Генерация графика(ов) в отдельном окне matplotlib"""
         print("Нажата кнопка 'Построить все графики'")
 
         if not self.charts:
@@ -1449,65 +1514,130 @@ class VisualizationWindow(QMainWindow):
             return
 
         if not self.chart_renderer:
-            self.chart_renderer = UnifiedChartRenderer(self.data)
+            self.chart_renderer = UnifiedChartRenderer(self.data, self, self.filename)
 
         try:
-            # Создаем единую фигуру со всеми графиками
-            figure = self.chart_renderer.render_all_charts(self.charts, self.layout_config)
+            # Закрываем предыдущие графики если есть
+            self.chart_renderer.close_all_charts()
 
-            # Отображаем фигуру в ScrollableChartWidget
-            if self.scrollable_chart_widget:
-                self.scrollable_chart_widget.update_chart(figure)
+            # Скрываем главное окно
+            self.hide()
 
-                # Обновляем информацию о компоновке
-                if hasattr(self.ui, 'current_layout_label'):
-                    rows = self.layout_config['rows']
-                    cols = self.layout_config['cols']
-                    displayed = min(len(self.charts), rows * cols)
-                    self.ui.current_layout_label.setText(
-                        f"Компоновка: {rows} × {cols} | Отображено графиков: {displayed}/{len(self.charts)}")
+            # Рендерим графики в отдельном окне matplotlib
+            success = self.chart_renderer.render_all_charts(self.charts, self.layout_config)
 
-                # Переходим на страницу отображения
-                self.go_to_page(8)
-
-                QMessageBox.information(self, "Успех",
-                                        f"Графики построены! Отображено {displayed} из {len(self.charts)} графиков.")
+            if success:
+                base_name = os.path.splitext(self.filename)[0]
+                QMessageBox.information(
+                    self,
+                    "Успех",
+                    f"Дашборд '{base_name}' открыт в отдельном окне!\n\n"
+                    f"Закройте окно дашборда чтобы вернуться к редактору."
+                )
             else:
-                QMessageBox.critical(self, "Ошибка",
-                                     "Виджет для отображения графиков не инициализирован!")
+                self.show()
+                QMessageBox.warning(self, "Ошибка", "Не удалось создать графики!")
 
         except Exception as e:
+            self.show()
             QMessageBox.critical(self, "Ошибка", f"Ошибка при построении графиков: {str(e)}")
             print(f"Ошибка: {e}")
             import traceback
             traceback.print_exc()
 
     def export_figure(self):
-        """Экспорт графика в файл"""
-        if not self.scrollable_chart_widget or not self.scrollable_chart_widget.chart_canvas:
-            QMessageBox.warning(self, "Внимание", "Нет графика для экспорта!")
+        """Экспорт выбранного графика в файл"""
+        selected_items = self.ui.charts_listwidget.selectedItems()
+        if not selected_items:
+            QMessageBox.warning(self, "Внимание", "Выберите график для экспорта!")
             return
 
-        file_path, _ = QFileDialog.getSaveFileName(
-            self, "Сохранить график", "",
-            "PNG Files (*.png);;JPEG Files (*.jpg);;PDF Files (*.pdf);;SVG Files (*.svg)"
-        )
+        item = selected_items[0]
+        chart_index = item.data(Qt.ItemDataRole.UserRole)
 
-        if file_path and self.scrollable_chart_widget.chart_canvas.figure:
-            try:
-                # Сохраняем фигуру
-                self.scrollable_chart_widget.chart_canvas.figure.savefig(
-                    file_path, dpi=300, bbox_inches='tight')
-                QMessageBox.information(self, "Успех", f"График сохранен в {file_path}!")
+        if 0 <= chart_index < len(self.charts):
+            chart = self.charts[chart_index]
 
-            except Exception as e:
-                QMessageBox.critical(self, "Ошибка", f"Ошибка при сохранении графика: {str(e)}")
-                print(f"Ошибка экспорта: {e}")
+            # Создаем имя файла по умолчанию с названием датасета
+            base_name = os.path.splitext(self.filename)[0]
+            default_name = f"Дашборд_{base_name}_{chart.title}".replace(' ', '_')
+
+            file_path, _ = QFileDialog.getSaveFileName(
+                self,
+                f"Сохранить график: {chart.title}",
+                default_name,
+                "PNG Files (*.png);;JPEG Files (*.jpg);;PDF Files (*.pdf);;SVG Files (*.svg)"
+            )
+
+            if file_path:
+                try:
+                    # Создаем временную фигуру для экспорта
+                    if not self.chart_renderer:
+                        self.chart_renderer = UnifiedChartRenderer(self.data, self, self.filename)
+
+                    fig = self.chart_renderer.render_single_chart(chart, show_window=False)
+                    if fig:
+                        fig.savefig(file_path, dpi=300, bbox_inches='tight')
+                        plt.close(fig)
+                        QMessageBox.information(self, "Успех", f"График сохранен в {file_path}!")
+                    else:
+                        QMessageBox.warning(self, "Ошибка",
+                                            "Не удалось создать график для экспорта!")
+
+                except Exception as e:
+                    QMessageBox.critical(self, "Ошибка", f"Ошибка при сохранении графика: {str(e)}")
+                    print(f"Ошибка экспорта: {e}")
+
+    def check_matplotlib_windows(self):
+        """Проверяет, есть ли открытые окна matplotlib"""
+        try:
+            if not self.chart_renderer:
+                return
+
+            # Проверяем, есть ли открытые графики
+            has_open_charts = self.chart_renderer.check_open_charts()
+
+            # Если графики закрыты и главное окно скрыто, показываем его
+            if not has_open_charts and not self.isVisible():
+                print("Все графики закрыты, показываем главное окно...")
+                self.show_main_window()
+
+        except Exception as e:
+            print(f"Ошибка при проверке окон matplotlib: {e}")
+            # В случае ошибки все равно показываем главное окно
+            if not self.isVisible():
+                self.show_main_window()
+
+    def show_main_window(self):
+        """Показывает главное окно и активирует его"""
+        try:
+            if not self.isVisible():
+                self.show()
+                self.raise_()
+                self.activateWindow()
+                # Даем фокус окну
+                QApplication.processEvents()
+        except Exception as e:
+            print(f"Ошибка при показе главного окна: {e}")
 
     def finish_visualization(self):
         """Завершение работы с визуализацией"""
+        # Останавливаем таймер проверки
+        if hasattr(self, 'chart_check_timer'):
+            self.chart_check_timer.stop()
+
+        # Закрываем все графики matplotlib
+        if self.chart_renderer:
+            try:
+                self.chart_renderer.close_all_charts()
+            except:
+                pass
+
+        # Сохраняем графики
         if self.charts:
             self.chart_manager.save_charts(self.filename, self.charts)
+
+        # Закрываем окно
         self.close()
 
     def load_saved_charts(self):
@@ -1519,6 +1649,18 @@ class VisualizationWindow(QMainWindow):
 
     def closeEvent(self, event):
         """Обработка закрытия окна"""
+        # Останавливаем таймер
+        if hasattr(self, 'chart_check_timer'):
+            self.chart_check_timer.stop()
+
+        # Закрываем все графики matplotlib
+        if self.chart_renderer:
+            try:
+                self.chart_renderer.close_all_charts()
+            except:
+                pass
+
+        # Сохраняем графики
         if self.charts:
             self.chart_manager.save_charts(self.filename, self.charts)
 
@@ -1533,21 +1675,9 @@ class VisualizationWindow(QMainWindow):
         self.closed.emit()
         event.accept()
 
-    def resizeEvent(self, event):
-        """Обработка изменения размера окна"""
-        super().resizeEvent(event)
-
-        # При изменении размера окна обновляем отображение графика
-        if hasattr(self, 'scrollable_chart_widget') and self.scrollable_chart_widget:
-            if self.scrollable_chart_widget.chart_canvas and \
-                    self.scrollable_chart_widget.chart_canvas.canvas:
-                self.scrollable_chart_widget.chart_canvas.canvas.draw()
-
 
 # Для тестирования модуля
 if __name__ == "__main__":
-    from PyQt6.QtWidgets import QApplication
-
     app = QApplication(sys.argv)
 
     # Тестовый файл
