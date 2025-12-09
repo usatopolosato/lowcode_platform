@@ -189,7 +189,7 @@ class Ui_Platform(object):
 "                    padding: 15px 20px;\n"
 "                    border-radius: 8px;\n"
 "                    font-weight: bold;\n"
-"                    font-size: 20px;\n"
+"                    font-size: 22px;\n"
 "                }\n"
 "QPushButton:hover {\n"
 "                    background-color: rgb(195, 112, 44);\n"
