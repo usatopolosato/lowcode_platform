@@ -420,7 +420,14 @@ class UnifiedChartRenderer:
             y_clean = y_data[mask]
 
             if len(x_clean) > 0:
-                ax.plot(x_clean, y_clean,
+                df_plot = pd.DataFrame({
+                    'x': x_clean.values,
+                    'y': y_clean.values
+                })
+
+                # Сортируем по возрастанию X (как в временных рядах)
+                df_plot = df_plot.sort_values('x')
+                ax.plot(df_plot['x'].values, df_plot['y'].values,
                         linestyle=line_style,
                         linewidth=line_width,
                         marker=markers,
@@ -653,9 +660,23 @@ class UnifiedChartRenderer:
         x_clean = x_data[mask]
         y_clean = y_data[mask]
 
+        # СОРТИРОВКА для линии регрессии (если она будет рисоваться)
+        # Сохраняем индексы сортировки для использования в scatter
+        if show_regression:
+            # Сортируем данные для линии регрессии
+            sorted_indices = np.argsort(x_clean.values)
+            x_sorted_for_reg = x_clean.iloc[sorted_indices]
+            y_sorted_for_reg = y_clean.iloc[sorted_indices]
+
         # Обработка цветового кодирования
         if color_col and color_col != "Нет" and color_col in self.data.columns:
             color_data = self.data[color_col][mask]
+
+            # Если нужна сортировка для цветов (если цвета зависят от X)
+            # Создаем DataFrame для сохранения соответствия
+            if show_regression:
+                # Сохраняем цвета в отсортированном порядке
+                color_data_sorted = color_data.iloc[sorted_indices]
 
             try:
                 # Пробуем преобразовать к числовому типу
@@ -734,18 +755,20 @@ class UnifiedChartRenderer:
                        edgecolors='black',
                        linewidth=0.5)
 
-        # Линия регрессии
+        # Линия регрессии - ИСПРАВЛЕННАЯ ЧАСТЬ
         if show_regression and len(x_clean) > 1:
             try:
-                # Линейная регрессия
+                # Используем ОРИГИНАЛЬНЫЕ несортированные данные для расчета регрессии
+                # Это важно, чтобы не исказить коэффициенты
                 z = np.polyfit(x_clean, y_clean, 1)
                 p = np.poly1d(z)
 
-                # Сортировка для гладкой линии
-                x_sorted = np.sort(x_clean)
-                y_reg = p(x_sorted)
+                # Для отрисовки линии используем СОРТИРОВАННЫЕ данные
+                # чтобы линия была гладкой и не "прыгала"
+                x_line = x_sorted_for_reg
+                y_reg = p(x_line)
 
-                ax.plot(x_sorted, y_reg, "r--", linewidth=2, label='Линия тренда')
+                ax.plot(x_line, y_reg, "r--", linewidth=2, label='Линия тренда')
 
                 # Добавляем уравнение линии
                 slope = z[0]
