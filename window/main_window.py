@@ -6,7 +6,7 @@ import json
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QFileDialog,
                              QMessageBox, QListWidgetItem)
 from PyQt6.QtCore import Qt
-from form.choice import Ui_Platform
+from form.main_window_ui import Ui_Platform
 from window.visualization_window import VisualizationWindow
 from window.preprocessing_window import PreprocessingWindow
 from window.modeling_window import ModelingWindow
@@ -223,7 +223,7 @@ class MainWindow(QMainWindow):
             csv_count = sum(1 for f in files if f.endswith('.csv'))
             json_count = sum(1 for f in files if f.endswith('.json'))
 
-            stats_text = f"📊 Статистика: {len(files)} файлов (CSV: {csv_count}, JSON: {json_count})"
+            stats_text = f"Статистика: {len(files)} файлов (CSV: {csv_count}, JSON: {json_count})"
             self.ui.stats_label.setText(stats_text)
 
         except FileNotFoundError:
@@ -300,7 +300,7 @@ class MainWindow(QMainWindow):
         # Переходим на страницу анализа
         self.ui.stackedWidget.setCurrentIndex(1)
         self.ui.label_4.setText(
-            f"<h1 style='color: #1e3a5f; margin: 15px; text-align: center;'>🔧 Анализ: {filename}</h1>")
+            f"<h1 style='color: #1e3a5f; margin: 15px; text-align: center;'>Анализ: {filename}</h1>")
 
         QMessageBox.information(self, "Успех",
                                 f"Файл {filename} успешно загружен для анализа!")

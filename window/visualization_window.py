@@ -32,7 +32,7 @@ import matplotlib.gridspec as gridspec
 
 # Импортируем UI из сгенерированного файла
 try:
-    from form.visualization import Ui_Visualization
+    from form.visualization_window_ui import Ui_Visualization
 except ImportError:
     print("Ошибка: Не удалось импортировать Ui_Visualization из form.visualization")
     print("Создаю простой UI для теста...")

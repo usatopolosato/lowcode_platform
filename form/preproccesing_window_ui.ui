@@ -38,7 +38,7 @@ QPushButton:disabled {
 }</string>
       </property>
       <property name="currentIndex">
-       <number>6</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="view_page">
        <layout class="QVBoxLayout" name="verticalLayout_view">
@@ -55,15 +55,15 @@ QPushButton:disabled {
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>661</width>
-             <height>319</height>
+             <width>1156</width>
+             <height>653</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_view_content">
             <item>
              <widget class="QLabel" name="label_5">
               <property name="text">
-               <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt; 📄 Просмотр файла &lt;/h1&gt;</string>
+               <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt; Просмотр файла &lt;/h1&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -357,8 +357,8 @@ QPushButton:disabled {
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>773</width>
-             <height>793</height>
+             <width>1135</width>
+             <height>789</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_type_content">
@@ -368,7 +368,7 @@ QPushButton:disabled {
                <item>
                 <widget class="QLabel" name="label_8">
                  <property name="text">
-                  <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt; 📊 Анализ столбцов &lt;/h1&gt;</string>
+                  <string>&lt;h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'&gt; Анализ столбцов &lt;/h1&gt;</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
@@ -506,7 +506,7 @@ padding: 5px;
 text-align: center;</string>
                        </property>
                        <property name="text">
-                        <string>📋 Уникальные значения</string>
+                        <string>Уникальные значения</string>
                        </property>
                       </widget>
                      </item>
@@ -520,8 +520,8 @@ text-align: center;</string>
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>280</width>
-                          <height>253</height>
+                          <width>461</width>
+                          <height>255</height>
                          </rect>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -607,7 +607,7 @@ padding: 5px;
 text-align: center;</string>
                        </property>
                        <property name="text">
-                        <string>🎯 Выбор типа данных</string>
+                        <string>Выбор типа данных</string>
                        </property>
                       </widget>
                      </item>
@@ -621,8 +621,8 @@ text-align: center;</string>
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>280</width>
-                          <height>247</height>
+                          <width>461</width>
+                          <height>249</height>
                          </rect>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_14">
@@ -784,8 +784,8 @@ font-weight: bold;</string>
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>776</width>
-             <height>403</height>
+             <width>1156</width>
+             <height>653</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_pass_content">
@@ -805,7 +805,7 @@ font-weight: bold;</string>
                   <item>
                    <widget class="QLabel" name="pass_title_label">
                     <property name="text">
-                     <string>&lt;h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'&gt; 🧹 Обработка пропусков &lt;/h1&gt;</string>
+                     <string>&lt;h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'&gt; Обработка пропусков &lt;/h1&gt;</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -1010,7 +1010,7 @@ QPushButton:disabled {
                   <item>
                    <widget class="QLabel" name="pass_numeric_title">
                     <property name="text">
-                     <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 22px;'&gt; 📈 Обработка числовых пропусков &lt;/h2&gt;</string>
+                     <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 22px;'&gt; Обработка числовых пропусков &lt;/h2&gt;</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -1068,7 +1068,7 @@ font-weight: bold;
 text-align: center;</string>
                           </property>
                           <property name="text">
-                           <string>🔍 Пропущенные значения и контекст</string>
+                           <string> Пропущенные значения и контекст</string>
                           </property>
                          </widget>
                         </item>
@@ -1082,8 +1082,8 @@ text-align: center;</string>
                             <rect>
                              <x>0</x>
                              <y>0</y>
-                             <width>380</width>
-                             <height>328</height>
+                             <width>129</width>
+                             <height>129</height>
                             </rect>
                            </property>
                            <layout class="QVBoxLayout" name="verticalLayout_15">
@@ -1156,7 +1156,7 @@ font-weight: bold;
 text-align: center;</string>
                           </property>
                           <property name="text">
-                           <string>📊 Статистика</string>
+                           <string>Статистика</string>
                           </property>
                          </widget>
                         </item>
@@ -1208,8 +1208,8 @@ margin-top: 10px;</string>
                             <rect>
                              <x>0</x>
                              <y>0</y>
-                             <width>280</width>
-                             <height>212</height>
+                             <width>129</width>
+                             <height>194</height>
                             </rect>
                            </property>
                            <layout class="QVBoxLayout" name="verticalLayout_16">
@@ -1399,7 +1399,7 @@ QPushButton:disabled {
                   <item>
                    <widget class="QLabel" name="pass_categorical_title">
                     <property name="text">
-                     <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 22px;'&gt; 📊 Обработка категориальных пропусков &lt;/h2&gt;</string>
+                     <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 22px;'&gt; Обработка категориальных пропусков &lt;/h2&gt;</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -1457,7 +1457,7 @@ font-weight: bold;
 text-align: center;</string>
                           </property>
                           <property name="text">
-                           <string>📋 Уникальные значения</string>
+                           <string> Уникальные значения</string>
                           </property>
                          </widget>
                         </item>
@@ -1471,7 +1471,7 @@ text-align: center;</string>
                             <rect>
                              <x>0</x>
                              <y>0</y>
-                             <width>359</width>
+                             <width>129</width>
                              <height>129</height>
                             </rect>
                            </property>
@@ -1507,7 +1507,7 @@ text-align: center;
 margin-top: 10px;</string>
                           </property>
                           <property name="text">
-                           <string>📊 Распределение (круговая диаграмма)</string>
+                           <string> Распределение (круговая диаграмма)</string>
                           </property>
                          </widget>
                         </item>
@@ -1560,7 +1560,7 @@ font-weight: bold;
 text-align: center;</string>
                           </property>
                           <property name="text">
-                           <string>🎯 Замена пропусков</string>
+                           <string> Замена пропусков</string>
                           </property>
                          </widget>
                         </item>
@@ -1727,7 +1727,7 @@ QPushButton:disabled {
              <x>0</x>
              <y>0</y>
              <width>1135</width>
-             <height>1030</height>
+             <height>1024</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_replace_content">
@@ -1747,7 +1747,7 @@ QPushButton:disabled {
                   <item>
                    <widget class="QLabel" name="replace_title_label">
                     <property name="text">
-                     <string>&lt;h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'&gt; 🔄 Заменить данные &lt;/h1&gt;</string>
+                     <string>&lt;h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'&gt; Заменить данные &lt;/h1&gt;</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -1958,7 +1958,7 @@ QPushButton:disabled {
 }</string>
                        </property>
                        <property name="text">
-                        <string>📈 Замена количественных данных</string>
+                        <string>Замена количественных данных</string>
                        </property>
                       </widget>
                      </item>
@@ -2005,7 +2005,7 @@ QPushButton:disabled {
 }</string>
                        </property>
                        <property name="text">
-                        <string>📊 Замена категориальных данных</string>
+                        <string>Замена категориальных данных</string>
                        </property>
                       </widget>
                      </item>
@@ -2225,7 +2225,7 @@ text-align: center;
 margin-bottom: 10px;</string>
                               </property>
                               <property name="text">
-                               <string>📊 Статистика столбца</string>
+                               <string>Статистика столбца</string>
                               </property>
                              </widget>
                             </item>
@@ -2276,7 +2276,7 @@ text-align: center;
 margin-bottom: 5px;</string>
                                  </property>
                                  <property name="text">
-                                  <string>📈 Box Plot</string>
+                                  <string>Box Plot</string>
                                  </property>
                                 </widget>
                                </item>
@@ -2333,7 +2333,7 @@ text-align: center;
 margin-bottom: 10px;</string>
                               </property>
                               <property name="text">
-                               <string>🔄 Настройки замены</string>
+                               <string>Настройки замены</string>
                               </property>
                              </widget>
                             </item>
@@ -2580,7 +2580,7 @@ font-weight: bold;
 margin-bottom: 5px;</string>
                                  </property>
                                  <property name="text">
-                                  <string>📋 Предпросмотр строк:</string>
+                                  <string>Предпросмотр строк:</string>
                                  </property>
                                 </widget>
                                </item>
@@ -2594,8 +2594,8 @@ margin-bottom: 5px;</string>
                                    <rect>
                                     <x>0</x>
                                     <y>0</y>
-                                    <width>308</width>
-                                    <height>199</height>
+                                    <width>149</width>
+                                    <height>149</height>
                                    </rect>
                                   </property>
                                   <layout class="QVBoxLayout" name="verticalLayout_21">
@@ -2719,7 +2719,7 @@ QPushButton:disabled {
                   <item>
                    <widget class="QLabel" name="replace_categorical_title">
                     <property name="text">
-                     <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 22px;'&gt; 📊 Замена категориальных данных &lt;/h2&gt;</string>
+                     <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 22px;'&gt; Замена категориальных данных &lt;/h2&gt;</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -2856,7 +2856,7 @@ text-align: center;
 margin-bottom: 10px;</string>
                               </property>
                               <property name="text">
-                               <string>📋 Уникальные значения</string>
+                               <string>Уникальные значения</string>
                               </property>
                              </widget>
                             </item>
@@ -2917,8 +2917,8 @@ QLineEdit:focus {
                                 <rect>
                                  <x>0</x>
                                  <y>0</y>
-                                 <width>360</width>
-                                 <height>502</height>
+                                 <width>139</width>
+                                 <height>139</height>
                                 </rect>
                                </property>
                                <layout class="QVBoxLayout" name="verticalLayout_23">
@@ -3002,7 +3002,7 @@ text-align: center;
 margin-bottom: 10px;</string>
                               </property>
                               <property name="text">
-                               <string>🔄 Настройки замены</string>
+                               <string>Настройки замены</string>
                               </property>
                              </widget>
                             </item>
@@ -3099,7 +3099,7 @@ font-weight: bold;
 margin-bottom: 5px;</string>
                                  </property>
                                  <property name="text">
-                                  <string>📋 Строки с выбранным значением:</string>
+                                  <string>Строки с выбранным значением:</string>
                                  </property>
                                 </widget>
                                </item>
@@ -3113,8 +3113,8 @@ margin-bottom: 5px;</string>
                                    <rect>
                                     <x>0</x>
                                     <y>0</y>
-                                    <width>308</width>
-                                    <height>162</height>
+                                    <width>149</width>
+                                    <height>149</height>
                                    </rect>
                                   </property>
                                   <layout class="QVBoxLayout" name="verticalLayout_24">
@@ -3229,8 +3229,8 @@ QPushButton:pressed {
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>533</width>
-             <height>309</height>
+             <width>1156</width>
+             <height>653</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_duplicate_content">
@@ -3240,7 +3240,7 @@ QPushButton:pressed {
                <item>
                 <widget class="QLabel" name="title_label">
                  <property name="text">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:26px; font-weight:700; color:#1e3a5f;&quot;&gt;🔍 Обработка дубликатов&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:26px; font-weight:700; color:#1e3a5f;&quot;&gt;Обработка дубликатов&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                 </widget>
                </item>
@@ -3274,8 +3274,8 @@ QPushButton:pressed {
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>468</width>
-                    <height>111</height>
+                    <width>1112</width>
+                    <height>433</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_25">
@@ -3427,7 +3427,7 @@ QPushButton:disabled {
 }</string>
                    </property>
                    <property name="text">
-                    <string>Оставить дубликаты</string>
+                    <string>Оставить только дубликаты</string>
                    </property>
                    <property name="checkable">
                     <bool>false</bool>
@@ -3471,7 +3471,7 @@ QPushButton:disabled {
                <item>
                 <widget class="QLabel" name="title_label_missing">
                  <property name="text">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:26px; font-weight:700; color:#1e3a5f;&quot;&gt;🧹 Удаление пропусков&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:26px; font-weight:700; color:#1e3a5f;&quot;&gt; Удаление пропусков&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                 </widget>
                </item>
@@ -3715,9 +3715,9 @@ QPushButton:disabled {
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-1904</y>
+             <y>-1896</y>
              <width>1135</width>
-             <height>2557</height>
+             <height>2549</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_column_ops_content">
@@ -3737,7 +3737,7 @@ QPushButton:disabled {
                   <item>
                    <widget class="QLabel" name="column_ops_title_label">
                     <property name="text">
-                     <string>&lt;h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'&gt; 🔧 Управление столбцами &lt;/h1&gt;</string>
+                     <string>&lt;h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'&gt; Управление столбцами &lt;/h1&gt;</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -3766,7 +3766,7 @@ text-align: center;
 margin-bottom: 10px;</string>
                        </property>
                        <property name="text">
-                        <string>🗑️ Удаление столбцов</string>
+                        <string>Удаление столбцов</string>
                        </property>
                       </widget>
                      </item>
@@ -3881,7 +3881,7 @@ text-align: center;
 margin-bottom: 15px;</string>
                        </property>
                        <property name="text">
-                        <string>📊 Создать столбец через группировку и агрегацию</string>
+                        <string>Создать столбец через группировку и агрегацию</string>
                        </property>
                       </widget>
                      </item>
@@ -4275,7 +4275,7 @@ font-weight: bold;
 margin-bottom: 8px;</string>
                           </property>
                           <property name="text">
-                           <string>📋 Предпросмотр результата группировки:</string>
+                           <string>Предпросмотр результата группировки:</string>
                           </property>
                          </widget>
                         </item>

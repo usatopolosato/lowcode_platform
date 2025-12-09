@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from PyQt6.QtWidgets import (QMainWindow, QMessageBox, QWidget, QTableWidgetItem, QHeaderView)
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QFont, QPixmap
-from form.preproccesing import Ui_Preprocessing
+from form.preproccesing_window_ui import Ui_Preprocessing
 
 
 class PreprocessingWindow(QMainWindow):
@@ -77,30 +77,30 @@ class PreprocessingWindow(QMainWindow):
         """Обновление заголовков страниц с именем файла"""
         # Страница просмотра файла
         self.ui.label_5.setText(
-            f"<h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'> 📄 Просмотр файла: {self.filename} </h1>")
+            f"<h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'> Просмотр файла: {self.filename} </h1>")
 
         # Страница анализа столбцов
         self.ui.label_8.setText(
-            f"<h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'> 📊 Анализ столбцов: {self.filename} </h1>")
+            f"<h1 style='color: #1e3a5f; margin: 20px; text-align: center; font-size: 26px;'> Анализ столбцов: {self.filename} </h1>")
 
         # Страница обработки пропусков
         self.ui.pass_title_label.setText(
-            f"<h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'> 🧹 Обработка пропусков: {self.filename} </h1>")
+            f"<h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'> Обработка пропусков: {self.filename} </h1>")
 
         # Страница замены данных
         self.ui.replace_title_label.setText(
-            f"<h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'> 🔄 Замена данных: {self.filename} </h1>")
+            f"<h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'> Замена данных: {self.filename} </h1>")
 
         # Страница обработки дубликатов
         self.ui.title_label.setText(
-            f"<h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'> 🔍 Обработка дубликатов: {self.filename} </h1>")
+            f"<h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'> Обработка дубликатов: {self.filename} </h1>")
 
         # Страница удаления пропусков
         self.ui.title_label_missing.setText(
-            f"<h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'> 🧹 Удаление пропусков: {self.filename} </h1>")
+            f"<h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'> Удаление пропусков: {self.filename} </h1>")
 
         self.ui.column_ops_title_label.setText(
-            f"<h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'> 🔧 Управление столбцами: {self.filename} </h1>")
+            f"<h1 style='color: #1e3a5f; margin: 10px; text-align: center; font-size: 26px;'> Управление столбцами: {self.filename} </h1>")
 
     def setup_navigation(self):
         """Настройка навигации между страницами"""
@@ -2425,17 +2425,6 @@ class PreprocessingWindow(QMainWindow):
     def closeEvent(self, event):
         """Обработчик закрытия окна системным крестиком"""
         # При закрытии крестиком просто сохраняем данные, не обновляем состояние
-        current_index = self.ui.stackedWidget.currentIndex()
-        max_index = self.ui.stackedWidget.count() - 1
-
-        # Сохраняем данные при закрытии на последней странице
-        if current_index == max_index:
-            QMessageBox.information(self, "Успех",
-                                    f"Предобработка файла '{self.filename}' завершена!\n\n"
-                                    f"Теперь доступны:\n"
-                                    f"• Визуализация данных\n"
-                                    f"• Моделирование\n\n"
-                                    f" Данные сохранены.")
 
         self.save_data_only()
 

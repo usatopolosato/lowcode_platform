@@ -65,7 +65,7 @@ QPushButton:disabled {
 }</string>
           </property>
           <property name="currentIndex">
-           <number>6</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="charts_setup_page">
            <layout class="QHBoxLayout" name="horizontalLayout_main">
@@ -90,7 +90,7 @@ text-align: center;
 margin-bottom: 10px;</string>
                  </property>
                  <property name="text">
-                  <string>📊 Созданные графики</string>
+                  <string>Созданные графики</string>
                  </property>
                 </widget>
                </item>
@@ -234,7 +234,7 @@ text-align: center;
 margin-bottom: 10px;</string>
                  </property>
                  <property name="text">
-                  <string>🎯 Создание нового графика</string>
+                  <string> Создание нового графика</string>
                  </property>
                 </widget>
                </item>
@@ -400,7 +400,7 @@ QPushButton:disabled {
             <item>
              <widget class="QLabel" name="label_line_title">
               <property name="text">
-               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt;📈 Настройка линейного графика (plot)&lt;/h2&gt;</string>
+               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt; Настройка линейного графика (plot)&lt;/h2&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -417,7 +417,7 @@ QPushButton:disabled {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>614</width>
+                 <width>1052</width>
                  <height>1182</height>
                 </rect>
                </property>
@@ -916,7 +916,7 @@ QPushButton:pressed {
             <item>
              <widget class="QLabel" name="label_bar_title">
               <property name="text">
-               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt;📊 Настройка столбчатой диаграммы (bar)&lt;/h2&gt;</string>
+               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt;Настройка столбчатой диаграммы (bar)&lt;/h2&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -932,8 +932,8 @@ QPushButton:pressed {
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
-                 <width>446</width>
+                 <y>-226</y>
+                 <width>1052</width>
                  <height>725</height>
                 </rect>
                </property>
@@ -1288,7 +1288,7 @@ QPushButton:pressed {
             <item>
              <widget class="QLabel" name="label_pie_title">
               <property name="text">
-               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt;📊 Настройка круговой диаграммы (pie)&lt;/h2&gt;</string>
+               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt;Настройка круговой диаграммы (pie)&lt;/h2&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -1305,7 +1305,7 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>493</width>
+                 <width>1052</width>
                  <height>657</height>
                 </rect>
                </property>
@@ -1614,7 +1614,7 @@ QPushButton:pressed {
             <item>
              <widget class="QLabel" name="label_hist_title">
               <property name="text">
-               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt;📊 Настройка гистограммы (hist)&lt;/h2&gt;</string>
+               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt;Настройка гистограммы (hist)&lt;/h2&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -1631,7 +1631,7 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>635</width>
+                 <width>1052</width>
                  <height>601</height>
                 </rect>
                </property>
@@ -1955,7 +1955,7 @@ QPushButton:pressed {
             <item>
              <widget class="QLabel" name="label_scatter_title">
               <property name="text">
-               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt;🔵 Настройка диаграммы рассеяния (scatter)&lt;/h2&gt;</string>
+               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt;Настройка диаграммы рассеяния (scatter)&lt;/h2&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -1972,7 +1972,7 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>458</width>
+                 <width>1052</width>
                  <height>849</height>
                 </rect>
                </property>
@@ -2380,7 +2380,7 @@ QPushButton:pressed {
             <item>
              <widget class="QLabel" name="label_box_title">
               <property name="text">
-               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt;📦 Настройка Box Plot&lt;/h2&gt;</string>
+               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt; Настройка Box Plot&lt;/h2&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -2396,7 +2396,7 @@ QPushButton:pressed {
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-229</y>
+                 <y>0</y>
                  <width>1052</width>
                  <height>725</height>
                 </rect>
@@ -2747,7 +2747,7 @@ QPushButton:pressed {
             <item>
              <widget class="QLabel" name="label_layout_title">
               <property name="text">
-               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt;🎨 Компоновка графиков&lt;/h2&gt;</string>
+               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt;Компоновка графиков&lt;/h2&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -2765,7 +2765,7 @@ QPushButton:pressed {
                  <x>0</x>
                  <y>0</y>
                  <width>1073</width>
-                 <height>546</height>
+                 <height>549</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_layout_scroll">
@@ -3053,7 +3053,7 @@ font-weight: bold;</string>
             <item>
              <widget class="QLabel" name="label_display_title">
               <property name="text">
-               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt;📈 Визуализация данных (Matplotlib)&lt;/h2&gt;</string>
+               <string>&lt;h2 style='color: #1e3a5f; margin: 10px; text-align: center;'&gt;Визуализация данных (Matplotlib)&lt;/h2&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>

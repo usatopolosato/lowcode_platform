@@ -306,7 +306,7 @@ class Ui_ModelingWindow(object):
     def retranslateUi(self, ModelingWindow):
         _translate = QtCore.QCoreApplication.translate
         ModelingWindow.setWindowTitle(_translate("ModelingWindow", "Моделирование"))
-        self.titleLabel.setText(_translate("ModelingWindow", "<h2 style=\'color: #1e3a5f; font-size: 18px; font-weight: bold; text-align: center; margin: 0; padding: 0;\'>⚙️ Настройки моделирования</h2>"))
+        self.titleLabel.setText(_translate("ModelingWindow", "<h2 style=\'color: #1e3a5f; font-size: 18px; font-weight: bold; text-align: center; margin: 0; padding: 0;\'>Настройки моделирования</h2>"))
         self.modelLabel.setText(_translate("ModelingWindow", "<b style=\'color: #2d3748; font-size: 14px;\'>Выбор модели:</b>"))
         self.targetLabel.setText(_translate("ModelingWindow", "<b style=\'color: #2d3748; font-size: 14px;\'>Целевая переменная (таргет):</b>"))
         self.featuresLabel.setText(_translate("ModelingWindow", "<b style=\'color: #2d3748; font-size: 14px;\'>Признаки (фичи):</b>"))
@@ -317,7 +317,7 @@ class Ui_ModelingWindow(object):
         self.showHeatmapButton.setText(_translate("ModelingWindow", "Показать тепловую карту корреляций"))
         self.buildModelButton.setText(_translate("ModelingWindow", "Построить модель"))
         self.closeButton.setText(_translate("ModelingWindow", "Закрыть"))
-        self.resultsTitleLabel.setText(_translate("ModelingWindow", "<h2 style=\'color: #1e3a5f; font-size: 18px; font-weight: bold; text-align: center; margin: 0; padding: 0;\'>📊 Результаты моделирования</h2>"))
+        self.resultsTitleLabel.setText(_translate("ModelingWindow", "<h2 style=\'color: #1e3a5f; font-size: 18px; font-weight: bold; text-align: center; margin: 0; padding: 0;\'>Результаты моделирования</h2>"))
         self.metricsLabel.setText(_translate("ModelingWindow", "<b style=\'color: #2d3748; font-size: 14px;\'>Метрики модели:</b>"))
         self.metricsTextEdit.setHtml(_translate("ModelingWindow", "<div style=\'color: #718096; font-style: italic; text-align: center; padding: 20px;\'>\n"
 "    Модель еще не построена. Нажмите кнопку \"Построить модель\" для получения результатов.\n"

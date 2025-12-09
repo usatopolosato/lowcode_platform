@@ -297,7 +297,7 @@ background-color: #ffffff;
            <item>
             <widget class="QLabel" name="label_3">
              <property name="text">
-              <string>&lt;h1 style='color: #1e3a5f; margin: 20px; font-size: 32px;'&gt; 🗂️ Управление датасетами &lt;h1&gt;</string>
+              <string>&lt;h1 style='color: #1e3a5f; margin: 20px; font-size: 32px;'&gt; Управление датасетами &lt;h1&gt;</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>

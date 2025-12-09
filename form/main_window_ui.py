@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'choice.ui'
+# Form implementation generated from reading ui file 'main_window_ui.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -189,7 +189,7 @@ class Ui_Platform(object):
 "                    padding: 15px 20px;\n"
 "                    border-radius: 8px;\n"
 "                    font-weight: bold;\n"
-"                    font-size: 22px;\n"
+"                    font-size: 20px;\n"
 "                }\n"
 "QPushButton:hover {\n"
 "                    background-color: rgb(195, 112, 44);\n"
