@@ -65,7 +65,7 @@ QPushButton:disabled {
 }</string>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="charts_setup_page">
            <layout class="QHBoxLayout" name="horizontalLayout_main">
@@ -932,9 +932,9 @@ QPushButton:pressed {
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-226</y>
+                 <y>0</y>
                  <width>1052</width>
-                 <height>725</height>
+                 <height>849</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_bar_scroll">
@@ -999,6 +999,72 @@ margin-top: 10px;</string>
     font-size: 14px;
 }</string>
                      </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_2">
+                     <property name="styleSheet">
+                      <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+                     </property>
+                     <property name="text">
+                      <string>Агрегация</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="aggregation_bar">
+                     <property name="styleSheet">
+                      <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>нет</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string> count</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>sum</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>min</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>max</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>mean</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>moda</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>median</string>
+                      </property>
+                     </item>
                     </widget>
                    </item>
                   </layout>
@@ -1306,7 +1372,7 @@ QPushButton:pressed {
                  <x>0</x>
                  <y>0</y>
                  <width>1052</width>
-                 <height>657</height>
+                 <height>781</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_pie_scroll">
@@ -1373,6 +1439,47 @@ margin-top: 10px;</string>
                      </property>
                     </widget>
                    </item>
+                   <item>
+                    <widget class="QLabel" name="label">
+                     <property name="styleSheet">
+                      <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;</string>
+                     </property>
+                     <property name="text">
+                      <string>Агрегация</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="aggregation_pie">
+                     <property name="styleSheet">
+                      <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+}</string>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>нет</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string notr="true">count</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>sum</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
                   </layout>
                  </widget>
                 </item>
@@ -1388,6 +1495,104 @@ margin-top: 10px;</string>
 }</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_pie_style">
+                   <item row="2" column="1">
+                    <widget class="QComboBox" name="pie_autopct_combo">
+                     <property name="styleSheet">
+                      <string notr="true">QComboBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    min-width: 150px;
+}</string>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>%1.1f%% (с одним знаком)</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>%1.2f%% (с двумя знаками)</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>%d%% (целые числа)</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QDoubleSpinBox" name="pie_explode_spin">
+                     <property name="toolTip">
+                      <string>Величина выделения сегментов (0 = без выделения)</string>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">QDoubleSpinBox {
+    background-color: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    min-width: 100px;
+}</string>
+                     </property>
+                     <property name="minimum">
+                      <double>0.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>0.500000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.050000000000000</double>
+                     </property>
+                     <property name="value">
+                      <double>0.100000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_pie_autopct">
+                     <property name="styleSheet">
+                      <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+                     </property>
+                     <property name="text">
+                      <string>Отображение процентов:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="label_pie_shadow">
+                     <property name="styleSheet">
+                      <string notr="true">color: #1e3a5f;
+font-size: 14px;
+font-weight: bold;</string>
+                     </property>
+                     <property name="text">
+                      <string>Тень:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="1">
+                    <widget class="QCheckBox" name="pie_shadow_checkbox">
+                     <property name="styleSheet">
+                      <string notr="true">QCheckBox {
+    font-size: 14px;
+    color: #2d3748;
+}</string>
+                     </property>
+                     <property name="text">
+                      <string>Добавить тень</string>
+                     </property>
+                     <property name="checked">
+                      <bool>false</bool>
+                     </property>
+                    </widget>
+                   </item>
                    <item row="0" column="0">
                     <widget class="QLabel" name="label_pie_start_angle">
                      <property name="styleSheet">
@@ -1432,104 +1637,6 @@ font-weight: bold;</string>
                      </property>
                      <property name="text">
                       <string>Выделение сегментов:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QDoubleSpinBox" name="pie_explode_spin">
-                     <property name="toolTip">
-                      <string>Величина выделения сегментов (0 = без выделения)</string>
-                     </property>
-                     <property name="styleSheet">
-                      <string notr="true">QDoubleSpinBox {
-    background-color: white;
-    border: 2px solid #cbd5e0;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 14px;
-    min-width: 100px;
-}</string>
-                     </property>
-                     <property name="minimum">
-                      <double>0.000000000000000</double>
-                     </property>
-                     <property name="maximum">
-                      <double>0.500000000000000</double>
-                     </property>
-                     <property name="singleStep">
-                      <double>0.050000000000000</double>
-                     </property>
-                     <property name="value">
-                      <double>0.100000000000000</double>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="1">
-                    <widget class="QComboBox" name="pie_autopct_combo">
-                     <property name="styleSheet">
-                      <string notr="true">QComboBox {
-    background-color: white;
-    border: 2px solid #cbd5e0;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 14px;
-    min-width: 150px;
-}</string>
-                     </property>
-                     <item>
-                      <property name="text">
-                       <string>%1.1f%% (с одним знаком)</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>%1.2f%% (с двумя знаками)</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>%d%% (целые числа)</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_pie_autopct">
-                     <property name="styleSheet">
-                      <string notr="true">color: #1e3a5f;
-font-size: 14px;
-font-weight: bold;</string>
-                     </property>
-                     <property name="text">
-                      <string>Отображение процентов:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="1">
-                    <widget class="QCheckBox" name="pie_shadow_checkbox">
-                     <property name="styleSheet">
-                      <string notr="true">QCheckBox {
-    font-size: 14px;
-    color: #2d3748;
-}</string>
-                     </property>
-                     <property name="text">
-                      <string>Добавить тень</string>
-                     </property>
-                     <property name="checked">
-                      <bool>false</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="0">
-                    <widget class="QLabel" name="label_pie_shadow">
-                     <property name="styleSheet">
-                      <string notr="true">color: #1e3a5f;
-font-size: 14px;
-font-weight: bold;</string>
-                     </property>
-                     <property name="text">
-                      <string>Тень:</string>
                      </property>
                     </widget>
                    </item>

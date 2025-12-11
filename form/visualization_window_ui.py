@@ -581,7 +581,7 @@ class Ui_Visualization(object):
         self.scrollArea_bar.setWidgetResizable(True)
         self.scrollArea_bar.setObjectName("scrollArea_bar")
         self.scrollAreaWidgetContents_bar = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_bar.setGeometry(QtCore.QRect(0, -226, 1052, 725))
+        self.scrollAreaWidgetContents_bar.setGeometry(QtCore.QRect(0, 0, 1052, 849))
         self.scrollAreaWidgetContents_bar.setObjectName("scrollAreaWidgetContents_bar")
         self.verticalLayout_bar_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_bar)
         self.verticalLayout_bar_scroll.setObjectName("verticalLayout_bar_scroll")
@@ -629,6 +629,31 @@ class Ui_Visualization(object):
 "}")
         self.bar_values_combo.setObjectName("bar_values_combo")
         self.verticalLayout_bar_data.addWidget(self.bar_values_combo)
+        self.label_2 = QtWidgets.QLabel(parent=self.bar_data_frame)
+        self.label_2.setStyleSheet("color: #1e3a5f;\n"
+"font-size: 14px;\n"
+"font-weight: bold;\n"
+"margin-top: 10px;")
+        self.label_2.setObjectName("label_2")
+        self.verticalLayout_bar_data.addWidget(self.label_2)
+        self.aggregation_bar = QtWidgets.QComboBox(parent=self.bar_data_frame)
+        self.aggregation_bar.setStyleSheet("QComboBox {\n"
+"    background-color: white;\n"
+"    border: 2px solid #cbd5e0;\n"
+"    border-radius: 6px;\n"
+"    padding: 8px 12px;\n"
+"    font-size: 14px;\n"
+"}")
+        self.aggregation_bar.setObjectName("aggregation_bar")
+        self.aggregation_bar.addItem("")
+        self.aggregation_bar.addItem("")
+        self.aggregation_bar.addItem("")
+        self.aggregation_bar.addItem("")
+        self.aggregation_bar.addItem("")
+        self.aggregation_bar.addItem("")
+        self.aggregation_bar.addItem("")
+        self.aggregation_bar.addItem("")
+        self.verticalLayout_bar_data.addWidget(self.aggregation_bar)
         self.verticalLayout_bar_scroll.addWidget(self.bar_data_frame)
         self.bar_style_frame = QtWidgets.QFrame(parent=self.scrollAreaWidgetContents_bar)
         self.bar_style_frame.setStyleSheet("QFrame {\n"
@@ -802,7 +827,7 @@ class Ui_Visualization(object):
         self.scrollArea_pie.setWidgetResizable(True)
         self.scrollArea_pie.setObjectName("scrollArea_pie")
         self.scrollAreaWidgetContents_pie = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_pie.setGeometry(QtCore.QRect(0, 0, 1052, 657))
+        self.scrollAreaWidgetContents_pie.setGeometry(QtCore.QRect(0, 0, 1052, 781))
         self.scrollAreaWidgetContents_pie.setObjectName("scrollAreaWidgetContents_pie")
         self.verticalLayout_pie_scroll = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_pie)
         self.verticalLayout_pie_scroll.setObjectName("verticalLayout_pie_scroll")
@@ -850,6 +875,27 @@ class Ui_Visualization(object):
 "}")
         self.pie_values_combo.setObjectName("pie_values_combo")
         self.verticalLayout_pie_data.addWidget(self.pie_values_combo)
+        self.label = QtWidgets.QLabel(parent=self.pie_data_frame)
+        self.label.setStyleSheet("color: #1e3a5f;\n"
+"font-size: 14px;\n"
+"font-weight: bold;\n"
+"margin-top: 10px;")
+        self.label.setObjectName("label")
+        self.verticalLayout_pie_data.addWidget(self.label)
+        self.aggregation_pie = QtWidgets.QComboBox(parent=self.pie_data_frame)
+        self.aggregation_pie.setStyleSheet("QComboBox {\n"
+"    background-color: white;\n"
+"    border: 2px solid #cbd5e0;\n"
+"    border-radius: 6px;\n"
+"    padding: 8px 12px;\n"
+"    font-size: 14px;\n"
+"}")
+        self.aggregation_pie.setObjectName("aggregation_pie")
+        self.aggregation_pie.addItem("")
+        self.aggregation_pie.addItem("")
+        self.aggregation_pie.setItemText(1, "count")
+        self.aggregation_pie.addItem("")
+        self.verticalLayout_pie_data.addWidget(self.aggregation_pie)
         self.verticalLayout_pie_scroll.addWidget(self.pie_data_frame)
         self.pie_style_frame = QtWidgets.QFrame(parent=self.scrollAreaWidgetContents_pie)
         self.pie_style_frame.setStyleSheet("QFrame {\n"
@@ -862,6 +908,55 @@ class Ui_Visualization(object):
         self.pie_style_frame.setObjectName("pie_style_frame")
         self.gridLayout_pie_style = QtWidgets.QGridLayout(self.pie_style_frame)
         self.gridLayout_pie_style.setObjectName("gridLayout_pie_style")
+        self.pie_autopct_combo = QtWidgets.QComboBox(parent=self.pie_style_frame)
+        self.pie_autopct_combo.setStyleSheet("QComboBox {\n"
+"    background-color: white;\n"
+"    border: 2px solid #cbd5e0;\n"
+"    border-radius: 6px;\n"
+"    padding: 8px 12px;\n"
+"    font-size: 14px;\n"
+"    min-width: 150px;\n"
+"}")
+        self.pie_autopct_combo.setObjectName("pie_autopct_combo")
+        self.pie_autopct_combo.addItem("")
+        self.pie_autopct_combo.addItem("")
+        self.pie_autopct_combo.addItem("")
+        self.gridLayout_pie_style.addWidget(self.pie_autopct_combo, 2, 1, 1, 1)
+        self.pie_explode_spin = QtWidgets.QDoubleSpinBox(parent=self.pie_style_frame)
+        self.pie_explode_spin.setStyleSheet("QDoubleSpinBox {\n"
+"    background-color: white;\n"
+"    border: 2px solid #cbd5e0;\n"
+"    border-radius: 6px;\n"
+"    padding: 8px 12px;\n"
+"    font-size: 14px;\n"
+"    min-width: 100px;\n"
+"}")
+        self.pie_explode_spin.setMinimum(0.0)
+        self.pie_explode_spin.setMaximum(0.5)
+        self.pie_explode_spin.setSingleStep(0.05)
+        self.pie_explode_spin.setProperty("value", 0.1)
+        self.pie_explode_spin.setObjectName("pie_explode_spin")
+        self.gridLayout_pie_style.addWidget(self.pie_explode_spin, 1, 1, 1, 1)
+        self.label_pie_autopct = QtWidgets.QLabel(parent=self.pie_style_frame)
+        self.label_pie_autopct.setStyleSheet("color: #1e3a5f;\n"
+"font-size: 14px;\n"
+"font-weight: bold;")
+        self.label_pie_autopct.setObjectName("label_pie_autopct")
+        self.gridLayout_pie_style.addWidget(self.label_pie_autopct, 2, 0, 1, 1)
+        self.label_pie_shadow = QtWidgets.QLabel(parent=self.pie_style_frame)
+        self.label_pie_shadow.setStyleSheet("color: #1e3a5f;\n"
+"font-size: 14px;\n"
+"font-weight: bold;")
+        self.label_pie_shadow.setObjectName("label_pie_shadow")
+        self.gridLayout_pie_style.addWidget(self.label_pie_shadow, 4, 0, 1, 1)
+        self.pie_shadow_checkbox = QtWidgets.QCheckBox(parent=self.pie_style_frame)
+        self.pie_shadow_checkbox.setStyleSheet("QCheckBox {\n"
+"    font-size: 14px;\n"
+"    color: #2d3748;\n"
+"}")
+        self.pie_shadow_checkbox.setChecked(False)
+        self.pie_shadow_checkbox.setObjectName("pie_shadow_checkbox")
+        self.gridLayout_pie_style.addWidget(self.pie_shadow_checkbox, 4, 1, 1, 1)
         self.label_pie_start_angle = QtWidgets.QLabel(parent=self.pie_style_frame)
         self.label_pie_start_angle.setStyleSheet("color: #1e3a5f;\n"
 "font-size: 14px;\n"
@@ -888,55 +983,6 @@ class Ui_Visualization(object):
 "font-weight: bold;")
         self.label_pie_explode.setObjectName("label_pie_explode")
         self.gridLayout_pie_style.addWidget(self.label_pie_explode, 1, 0, 1, 1)
-        self.pie_explode_spin = QtWidgets.QDoubleSpinBox(parent=self.pie_style_frame)
-        self.pie_explode_spin.setStyleSheet("QDoubleSpinBox {\n"
-"    background-color: white;\n"
-"    border: 2px solid #cbd5e0;\n"
-"    border-radius: 6px;\n"
-"    padding: 8px 12px;\n"
-"    font-size: 14px;\n"
-"    min-width: 100px;\n"
-"}")
-        self.pie_explode_spin.setMinimum(0.0)
-        self.pie_explode_spin.setMaximum(0.5)
-        self.pie_explode_spin.setSingleStep(0.05)
-        self.pie_explode_spin.setProperty("value", 0.1)
-        self.pie_explode_spin.setObjectName("pie_explode_spin")
-        self.gridLayout_pie_style.addWidget(self.pie_explode_spin, 1, 1, 1, 1)
-        self.pie_autopct_combo = QtWidgets.QComboBox(parent=self.pie_style_frame)
-        self.pie_autopct_combo.setStyleSheet("QComboBox {\n"
-"    background-color: white;\n"
-"    border: 2px solid #cbd5e0;\n"
-"    border-radius: 6px;\n"
-"    padding: 8px 12px;\n"
-"    font-size: 14px;\n"
-"    min-width: 150px;\n"
-"}")
-        self.pie_autopct_combo.setObjectName("pie_autopct_combo")
-        self.pie_autopct_combo.addItem("")
-        self.pie_autopct_combo.addItem("")
-        self.pie_autopct_combo.addItem("")
-        self.gridLayout_pie_style.addWidget(self.pie_autopct_combo, 2, 1, 1, 1)
-        self.label_pie_autopct = QtWidgets.QLabel(parent=self.pie_style_frame)
-        self.label_pie_autopct.setStyleSheet("color: #1e3a5f;\n"
-"font-size: 14px;\n"
-"font-weight: bold;")
-        self.label_pie_autopct.setObjectName("label_pie_autopct")
-        self.gridLayout_pie_style.addWidget(self.label_pie_autopct, 2, 0, 1, 1)
-        self.pie_shadow_checkbox = QtWidgets.QCheckBox(parent=self.pie_style_frame)
-        self.pie_shadow_checkbox.setStyleSheet("QCheckBox {\n"
-"    font-size: 14px;\n"
-"    color: #2d3748;\n"
-"}")
-        self.pie_shadow_checkbox.setChecked(False)
-        self.pie_shadow_checkbox.setObjectName("pie_shadow_checkbox")
-        self.gridLayout_pie_style.addWidget(self.pie_shadow_checkbox, 3, 1, 1, 1)
-        self.label_pie_shadow = QtWidgets.QLabel(parent=self.pie_style_frame)
-        self.label_pie_shadow.setStyleSheet("color: #1e3a5f;\n"
-"font-size: 14px;\n"
-"font-weight: bold;")
-        self.label_pie_shadow.setObjectName("label_pie_shadow")
-        self.gridLayout_pie_style.addWidget(self.label_pie_shadow, 3, 0, 1, 1)
         self.verticalLayout_pie_scroll.addWidget(self.pie_style_frame)
         self.scrollArea_pie.setWidget(self.scrollAreaWidgetContents_pie)
         self.verticalLayout_pie.addWidget(self.scrollArea_pie)
@@ -2000,7 +2046,7 @@ class Ui_Visualization(object):
         Visualization.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(Visualization)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(Visualization)
 
     def retranslateUi(self, Visualization):
@@ -2051,6 +2097,15 @@ class Ui_Visualization(object):
         self.label_bar_title.setText(_translate("Visualization", "<h2 style=\'color: #1e3a5f; margin: 10px; text-align: center;\'>Настройка столбчатой диаграммы (bar)</h2>"))
         self.label_bar_categories.setText(_translate("Visualization", "Категории (X):"))
         self.label_bar_values.setText(_translate("Visualization", "Значения (Y):"))
+        self.label_2.setText(_translate("Visualization", "Агрегация"))
+        self.aggregation_bar.setItemText(0, _translate("Visualization", "нет"))
+        self.aggregation_bar.setItemText(1, _translate("Visualization", " count"))
+        self.aggregation_bar.setItemText(2, _translate("Visualization", "sum"))
+        self.aggregation_bar.setItemText(3, _translate("Visualization", "min"))
+        self.aggregation_bar.setItemText(4, _translate("Visualization", "max"))
+        self.aggregation_bar.setItemText(5, _translate("Visualization", "mean"))
+        self.aggregation_bar.setItemText(6, _translate("Visualization", "moda"))
+        self.aggregation_bar.setItemText(7, _translate("Visualization", "median"))
         self.bar_orientation_combo.setItemText(0, _translate("Visualization", "vertical (вертикальная)"))
         self.bar_orientation_combo.setItemText(1, _translate("Visualization", "horizontal (горизонтальная)"))
         self.label_bar_orientation.setText(_translate("Visualization", "Ориентация:"))
@@ -2066,15 +2121,17 @@ class Ui_Visualization(object):
         self.label_pie_title.setText(_translate("Visualization", "<h2 style=\'color: #1e3a5f; margin: 10px; text-align: center;\'>Настройка круговой диаграммы (pie)</h2>"))
         self.label_pie_labels.setText(_translate("Visualization", "Категории (метки):"))
         self.label_pie_values.setText(_translate("Visualization", "Значения:"))
-        self.label_pie_start_angle.setText(_translate("Visualization", "Начальный угол (°):"))
-        self.label_pie_explode.setText(_translate("Visualization", "Выделение сегментов:"))
-        self.pie_explode_spin.setToolTip(_translate("Visualization", "Величина выделения сегментов (0 = без выделения)"))
+        self.label.setText(_translate("Visualization", "Агрегация"))
+        self.aggregation_pie.setItemText(2, _translate("Visualization", "sum"))
         self.pie_autopct_combo.setItemText(0, _translate("Visualization", "%1.1f%% (с одним знаком)"))
         self.pie_autopct_combo.setItemText(1, _translate("Visualization", "%1.2f%% (с двумя знаками)"))
         self.pie_autopct_combo.setItemText(2, _translate("Visualization", "%d%% (целые числа)"))
+        self.pie_explode_spin.setToolTip(_translate("Visualization", "Величина выделения сегментов (0 = без выделения)"))
         self.label_pie_autopct.setText(_translate("Visualization", "Отображение процентов:"))
-        self.pie_shadow_checkbox.setText(_translate("Visualization", "Добавить тень"))
         self.label_pie_shadow.setText(_translate("Visualization", "Тень:"))
+        self.pie_shadow_checkbox.setText(_translate("Visualization", "Добавить тень"))
+        self.label_pie_start_angle.setText(_translate("Visualization", "Начальный угол (°):"))
+        self.label_pie_explode.setText(_translate("Visualization", "Выделение сегментов:"))
         self.btn_pie_back.setText(_translate("Visualization", "Назад"))
         self.btn_pie_save.setText(_translate("Visualization", "Сохранить график"))
         self.label_hist_title.setText(_translate("Visualization", "<h2 style=\'color: #1e3a5f; margin: 10px; text-align: center;\'>Настройка гистограммы (hist)</h2>"))

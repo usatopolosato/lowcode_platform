@@ -2341,12 +2341,8 @@ class PreprocessingWindow(QMainWindow):
         max_index = self.ui.stackedWidget.count() - 1
 
         # Если мы на последней странице, сохраняем данные (как кнопка "Завершить")
-        if current_index == max_index:
-            self.save_and_close_with_state_update()
-        else:
-            # Если не на последней странице, просто закрываем окно
-            self.save_data_only()
-            self.close_window()
+        self.save_data_only()
+        self.close_window()
 
     def save_data_only(self):
         """Сохранить данные без обновления состояния"""

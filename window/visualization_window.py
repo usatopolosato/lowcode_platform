@@ -152,20 +152,57 @@ class UnifiedChartRenderer:
 
             if show_window:
                 # Создаем фигуру через plt.figure
-                fig = plt.figure(figsize=(10, 7), dpi=100)
+                fig = plt.figure(figsize=(12, 8), dpi=100)  # Увеличен размер
                 ax = fig.add_subplot(111)
+
+                # Добавляем дополнительные отступы
+                plt.subplots_adjust(left=0.1, right=0.95, bottom=0.12, top=0.9)
 
                 # Рендерим график
                 self._render_chart_on_axes(ax, chart)
 
-                # Устанавливаем заголовок
-                ax.set_title(chart.title, fontsize=14, pad=12)
+                # Обрезаем слишком длинный заголовок
+                chart_title = chart.title
+
+                # Устанавливаем заголовок с нормальным отступом
+                ax.set_title(chart_title, fontsize=14, pad=15)  # Увеличен pad
 
                 # Настройки сетки
                 if styling.get('show_grid', True):
                     ax.grid(True, alpha=0.3, linestyle='--')
 
-                fig.tight_layout()
+                # Обрезаем слишком длинные подписи осей
+                def truncate_label(text, max_len=30):
+                    if len(str(text)) > max_len:
+                        return str(text)[:max_len - 3] + "..."
+                    return str(text)
+
+                # Обрезаем подписи осей если они есть
+                if ax.get_xlabel():
+                    ax.set_xlabel(truncate_label(ax.get_xlabel()), fontsize=11)
+                if ax.get_ylabel():
+                    ax.set_ylabel(truncate_label(ax.get_ylabel()), fontsize=11)
+
+                # Автоповорот для длинных меток X
+                xtick_labels = ax.get_xticklabels()
+                if xtick_labels:
+                    # Если метки длинные, поворачиваем их
+                    max_label_len = max(len(str(label.get_text())) for label in xtick_labels)
+                    if max_label_len > 10:
+                        plt.setp(xtick_labels, rotation=45, ha='right', fontsize=9)
+                    else:
+                        plt.setp(xtick_labels, fontsize=9)
+
+                # Уменьшаем размер меток Y если их много
+                ytick_labels = ax.get_yticklabels()
+                if ytick_labels:
+                    plt.setp(ytick_labels, fontsize=9)
+
+                # Увеличиваем отступы между метками и осями
+                ax.tick_params(axis='x', pad=8)
+                ax.tick_params(axis='y', pad=8)
+
+                fig.tight_layout(pad=3.0)  # Увеличен pad
 
                 # Устанавливаем заголовок окна с названием файла
                 if self.filename:
@@ -199,16 +236,36 @@ class UnifiedChartRenderer:
                 return fig
             else:
                 # Для экспорта используем обычную фигуру
-                fig = Figure(figsize=(10, 7), dpi=100)
+                fig = Figure(figsize=(12, 8), dpi=100)
                 ax = fig.add_subplot(111)
 
+                # Добавляем отступы
+                fig.subplots_adjust(left=0.1, right=0.95, bottom=0.12, top=0.9)
+
                 self._render_chart_on_axes(ax, chart)
-                ax.set_title(chart.title, fontsize=14, pad=12)
+
+                # Обрезаем заголовок для экспорта
+                chart_title = chart.title
+                if len(chart_title) > 50:
+                    chart_title = chart_title[:47] + "..."
+
+                ax.set_title(chart_title, fontsize=14, pad=15)
 
                 if styling.get('show_grid', True):
                     ax.grid(True, alpha=0.3, linestyle='--')
 
-                fig.tight_layout()
+                # Обрезаем подписи осей для экспорта
+                def truncate_label(text, max_len=30):
+                    if len(str(text)) > max_len:
+                        return str(text)[:max_len - 3] + "..."
+                    return str(text)
+
+                if ax.get_xlabel():
+                    ax.set_xlabel(truncate_label(ax.get_xlabel()), fontsize=11)
+                if ax.get_ylabel():
+                    ax.set_ylabel(truncate_label(ax.get_ylabel()), fontsize=11)
+
+                fig.tight_layout(pad=3.0)
                 return fig
 
         except Exception as e:
@@ -220,87 +277,205 @@ class UnifiedChartRenderer:
     def _render_multiple_charts_in_grid(self, charts: List[ChartConfig], rows: int, cols: int):
         """Создает одну фигуру с несколькими субграфиками в сетке"""
         try:
-            # Адаптивная высота: больше строк = больше высота на график
-            base_height_per_row = 4.0  # Базовая высота на строку
+            total_charts = len(charts)
+            total_slots = rows * cols
 
-            if rows == 1:
-                height_multiplier = 5.0  # Для одной строки делаем выше
-            elif rows == 2:
-                height_multiplier = 4.5
-            elif rows == 3:
-                height_multiplier = 4.0
-            else:  # 4 строки
-                height_multiplier = 3.8
-
-            fig_width = cols * 5
-            fig_height = rows * height_multiplier
+            # 1. Автоматическое определение размеров фигуры
+            # Больше графиков = меньше места на каждый
+            if total_slots <= 4:
+                # 1-4 графика: нормальный размер
+                fig_width = max(12, cols * 6)
+                fig_height = max(8, rows * 5)
+            elif total_slots <= 9:
+                # 5-9 графиков: немного меньше
+                fig_width = max(14, cols * 5.5)
+                fig_height = max(10, rows * 4.5)
+            else:
+                # 10+ графиков: минимальный размер
+                fig_width = max(16, cols * 5)
+                fig_height = max(12, rows * 4)
 
             fig = plt.figure(figsize=(fig_width, fig_height), dpi=100)
 
-            # Адаптивные отступы в зависимости от размера сетки
-            if rows * cols <= 4:
-                hspace, wspace = 0.5, 0.4
-            elif rows * cols <= 9:
+            # 2. Автоматический расчет отступов
+            if total_slots <= 4:
+                left, right, bottom, top = 0.08, 0.92, 0.08, 0.92
                 hspace, wspace = 0.4, 0.3
+            elif total_slots <= 9:
+                left, right, bottom, top = 0.07, 0.93, 0.07, 0.93
+                hspace, wspace = 0.5, 0.4
             else:
-                hspace, wspace = 0.35, 0.25
+                left, right, bottom, top = 0.06, 0.94, 0.06, 0.94
+                hspace, wspace = 0.7, 0.6
 
-            plt.subplots_adjust(hspace=hspace, wspace=wspace)
+            # 3. Автоматический размер текста И максимальные длины
+            if total_slots <= 4:
+                title_size = 11
+                label_size = 9
+                tick_size = 8
+                title_pad = 10
+                # Максимальные длины для малого количества графиков
+                max_title_length = 70  # Больше места для заголовков
+                max_label_length = 40  # Больше места для меток осей
+                max_tick_length = 20  # Больше места для подписей тиков
+            elif total_slots <= 9:
+                title_size = 10
+                label_size = 8
+                tick_size = 7
+                title_pad = 8
+                # Средние длины для среднего количества графиков
+                max_title_length = 70
+                max_label_length = 35
+                max_tick_length = 15
+            else:
+                title_size = 9
+                label_size = 7
+                tick_size = 6
+                title_pad = 6
+                # Минимальные длины для большого количества графиков
+                max_title_length = 70
+                max_label_length = 30
+                max_tick_length = 12
 
+            # 4. Дополнительные настройки в зависимости от плотности
+            # Если графиков очень много, еще больше уменьшаем размеры
+            if total_slots >= 16:
+                max_title_length = 60
+                max_label_length = 20
+                max_tick_length = 6
+                title_size = max(title_size - 1, 7)  # Но не меньше 7
+                tick_size = max(tick_size - 1, 5)  # Но не меньше 5
+
+            # Если графиков мало, можно увеличить максимальные длины
+            elif total_slots <= 2:
+                max_title_length = 80
+                max_label_length = 45
+                max_tick_length = 25
+
+            # 5. Умная обрезка текста с динамической длиной
+            def truncate_text(text, max_length):
+                """Обрезает текст до максимальной длины с учетом количества графиков"""
+                if not text:
+                    return ""
+
+                text_str = str(text)
+                if len(text_str) <= max_length:
+                    return text_str
+
+                # Для очень длинного текста сокращаем сильнее
+                if len(text_str) > max_length * 2:
+                    # Берем первые и последние символы для очень длинных текстов
+                    part_len = max_length // 2 - 2
+                    return text_str[:part_len] + "..." + text_str[-part_len:]
+
+                # Стандартное сокращение
+                return text_str[:max_length - 3] + "..."
+
+            # 6. Функция для обработки меток осей
+            def process_axis_labels(ax):
+                """Обрабатывает метки осей чтобы не перекрывались"""
+                # X-ось
+                if ax.get_xlabel():
+                    truncated_label = truncate_text(ax.get_xlabel(), max_label_length)
+                    ax.set_xlabel(truncated_label, fontsize=label_size)
+
+                # Y-ось
+                if ax.get_ylabel():
+                    truncated_label = truncate_text(ax.get_ylabel(), max_label_length)
+                    ax.set_ylabel(truncated_label, fontsize=label_size)
+
+                # Тики на X-оси
+                xticks = ax.get_xticklabels()
+                if xticks:
+                    new_xticks = []
+                    for tick in xticks:
+                        tick_text = tick.get_text()
+                        truncated = truncate_text(tick_text, max_tick_length)
+                        new_xticks.append(truncated)
+
+                    # Автоматический поворот в зависимости от количества тиков и графиков
+                    rotation = 45
+                    ha = 'right'
+
+                    if total_slots >= 9 and len(xticks) > 4:
+                        rotation = 90
+                        ha = 'center'
+                        tick_size_adjusted = max(tick_size - 1, 5)
+                    elif len(xticks) > 6:
+                        rotation = 90
+                        ha = 'center'
+                        tick_size_adjusted = tick_size
+                    else:
+                        tick_size_adjusted = tick_size
+
+                    ax.set_xticklabels(new_xticks, rotation=rotation, ha=ha,
+                                       fontsize=tick_size_adjusted)
+
+                # Тики на Y-оси
+                yticks = ax.get_yticklabels()
+                if yticks:
+                    new_yticks = [truncate_text(tick.get_text(), max_tick_length)
+                                  for tick in yticks]
+                    ax.set_yticklabels(new_yticks, fontsize=tick_size)
+
+            # Устанавливаем глобальные отступы
+            plt.subplots_adjust(left=left, right=right, bottom=bottom, top=top,
+                                hspace=hspace, wspace=wspace)
+
+            # 7. Рендерим каждый график
             for i, chart in enumerate(charts):
-                if i >= rows * cols:
+                if i >= total_slots:
                     break
 
                 ax = fig.add_subplot(rows, cols, i + 1)
+
+                # Обрезаем слишком длинный заголовок
+                chart_title = truncate_text(chart.title, max_title_length)
+
+                # Рендерим график
                 self._render_chart_on_axes(ax, chart)
 
-                # Адаптивный размер заголовка
-                if rows * cols <= 4:
-                    title_size = 10
-                    title_pad = 10
-                elif rows * cols <= 9:
-                    title_size = 9
-                    title_pad = 8
-                else:
-                    title_size = 8
-                    title_pad = 6
+                # Устанавливаем заголовок с учетом сетки
+                ax.set_title(chart_title, fontsize=title_size, pad=title_pad)
 
-                ax.set_title(chart.title, fontsize=title_size, pad=title_pad)
+                # Обрабатываем метки осей
+                process_axis_labels(ax)
 
+                # Добавляем сетку если нужно
                 if chart.styling.get('show_grid', True):
-                    ax.grid(True, alpha=0.3, linestyle='--')
+                    ax.grid(True, alpha=0.3, linestyle='--', linewidth=0.5)
 
-                # Адаптивный размер шрифта
-                label_size = 8 if rows * cols <= 9 else 7
-                tick_size = 7 if rows * cols <= 9 else 6
+                # Уменьшаем отступы между элементами
+                ax.tick_params(axis='x', pad=2)
+                ax.tick_params(axis='y', pad=2)
 
-                ax.xaxis.label.set_size(label_size)
-                ax.yaxis.label.set_size(label_size)
-                ax.tick_params(axis='both', labelsize=tick_size)
-
-                # Автоповорот для длинных подписей
-                if len(ax.get_xticklabels()) > 0:
-                    plt.setp(ax.get_xticklabels(), rotation=45, ha='right', fontsize=tick_size)
-
-            # Пустые ячейки
-            for i in range(len(charts), rows * cols):
+            # 8. Пустые ячейки (если графиков меньше чем ячеек)
+            for i in range(total_charts, total_slots):
                 ax = fig.add_subplot(rows, cols, i + 1)
                 ax.axis('off')
                 ax.text(0.5, 0.5, 'Пусто',
                         ha='center', va='center',
                         transform=ax.transAxes,
-                        fontsize=10, color='gray')
+                        fontsize=10, color='gray', alpha=0.5)
 
-            fig.tight_layout(pad=3.0, h_pad=2.0 if rows > 1 else 1.5, w_pad=3.5)
+            # 9. Финальная настройка layout
+            try:
+                # Более плотная упаковка с дополнительными отступами
+                fig.tight_layout(pad=3.0, h_pad=title_pad / 2, w_pad=3.0)
+            except:
+                # Если tight_layout не работает, используем альтернативу
+                pass
 
-            # Заголовок окна
+            # 10. Заголовок окна
             if self.filename:
                 base_name = os.path.splitext(self.filename)[0]
-                window_title = f"Дашборд: {base_name}"
+                window_title = f"Дашборд: {base_name} ({total_charts} графиков)"
             else:
-                window_title = "Дашборд"
+                window_title = f"Дашборд ({total_charts} графиков)"
 
-            fig.canvas.manager.set_window_title(window_title)
+            fig.canvas.manager.set_window_title(truncate_text(window_title, 60))
+
+            # 11. Показываем график
             plt.show(block=False)
             self.figures.append(fig)
 
@@ -453,11 +628,18 @@ class UnifiedChartRenderer:
             plt.setp(ax.get_xticklabels(), rotation=45, ha='right', fontsize=8)
 
     def _render_bar_chart(self, ax, data_config: Dict, styling: Dict):
+        """Рендерит столбчатую диаграмму с поддержкой агрегации"""
         categories_col = data_config.get('categories_column')
         values_col = data_config.get('values_column')
+        aggregation = styling.get('aggregation', 'нет')
+
+        if not categories_col or not values_col:
+            ax.text(0.5, 0.5, "Не указаны данные",
+                    ha='center', va='center', transform=ax.transAxes, color='red')
+            return
 
         if categories_col not in self.data.columns or values_col not in self.data.columns:
-            ax.text(0.5, 0.5, "Не указаны данные",
+            ax.text(0.5, 0.5, "Столбцы не найдены в данных",
                     ha='center', va='center', transform=ax.transAxes, color='red')
             return
 
@@ -468,113 +650,246 @@ class UnifiedChartRenderer:
         alpha = styling.get('alpha', 0.8)
         width = styling.get('width', 0.8)
 
-        # Получаем цвета для столбцов
-        categories = self.data[categories_col].astype(str)
-        values = self.data[values_col]
+        try:
+            # Подготовка данных с учетом агрегации
+            clean_data = self.data[[categories_col, values_col]].dropna()
 
-        # Создаем массив цветов
-        colors = plt.cm.tab20c(np.linspace(0, 1, len(categories)))
+            if aggregation == 'нет':
+                # Без агрегации - все значения
+                grouped_data = clean_data.groupby(categories_col)[values_col].apply(list)
+                # Для визуализации без агрегации берем первое значение каждой группы
+                # или можно сделать суммарное отображение
+                values = [sum(vals) for vals in grouped_data]
+                categories = grouped_data.index.tolist()
 
-        if 'вертикальная' in orientation.lower():
-            # Вертикальная ориентация
-            bars = ax.bar(categories, values,
-                          color=colors,
-                          edgecolor=edgecolor if edgecolor != 'none' else None,
-                          linewidth=edgewidth,
-                          alpha=alpha,
-                          width=width)
-            ax.set_xlabel(categories_col, fontsize=9)
-            ax.set_ylabel(values_col, fontsize=9)
+            else:
+                # С агрегацией
+                if aggregation == 'count':
+                    grouped = clean_data.groupby(categories_col).size()
+                elif aggregation == 'sum':
+                    grouped = clean_data.groupby(categories_col)[values_col].sum()
+                elif aggregation == 'mean':
+                    grouped = clean_data.groupby(categories_col)[values_col].mean()
+                elif aggregation == 'min':
+                    grouped = clean_data.groupby(categories_col)[values_col].min()
+                elif aggregation == 'max':
+                    grouped = clean_data.groupby(categories_col)[values_col].max()
+                elif aggregation == 'median':
+                    grouped = clean_data.groupby(categories_col)[values_col].median()
+                elif aggregation == 'moda':
+                    # Мода - наиболее часто встречающееся значение
+                    def get_mode(series):
+                        try:
+                            return series.mode()[0] if not series.mode().empty else 0
+                        except:
+                            return series.iloc[0] if len(series) > 0 else 0
 
-            # Добавляем значения на столбцы
-            for bar in bars:
-                height = bar.get_height()
-                ax.text(bar.get_x() + bar.get_width() / 2., height,
-                        f'{height:.1f}', ha='center', va='bottom', fontsize=7)
+                    grouped = clean_data.groupby(categories_col)[values_col].apply(get_mode)
+                else:
+                    grouped = clean_data.groupby(categories_col)[values_col].sum()
 
-            plt.setp(ax.get_xticklabels(), rotation=45, ha='right', fontsize=8)
-        else:
-            # Горизонтальная ориентация
-            bars = ax.barh(categories, values,
-                           color=colors,
-                           edgecolor=edgecolor if edgecolor != 'none' else None,
-                           linewidth=edgewidth,
-                           alpha=alpha,
-                           height=width)
-            ax.set_xlabel(values_col, fontsize=9)
-            ax.set_ylabel(categories_col, fontsize=9)
+                categories = grouped.index.tolist()
+                values = grouped.values.tolist()
 
-            # Добавляем значения на столбцы
-            for bar in bars:
-                width_val = bar.get_width()
-                ax.text(width_val, bar.get_y() + bar.get_height() / 2.,
-                        f'{width_val:.1f}', ha='left', va='center', fontsize=7)
+            if not categories or not values:
+                ax.text(0.5, 0.5, "Нет данных для отображения",
+                        ha='center', va='center', transform=ax.transAxes, color='red')
+                return
 
-            plt.setp(ax.get_yticklabels(), fontsize=8)
+            # Создаем массив цветов
+            colors = plt.cm.tab20c(np.linspace(0, 1, len(categories)))
+
+            if 'вертикальная' in orientation.lower():
+                # Вертикальная ориентация
+                bars = ax.bar(categories, values,
+                              color=colors,
+                              edgecolor=edgecolor if edgecolor != 'none' else None,
+                              linewidth=edgewidth,
+                              alpha=alpha,
+                              width=width)
+                ax.set_xlabel(categories_col, fontsize=9)
+
+                # Подпись оси Y с указанием агрегации
+                if aggregation != 'нет':
+                    ylabel = f"{values_col} ({aggregation})"
+                else:
+                    ylabel = values_col
+                ax.set_ylabel(ylabel, fontsize=9)
+
+                # Добавляем значения на столбцы
+                for bar in bars:
+                    height = bar.get_height()
+                    ax.text(bar.get_x() + bar.get_width() / 2., height,
+                            f'{height:.1f}', ha='center', va='bottom', fontsize=7)
+
+                # Автоматический поворот подписей при длинных названиях
+                if max(len(str(cat)) for cat in categories) > 10:
+                    plt.setp(ax.get_xticklabels(), rotation=45, ha='right', fontsize=8)
+                else:
+                    plt.setp(ax.get_xticklabels(), fontsize=8)
+            else:
+                # Горизонтальная ориентация
+                bars = ax.barh(categories, values,
+                               color=colors,
+                               edgecolor=edgecolor if edgecolor != 'none' else None,
+                               linewidth=edgewidth,
+                               alpha=alpha,
+                               height=width)
+
+                # Подпись оси X с указанием агрегации
+                if aggregation != 'нет':
+                    xlabel = f"{values_col} ({aggregation})"
+                else:
+                    xlabel = values_col
+                ax.set_xlabel(xlabel, fontsize=9)
+                ax.set_ylabel(categories_col, fontsize=9)
+
+                # Добавляем значения на столбцы
+                for bar in bars:
+                    width_val = bar.get_width()
+                    ax.text(width_val, bar.get_y() + bar.get_height() / 2.,
+                            f'{width_val:.1f}', ha='left', va='center', fontsize=7)
+
+                plt.setp(ax.get_yticklabels(), fontsize=8)
+
+            # Добавляем сетку
+            ax.grid(True, alpha=0.3, linestyle='--',
+                    axis='y' if 'вертикальная' in orientation.lower() else 'x')
+
+            # Добавляем заголовок с информацией об агрегации
+            if aggregation != 'нет':
+                ax.set_title(f"Агрегация: {aggregation}", fontsize=10, pad=10)
+
+        except Exception as e:
+            ax.text(0.5, 0.5, f"Ошибка: {str(e)[:50]}",
+                    ha='center', va='center', transform=ax.transAxes, color='red')
+            ax.set_title("Ошибка при построении", color='red', fontsize=10)
+            import traceback
+            traceback.print_exc()
 
     def _render_pie_chart(self, ax, data_config: Dict, styling: Dict):
+        """Рендерит круговую диаграмму с поддержкой агрегации (только count и sum)"""
         labels_col = data_config.get('labels_column')
         values_col = data_config.get('values_column')
 
-        if labels_col not in self.data.columns or values_col not in self.data.columns:
-            ax.text(0.5, 0.5, "Не указаны данные",
+        if labels_col not in self.data.columns:
+            ax.text(0.5, 0.5, "Не указана колонка с категориями",
                     ha='center', va='center', transform=ax.transAxes, color='red')
             return
 
         # Парсим параметры стиля
         start_angle = styling.get('start_angle', 90)
-        explode = styling.get('explode', 0.1)
+        explode = styling.get('explode', 0)
         autopct = styling.get('autopct', 'Не показывать')
         show_shadow = styling.get('shadow', False)
 
-        labels = self.data[labels_col].astype(str)
-        values = self.data[values_col]
+        # Получаем агрегацию (только count или sum)
+        agg_func = styling.get('aggregation', 'count')  # По умолчанию count
 
-        # Берем только первые 8 значений для читаемости
-        if len(values) > 8:
-            values = values[:8]
-            labels = labels[:8]
+        try:
+            # ФУНКЦИЯ АГРЕГАЦИИ ДАННЫХ (ТОЛЬКО COUNT И SUM)
+            def aggregate_pie_data(labels_col, values_col=None, agg_func='count'):
+                # Удаляем строки с NaN в категориях
+                clean_data = self.data.dropna(subset=[labels_col]).copy()
 
-        # Создаем цвета
-        colors = plt.cm.Set3(np.linspace(0, 1, len(values)))
+                if values_col is None or values_col == '' or values_col == labels_col:
+                    # Если столбец значений не указан или совпадает с категориями
+                    pie_data = clean_data[labels_col].value_counts()
+                else:
+                    # Проверяем, существует ли столбец значений
+                    if values_col not in clean_data.columns:
+                        pie_data = clean_data[labels_col].value_counts()
+                    else:
+                        # Категория + значение - используем sum или count
+                        if agg_func == 'sum':
+                            pie_data = clean_data.groupby(labels_col)[values_col].sum()
+                        elif agg_func == 'count':
+                            # Если count, то просто считаем количество категорий
+                            pie_data = clean_data[labels_col].value_counts()
+                        else:
+                            # По умолчанию используем count
+                            pie_data = clean_data[labels_col].value_counts()
 
-        autopct_format = None
-        if autopct != 'Не показывать':
-            if '%1.1f%%' in autopct:
-                autopct_format = '%1.1f%%'
-            elif '%1.2f%%' in autopct:
-                autopct_format = '%1.2f%%'
-            elif '%d%%' in autopct:
-                autopct_format = '%d%%'
+                return pie_data
+
+            # Получаем агрегированные данные
+            pie_data = aggregate_pie_data(labels_col, values_col, agg_func)
+
+            # Если данных нет после агрегации
+            if len(pie_data) == 0:
+                ax.text(0.5, 0.5, "Нет данных для отображения",
+                        ha='center', va='center', transform=ax.transAxes, color='red')
+                return
+
+            # Ограничиваем количество категорий для читаемости (макс 12)
+            if len(pie_data) > 12:
+                # Берем топ-11 категорий, остальные объединяем в "Другие"
+                top_data = pie_data.nlargest(11)
+                others_sum = pie_data.iloc[11:].sum()
+                if others_sum > 0:
+                    pie_data = pd.concat([top_data, pd.Series([others_sum], index=['Другие'])])
+                else:
+                    pie_data = top_data
+
+            labels = pie_data.index.astype(str).tolist()
+            values = pie_data.values.tolist()
+
+            # Создаем цвета
+            cmap = plt.cm.tab20c if len(values) > 10 else plt.cm.Set3
+            colors = cmap(np.linspace(0, 1, len(values)))
+
+            # Формат подписей процентов
+            autopct_format = None
+            if autopct != 'Не показывать':
+                if '%1.1f%%' in autopct:
+                    autopct_format = '%1.1f%%'
+                elif '%1.2f%%' in autopct:
+                    autopct_format = '%1.2f%%'
+                elif '%d%%' in autopct:
+                    autopct_format = '%d%%'
+                else:
+                    autopct_format = '%1.1f%%'
+
+            # Explode (выделение) самого большого сектора
+            if explode > 0:
+                max_idx = values.index(max(values)) if values else 0
+                explode_values = [0] * len(values)
+                explode_values[max_idx] = explode
             else:
-                autopct_format = '%1.1f%%'
+                explode_values = None
 
-        if explode > 0:
-            explode_values = [explode] + [0] * (len(values) - 1)
-        else:
-            explode_values = None
+            # Построение диаграммы
+            wedges, texts, autotexts = ax.pie(
+                values,
+                labels=labels if len(labels) <= 8 else None,
+                autopct=autopct_format,
+                colors=colors,
+                startangle=start_angle,
+                explode=explode_values,
+                shadow=show_shadow,
+                pctdistance=0.8,
+                textprops={'fontsize': 8}
+            )
 
-        wedges, texts, autotexts = ax.pie(
-            values,
-            labels=labels,
-            autopct=autopct_format,
-            colors=colors,
-            startangle=start_angle,
-            explode=explode_values,
-            shadow=show_shadow,
-            textprops={'fontsize': 8}
-        )
+            # Стилизация текста процентов
+            for autotext in autotexts:
+                autotext.set_color(
+                    'black' if colors[autotexts.index(autotext)].mean() > 0.6 else 'white')
+                autotext.set_fontweight('bold')
 
-        for autotext in autotexts:
-            autotext.set_color('white')
-            autotext.set_fontweight('bold')
+            ax.legend(wedges, labels,
+                      loc="center left",
+                      bbox_to_anchor=(1, 0, 0.5, 1),
+                      fontsize=7,
+                      title_fontsize=8)
 
-        # Добавляем легенду
-        ax.legend(wedges, labels, title=labels_col,
-                  loc="center left", bbox_to_anchor=(1, 0, 0.5, 1),
-                  fontsize=7)
-
-        ax.axis('equal')
+            ax.axis('equal')
+        except Exception as e:
+            ax.text(0.5, 0.5, f"Ошибка: {str(e)[:50]}",
+                    ha='center', va='center', transform=ax.transAxes, color='red')
+            ax.set_title("Ошибка при построении", color='red', fontsize=10)
+            import traceback
+            traceback.print_exc()
 
     def _render_histogram(self, ax, data_config: Dict, styling: Dict):
         column = data_config.get('column')
@@ -1656,7 +1971,8 @@ class VisualizationWindow(QMainWindow):
                     'edgecolor': self.ui.bar_edgecolor_combo.currentText(),
                     'edgewidth': self.ui.bar_edgewidth_spin.value(),
                     'alpha': self.ui.bar_alpha_spin.value(),
-                    'width': self.ui.bar_width_spin.value()
+                    'width': self.ui.bar_width_spin.value(),
+                    'aggregation': self.ui.aggregation_bar.currentText()  # ДОБАВЬТЕ ЭТУ СТРОКУ
                 }
 
             elif page_type == 3:
@@ -1679,8 +1995,8 @@ class VisualizationWindow(QMainWindow):
                     'explode': self.ui.pie_explode_spin.value(),
                     'autopct': self.ui.pie_autopct_combo.currentText(),
                     'shadow': self.ui.pie_shadow_checkbox.isChecked(),
+                    'aggregation': self.ui.aggregation_pie.currentText()  # ДОБАВЬТЕ ЭТУ СТРОКУ
                 }
-
             elif page_type == 4:
                 chart_type = "Гистограмма (hist)"
 
@@ -1868,12 +2184,18 @@ class VisualizationWindow(QMainWindow):
         self.ui.bar_alpha_spin.setValue(styling.get('alpha', 0.8))
         self.ui.bar_width_spin.setValue(styling.get('width', 0.8))
 
+        self.ui.aggregation_bar.setCurrentText(styling.get('aggregation', 'нет'))
+
     def _fill_pie_chart_fields(self, chart):
         data_config = chart.data_config
         styling = chart.styling
 
         self.ui.pie_labels_combo.setCurrentText(data_config.get('labels_column', ''))
         self.ui.pie_values_combo.setCurrentText(data_config.get('values_column', ''))
+
+        # Исправленная часть агрегации
+        aggregation = styling.get('aggregation', 'count')
+        self.ui.aggregation_pie.setCurrentText(aggregation)
 
         self.ui.pie_start_angle_spin.setValue(styling.get('start_angle', 90))
         self.ui.pie_explode_spin.setValue(styling.get('explode', 0.1))
