@@ -12,292 +12,423 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_ModelingWindow(object):
     def setupUi(self, ModelingWindow):
         ModelingWindow.setObjectName("ModelingWindow")
-        ModelingWindow.resize(1200, 800)
+        ModelingWindow.resize(1117, 852)
+        ModelingWindow.setMinimumSize(QtCore.QSize(1000, 700))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("resource/icon.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        ModelingWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(parent=ModelingWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.mainLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.mainLayout.setProperty("contentsMargins", 10)
+        self.mainLayout.setSpacing(10)
         self.mainLayout.setObjectName("mainLayout")
-        self.mainScrollArea = QtWidgets.QScrollArea(parent=self.centralwidget)
-        self.mainScrollArea.setWidgetResizable(True)
-        self.mainScrollArea.setObjectName("mainScrollArea")
-        self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-        self.contentLayout = QtWidgets.QHBoxLayout(self.scrollAreaWidgetContents)
-        self.contentLayout.setObjectName("contentLayout")
-        self.leftPanel = QtWidgets.QFrame(parent=self.scrollAreaWidgetContents)
-        self.leftPanel.setMinimumWidth(400)
-        self.leftPanel.setMaximumWidth(450)
+        self.mainSplitter = QtWidgets.QSplitter(parent=self.centralwidget)
+        self.mainSplitter.setOrientation(QtCore.Qt.Orientation.Horizontal)
+        self.mainSplitter.setHandleWidth(4)
+        self.mainSplitter.setChildrenCollapsible(False)
+        self.mainSplitter.setObjectName("mainSplitter")
+        self.leftScrollArea = QtWidgets.QScrollArea(parent=self.mainSplitter)
+        self.leftScrollArea.setMinimumSize(QtCore.QSize(400, 0))
+        self.leftScrollArea.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
+        self.leftScrollArea.setFrameShadow(QtWidgets.QFrame.Shadow.Plain)
+        self.leftScrollArea.setWidgetResizable(True)
+        self.leftScrollArea.setObjectName("leftScrollArea")
+        self.leftContainer = QtWidgets.QWidget()
+        self.leftContainer.setGeometry(QtCore.QRect(0, 0, 425, 830))
+        self.leftContainer.setObjectName("leftContainer")
+        self.leftContainerLayout = QtWidgets.QVBoxLayout(self.leftContainer)
+        self.leftContainerLayout.setProperty("contentsMargins", 15)
+        self.leftContainerLayout.setSpacing(15)
+        self.leftContainerLayout.setObjectName("leftContainerLayout")
+        self.leftPanel = QtWidgets.QFrame(parent=self.leftContainer)
         self.leftPanel.setStyleSheet("QFrame {\n"
 "    background-color: #ffffff;\n"
-"    border-radius: 10px;\n"
-"    border: 2px solid #e2e8f0;\n"
+"    border-radius: 8px;\n"
+"    border: 1px solid #d1d5db;\n"
 "}")
         self.leftPanel.setObjectName("leftPanel")
         self.leftLayout = QtWidgets.QVBoxLayout(self.leftPanel)
-        self.leftLayout.setSpacing(10)
+        self.leftLayout.setProperty("contentsMargins", 15)
+        self.leftLayout.setSpacing(12)
         self.leftLayout.setObjectName("leftLayout")
         self.titleLabel = QtWidgets.QLabel(parent=self.leftPanel)
         self.titleLabel.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.titleLabel.setObjectName("titleLabel")
         self.leftLayout.addWidget(self.titleLabel)
         self.modelLabel = QtWidgets.QLabel(parent=self.leftPanel)
+        self.modelLabel.setStyleSheet("font-weight: 600;\n"
+"color: #374151;\n"
+"font-size: 14px;")
         self.modelLabel.setObjectName("modelLabel")
         self.leftLayout.addWidget(self.modelLabel)
         self.modelComboBox = QtWidgets.QComboBox(parent=self.leftPanel)
+        self.modelComboBox.setMinimumSize(QtCore.QSize(0, 54))
         self.modelComboBox.setStyleSheet("QComboBox {\n"
 "    background-color: #ffffff;\n"
-"    border: 2px solid #e2e8f0;\n"
+"    border: 1px solid #d1d5db;\n"
 "    border-radius: 6px;\n"
-"    padding: 8px;\n"
+"    padding: 8px 12px;\n"
 "    font-size: 14px;\n"
-"    color: #2d3748;\n"
-"    min-height: 35px;\n"
+"    color: #374151;\n"
+"    min-height: 36px;\n"
 "}\n"
 "QComboBox:hover {\n"
-"    border-color: #3182ce;\n"
+"    border-color: #3b82f6;\n"
+"}\n"
+"QComboBox::drop-down {\n"
+"    border-left: 1px solid #d1d5db;\n"
+"    width: 30px;\n"
 "}")
         self.modelComboBox.setObjectName("modelComboBox")
         self.leftLayout.addWidget(self.modelComboBox)
         self.targetLabel = QtWidgets.QLabel(parent=self.leftPanel)
+        self.targetLabel.setStyleSheet("font-weight: 600;\n"
+"color: #374151;\n"
+"font-size: 14px;")
         self.targetLabel.setObjectName("targetLabel")
         self.leftLayout.addWidget(self.targetLabel)
         self.targetComboBox = QtWidgets.QComboBox(parent=self.leftPanel)
+        self.targetComboBox.setMinimumSize(QtCore.QSize(0, 54))
         self.targetComboBox.setStyleSheet("QComboBox {\n"
 "    background-color: #ffffff;\n"
-"    border: 2px solid #e2e8f0;\n"
+"    border: 1px solid #d1d5db;\n"
 "    border-radius: 6px;\n"
-"    padding: 8px;\n"
+"    padding: 8px 12px;\n"
 "    font-size: 14px;\n"
-"    color: #2d3748;\n"
-"    min-height: 35px;\n"
+"    color: #374151;\n"
+"    min-height: 36px;\n"
 "}\n"
 "QComboBox:hover {\n"
-"    border-color: #3182ce;\n"
+"    border-color: #3b82f6;\n"
 "}")
         self.targetComboBox.setObjectName("targetComboBox")
         self.leftLayout.addWidget(self.targetComboBox)
         self.featuresLabel = QtWidgets.QLabel(parent=self.leftPanel)
+        self.featuresLabel.setStyleSheet("font-weight: 600;\n"
+"color: #374151;\n"
+"font-size: 14px;")
         self.featuresLabel.setObjectName("featuresLabel")
         self.leftLayout.addWidget(self.featuresLabel)
         self.featuresListWidget = QtWidgets.QListWidget(parent=self.leftPanel)
-        self.featuresListWidget.setMinimumHeight(200)
-        self.featuresListWidget.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.MultiSelection)
         self.featuresListWidget.setStyleSheet("QListWidget {\n"
 "    background-color: #ffffff;\n"
-"    border: 2px solid #e2e8f0;\n"
+"    border: 1px solid #d1d5db;\n"
 "    border-radius: 6px;\n"
 "    font-size: 13px;\n"
+"    padding: 2px;\n"
 "}\n"
 "QListWidget::item {\n"
-"    padding: 8px 10px;\n"
-"    border-bottom: 1px solid #edf2f7;\n"
+"    padding: 8px 12px;\n"
+"    border-bottom: 1px solid #f3f4f6;\n"
+"    border-radius: 4px;\n"
+"    margin: 1px;\n"
 "}\n"
 "QListWidget::item:selected {\n"
-"    background-color: #3182ce;\n"
+"    background-color: #3b82f6;\n"
 "    color: white;\n"
+"    border: 1px solid #2563eb;\n"
+"}\n"
+"QListWidget::item:hover:!selected {\n"
+"    background-color: #f3f4f6;\n"
 "}")
+        self.featuresListWidget.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.MultiSelection)
+        self.featuresListWidget.setVerticalScrollMode(QtWidgets.QAbstractItemView.ScrollMode.ScrollPerPixel)
         self.featuresListWidget.setObjectName("featuresListWidget")
         self.leftLayout.addWidget(self.featuresListWidget)
         self.paramsLabel = QtWidgets.QLabel(parent=self.leftPanel)
+        self.paramsLabel.setStyleSheet("font-weight: 600;\n"
+"color: #374151;\n"
+"font-size: 14px;")
         self.paramsLabel.setObjectName("paramsLabel")
         self.leftLayout.addWidget(self.paramsLabel)
         self.testSizeLayout = QtWidgets.QHBoxLayout()
+        self.testSizeLayout.setSpacing(12)
         self.testSizeLayout.setObjectName("testSizeLayout")
         self.testSizeLabel = QtWidgets.QLabel(parent=self.leftPanel)
-        self.testSizeLabel.setStyleSheet("color: #4a5568;\n"
-"font-size: 13px;\n"
-"min-width: 120px;")
+        self.testSizeLabel.setMinimumSize(QtCore.QSize(150, 0))
+        self.testSizeLabel.setStyleSheet("color: #6b7280;\n"
+"font-size: 14px;")
         self.testSizeLabel.setObjectName("testSizeLabel")
         self.testSizeLayout.addWidget(self.testSizeLabel)
         self.testSizeSpinBox = QtWidgets.QSpinBox(parent=self.leftPanel)
-        self.testSizeSpinBox.setMinimum(10)
-        self.testSizeSpinBox.setMaximum(50)
-        self.testSizeSpinBox.setProperty("value", 15)
+        self.testSizeSpinBox.setMinimumSize(QtCore.QSize(102, 32))
         self.testSizeSpinBox.setStyleSheet("QSpinBox {\n"
 "    background-color: #ffffff;\n"
-"    border: 2px solid #e2e8f0;\n"
+"    border: 1px solid #d1d5db;\n"
 "    border-radius: 6px;\n"
-"    padding: 6px;\n"
-"    font-size: 13px;\n"
+"    padding: 6px 10px;\n"
+"    font-size: 14px;\n"
 "    min-width: 80px;\n"
 "}\n"
 "QSpinBox:hover {\n"
-"    border-color: #3182ce;\n"
+"    border-color: #3b82f6;\n"
+"}\n"
+"QSpinBox::up-button, QSpinBox::down-button {\n"
+"    width: 20px;\n"
 "}")
+        self.testSizeSpinBox.setMinimum(10)
+        self.testSizeSpinBox.setMaximum(50)
+        self.testSizeSpinBox.setProperty("value", 15)
         self.testSizeSpinBox.setObjectName("testSizeSpinBox")
         self.testSizeLayout.addWidget(self.testSizeSpinBox)
         self.leftLayout.addLayout(self.testSizeLayout)
         self.seedLayout = QtWidgets.QHBoxLayout()
+        self.seedLayout.setSpacing(12)
         self.seedLayout.setObjectName("seedLayout")
         self.seedLabel = QtWidgets.QLabel(parent=self.leftPanel)
-        self.seedLabel.setStyleSheet("color: #4a5568;\n"
-"font-size: 13px;\n"
-"min-width: 120px;")
+        self.seedLabel.setMinimumSize(QtCore.QSize(150, 0))
+        self.seedLabel.setStyleSheet("color: #6b7280;\n"
+"font-size: 14px;")
         self.seedLabel.setObjectName("seedLabel")
         self.seedLayout.addWidget(self.seedLabel)
         self.randomSeedSpinBox = QtWidgets.QSpinBox(parent=self.leftPanel)
-        self.randomSeedSpinBox.setMinimum(0)
-        self.randomSeedSpinBox.setMaximum(99999)
-        self.randomSeedSpinBox.setProperty("value", 42)
+        self.randomSeedSpinBox.setMinimumSize(QtCore.QSize(102, 32))
         self.randomSeedSpinBox.setStyleSheet("QSpinBox {\n"
 "    background-color: #ffffff;\n"
-"    border: 2px solid #e2e8f0;\n"
+"    border: 1px solid #d1d5db;\n"
 "    border-radius: 6px;\n"
-"    padding: 6px;\n"
-"    font-size: 13px;\n"
+"    padding: 6px 10px;\n"
+"    font-size: 14px;\n"
 "    min-width: 80px;\n"
 "}\n"
 "QSpinBox:hover {\n"
-"    border-color: #3182ce;\n"
+"    border-color: #3b82f6;\n"
 "}")
+        self.randomSeedSpinBox.setMinimum(0)
+        self.randomSeedSpinBox.setMaximum(99999)
+        self.randomSeedSpinBox.setProperty("value", 42)
         self.randomSeedSpinBox.setObjectName("randomSeedSpinBox")
         self.seedLayout.addWidget(self.randomSeedSpinBox)
         self.leftLayout.addLayout(self.seedLayout)
-        spacerItem = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
-        self.leftLayout.addItem(spacerItem)
-        self.showHeatmapButton = QtWidgets.QPushButton(parent=self.leftPanel)
-        self.showHeatmapButton.setMinimumHeight(40)
+        self.leftContainerLayout.addWidget(self.leftPanel)
+        self.showHeatmapButton = QtWidgets.QPushButton(parent=self.leftContainer)
+        self.showHeatmapButton.setMinimumSize(QtCore.QSize(0, 40))
         self.showHeatmapButton.setStyleSheet("QPushButton {\n"
-"    background-color: #38a169;\n"
+"    background-color: #10b981;\n"
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 6px;\n"
-"    font-weight: bold;\n"
+"    font-weight: 600;\n"
 "    font-size: 14px;\n"
+"    padding: 10px;\n"
 "}\n"
 "QPushButton:hover {\n"
-"    background-color: #2f855a;\n"
+"    background-color: #059669;\n"
+"    border: 1px solid #059669;\n"
 "}\n"
 "QPushButton:pressed {\n"
-"    background-color: #276749;\n"
+"    background-color: #047857;\n"
 "}")
         self.showHeatmapButton.setObjectName("showHeatmapButton")
-        self.leftLayout.addWidget(self.showHeatmapButton)
-        self.buildModelButton = QtWidgets.QPushButton(parent=self.leftPanel)
-        self.buildModelButton.setMinimumHeight(45)
+        self.leftContainerLayout.addWidget(self.showHeatmapButton)
+        self.buildModelButton = QtWidgets.QPushButton(parent=self.leftContainer)
+        self.buildModelButton.setMinimumSize(QtCore.QSize(0, 42))
         self.buildModelButton.setStyleSheet("QPushButton {\n"
-"    background-color: #3182ce;\n"
+"    background-color: #3b82f6;\n"
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 6px;\n"
-"    font-weight: bold;\n"
+"    font-weight: 600;\n"
 "    font-size: 15px;\n"
+"    padding: 11px;\n"
 "}\n"
 "QPushButton:hover {\n"
-"    background-color: #2c5282;\n"
+"    background-color: #2563eb;\n"
+"    border: 1px solid #2563eb;\n"
 "}\n"
 "QPushButton:pressed {\n"
-"    background-color: #2a4365;\n"
+"    background-color: #1d4ed8;\n"
+"}\n"
+"QPushButton:disabled {\n"
+"    background-color: #9ca3af;\n"
+"    color: #f3f4f6;\n"
 "}")
         self.buildModelButton.setObjectName("buildModelButton")
-        self.leftLayout.addWidget(self.buildModelButton)
-        self.closeButton = QtWidgets.QPushButton(parent=self.leftPanel)
-        self.closeButton.setMinimumHeight(35)
+        self.leftContainerLayout.addWidget(self.buildModelButton)
+        self.closeButton = QtWidgets.QPushButton(parent=self.leftContainer)
+        self.closeButton.setMinimumSize(QtCore.QSize(0, 38))
         self.closeButton.setStyleSheet("QPushButton {\n"
-"    background-color: #718096;\n"
+"    background-color: #6b7280;\n"
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 6px;\n"
-"    font-weight: bold;\n"
-"    font-size: 13px;\n"
+"    font-weight: 600;\n"
+"    font-size: 14px;\n"
+"    padding: 9px;\n"
 "}\n"
 "QPushButton:hover {\n"
-"    background-color: #4a5568;\n"
+"    background-color: #4b5563;\n"
+"    border: 1px solid #4b5563;\n"
 "}\n"
 "QPushButton:pressed {\n"
-"    background-color: #2d3748;\n"
+"    background-color: #374151;\n"
 "}")
         self.closeButton.setObjectName("closeButton")
-        self.leftLayout.addWidget(self.closeButton)
-        self.contentLayout.addWidget(self.leftPanel)
-        self.rightScrollArea = QtWidgets.QScrollArea(parent=self.scrollAreaWidgetContents)
+        self.leftContainerLayout.addWidget(self.closeButton)
+        self.leftScrollArea.setWidget(self.leftContainer)
+        self.rightScrollArea = QtWidgets.QScrollArea(parent=self.mainSplitter)
+        self.rightScrollArea.setMinimumSize(QtCore.QSize(500, 0))
+        self.rightScrollArea.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
+        self.rightScrollArea.setFrameShadow(QtWidgets.QFrame.Shadow.Plain)
         self.rightScrollArea.setWidgetResizable(True)
         self.rightScrollArea.setObjectName("rightScrollArea")
-        self.rightScrollWidget = QtWidgets.QWidget()
-        self.rightScrollWidget.setObjectName("rightScrollWidget")
-        self.rightLayout = QtWidgets.QVBoxLayout(self.rightScrollWidget)
-        self.rightLayout.setSpacing(15)
-        self.rightLayout.setObjectName("rightLayout")
-        self.resultsTitleLabel = QtWidgets.QLabel(parent=self.rightScrollWidget)
+        self.rightContainer = QtWidgets.QWidget()
+        self.rightContainer.setGeometry(QtCore.QRect(0, 0, 666, 830))
+        self.rightContainer.setObjectName("rightContainer")
+        self.rightContainerLayout = QtWidgets.QVBoxLayout(self.rightContainer)
+        self.rightContainerLayout.setProperty("contentsMargins", 15)
+        self.rightContainerLayout.setSpacing(15)
+        self.rightContainerLayout.setObjectName("rightContainerLayout")
+        self.resultsTitleLabel = QtWidgets.QLabel(parent=self.rightContainer)
         self.resultsTitleLabel.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.resultsTitleLabel.setObjectName("resultsTitleLabel")
-        self.rightLayout.addWidget(self.resultsTitleLabel)
-        self.metricsFrame = QtWidgets.QFrame(parent=self.rightScrollWidget)
+        self.rightContainerLayout.addWidget(self.resultsTitleLabel)
+        self.metricsFrame = QtWidgets.QFrame(parent=self.rightContainer)
         self.metricsFrame.setStyleSheet("QFrame {\n"
 "    background-color: #ffffff;\n"
-"    border-radius: 10px;\n"
-"    border: 2px solid #e2e8f0;\n"
+"    border-radius: 8px;\n"
+"    border: 1px solid #d1d5db;\n"
 "}")
         self.metricsFrame.setObjectName("metricsFrame")
         self.metricsLayout = QtWidgets.QVBoxLayout(self.metricsFrame)
-        self.metricsLayout.setSpacing(8)
+        self.metricsLayout.setProperty("contentsMargins", 15)
+        self.metricsLayout.setSpacing(10)
         self.metricsLayout.setObjectName("metricsLayout")
         self.metricsLabel = QtWidgets.QLabel(parent=self.metricsFrame)
+        self.metricsLabel.setStyleSheet("font-weight: 600;\n"
+"color: #374151;\n"
+"font-size: 14px;")
         self.metricsLabel.setObjectName("metricsLabel")
         self.metricsLayout.addWidget(self.metricsLabel)
         self.metricsTextEdit = QtWidgets.QTextEdit(parent=self.metricsFrame)
-        self.metricsTextEdit.setMinimumHeight(120)
-        self.metricsTextEdit.setReadOnly(True)
         self.metricsTextEdit.setStyleSheet("QTextEdit {\n"
-"    background-color: #f8fafc;\n"
-"    border: 1px solid #e2e8f0;\n"
+"    background-color: #f9fafb;\n"
+"    border: 1px solid #d1d5db;\n"
 "    border-radius: 6px;\n"
-"    padding: 10px;\n"
+"    padding: 12px;\n"
 "    font-size: 13px;\n"
-"    color: #2d3748;\n"
+"    color: #374151;\n"
+"    font-family: \'Segoe UI\', \'Arial\', sans-serif;\n"
+"}\n"
+"QScrollBar:vertical {\n"
+"    border: none;\n"
+"    background-color: #f3f4f6;\n"
+"    width: 10px;\n"
+"    border-radius: 5px;\n"
+"}\n"
+"QScrollBar::handle:vertical {\n"
+"    background-color: #9ca3af;\n"
+"    border-radius: 5px;\n"
+"    min-height: 30px;\n"
+"}\n"
+"QScrollBar::handle:vertical:hover {\n"
+"    background-color: #6b7280;\n"
 "}")
+        self.metricsTextEdit.setReadOnly(True)
         self.metricsTextEdit.setObjectName("metricsTextEdit")
         self.metricsLayout.addWidget(self.metricsTextEdit)
-        self.rightLayout.addWidget(self.metricsFrame)
-        self.predictionsFrame = QtWidgets.QFrame(parent=self.rightScrollWidget)
+        self.rightContainerLayout.addWidget(self.metricsFrame)
+        self.predictionsFrame = QtWidgets.QFrame(parent=self.rightContainer)
         self.predictionsFrame.setStyleSheet("QFrame {\n"
 "    background-color: #ffffff;\n"
-"    border-radius: 10px;\n"
-"    border: 2px solid #e2e8f0;\n"
+"    border-radius: 8px;\n"
+"    border: 1px solid #d1d5db;\n"
 "}")
         self.predictionsFrame.setObjectName("predictionsFrame")
         self.predictionsLayout = QtWidgets.QVBoxLayout(self.predictionsFrame)
-        self.predictionsLayout.setSpacing(8)
+        self.predictionsLayout.setProperty("contentsMargins", 15)
+        self.predictionsLayout.setSpacing(10)
         self.predictionsLayout.setObjectName("predictionsLayout")
         self.predictionsLabel = QtWidgets.QLabel(parent=self.predictionsFrame)
+        self.predictionsLabel.setStyleSheet("font-weight: 600;\n"
+"color: #374151;\n"
+"font-size: 14px;")
         self.predictionsLabel.setObjectName("predictionsLabel")
         self.predictionsLayout.addWidget(self.predictionsLabel)
         self.predictionsTableView = QtWidgets.QTableView(parent=self.predictionsFrame)
-        self.predictionsTableView.setMinimumHeight(250)
-        self.predictionsTableView.setAlternatingRowColors(True)
         self.predictionsTableView.setStyleSheet("QTableView {\n"
 "    background-color: #ffffff;\n"
-"    border: 1px solid #e2e8f0;\n"
+"    border: 1px solid #d1d5db;\n"
 "    border-radius: 6px;\n"
 "    font-size: 12px;\n"
+"    alternate-background-color: #f9fafb;\n"
 "}\n"
 "QHeaderView::section {\n"
-"    background-color: #edf2f7;\n"
-"    padding: 6px;\n"
+"    background-color: #f3f4f6;\n"
+"    padding: 8px;\n"
 "    border: none;\n"
-"    border-right: 1px solid #e2e8f0;\n"
-"    border-bottom: 1px solid #3182ce;\n"
-"    font-weight: bold;\n"
-"    color: #2d3748;\n"
+"    border-right: 1px solid #d1d5db;\n"
+"    border-bottom: 2px solid #3b82f6;\n"
+"    font-weight: 600;\n"
+"    color: #374151;\n"
+"    font-size: 12px;\n"
+"}\n"
+"QTableView::item {\n"
+"    padding: 6px;\n"
+"    border-bottom: 1px solid #f3f4f6;\n"
+"}\n"
+"QTableView::item:selected {\n"
+"    background-color: #3b82f6;\n"
+"    color: white;\n"
+"}\n"
+"QScrollBar:horizontal {\n"
+"    border: none;\n"
+"    background-color: #f3f4f6;\n"
+"    height: 10px;\n"
+"    border-radius: 5px;\n"
+"}\n"
+"QScrollBar::handle:horizontal {\n"
+"    background-color: #9ca3af;\n"
+"    border-radius: 5px;\n"
+"    min-width: 30px;\n"
 "}")
+        self.predictionsTableView.setAlternatingRowColors(True)
+        self.predictionsTableView.setVerticalScrollMode(QtWidgets.QAbstractItemView.ScrollMode.ScrollPerPixel)
+        self.predictionsTableView.setHorizontalScrollMode(QtWidgets.QAbstractItemView.ScrollMode.ScrollPerPixel)
+        self.predictionsTableView.setShowGrid(True)
+        self.predictionsTableView.setGridStyle(QtCore.Qt.PenStyle.SolidLine)
+        self.predictionsTableView.setCornerButtonEnabled(False)
         self.predictionsTableView.setObjectName("predictionsTableView")
         self.predictionsLayout.addWidget(self.predictionsTableView)
         self.modelInfoLabel = QtWidgets.QLabel(parent=self.predictionsFrame)
-        self.modelInfoLabel.setStyleSheet("color: #4a5568;\n"
-"font-size: 12px;\n"
-"padding: 8px;\n"
-"background-color: #ebf8ff;\n"
+        self.modelInfoLabel.setStyleSheet("color: #4b5563;\n"
+"font-size: 13px;\n"
+"padding: 10px;\n"
+"background-color: #eff6ff;\n"
 "border-radius: 6px;\n"
-"border-left: 4px solid #3182ce;")
+"border-left: 4px solid #3b82f6;\n"
+"margin: 5px;")
+        self.modelInfoLabel.setAlignment(QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.modelInfoLabel.setObjectName("modelInfoLabel")
         self.predictionsLayout.addWidget(self.modelInfoLabel)
-        self.rightLayout.addWidget(self.predictionsFrame)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
-        self.rightLayout.addItem(spacerItem1)
-        self.rightScrollArea.setWidget(self.rightScrollWidget)
-        self.contentLayout.addWidget(self.rightScrollArea)
-        self.mainScrollArea.setWidget(self.scrollAreaWidgetContents)
-        self.mainLayout.addWidget(self.mainScrollArea)
+        self.rightContainerLayout.addWidget(self.predictionsFrame)
+        self.saveButton = QtWidgets.QPushButton(parent=self.rightContainer)
+        self.saveButton.setMinimumSize(QtCore.QSize(0, 42))
+        self.saveButton.setStyleSheet("QPushButton {\n"
+"    background-color: #f59e0b;\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 6px;\n"
+"    font-weight: 600;\n"
+"    font-size: 15px;\n"
+"    padding: 11px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #d97706;\n"
+"    border: 1px solid #d97706;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #b45309;\n"
+"}\n"
+"QPushButton:disabled {\n"
+"    background-color: #9ca3af;\n"
+"    color: #f3f4f6;\n"
+"}")
+        self.saveButton.setObjectName("saveButton")
+        self.rightContainerLayout.addWidget(self.saveButton)
+        self.rightScrollArea.setWidget(self.rightContainer)
+        self.mainLayout.addWidget(self.mainSplitter)
         ModelingWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(ModelingWindow)
@@ -306,21 +437,24 @@ class Ui_ModelingWindow(object):
     def retranslateUi(self, ModelingWindow):
         _translate = QtCore.QCoreApplication.translate
         ModelingWindow.setWindowTitle(_translate("ModelingWindow", "Моделирование"))
-        self.titleLabel.setText(_translate("ModelingWindow", "<h2 style=\'color: #1e3a5f; font-size: 18px; font-weight: bold; text-align: center; margin: 0; padding: 0;\'>Настройки моделирования</h2>"))
-        self.modelLabel.setText(_translate("ModelingWindow", "<b style=\'color: #2d3748; font-size: 14px;\'>Выбор модели:</b>"))
-        self.targetLabel.setText(_translate("ModelingWindow", "<b style=\'color: #2d3748; font-size: 14px;\'>Целевая переменная (таргет):</b>"))
-        self.featuresLabel.setText(_translate("ModelingWindow", "<b style=\'color: #2d3748; font-size: 14px;\'>Признаки (фичи):</b>"))
-        self.paramsLabel.setText(_translate("ModelingWindow", "<b style=\'color: #2d3748; font-size: 14px;\'>Параметры разбиения:</b>"))
+        self.titleLabel.setText(_translate("ModelingWindow", "<h2 style=\'color: #374151; font-size: 18px; font-weight: 600; text-align: center; margin: 0; padding: 0;\'>Настройки моделирования</h2>"))
+        self.modelLabel.setText(_translate("ModelingWindow", "Выбор модели:"))
+        self.targetLabel.setText(_translate("ModelingWindow", "Целевая переменная (таргет):"))
+        self.featuresLabel.setText(_translate("ModelingWindow", "Признаки (фичи):"))
+        self.paramsLabel.setText(_translate("ModelingWindow", "Параметры разбиения:"))
         self.testSizeLabel.setText(_translate("ModelingWindow", "Тестовая выборка:"))
         self.testSizeSpinBox.setSuffix(_translate("ModelingWindow", "%"))
         self.seedLabel.setText(_translate("ModelingWindow", "Random seed:"))
         self.showHeatmapButton.setText(_translate("ModelingWindow", "Показать тепловую карту корреляций"))
         self.buildModelButton.setText(_translate("ModelingWindow", "Построить модель"))
         self.closeButton.setText(_translate("ModelingWindow", "Закрыть"))
-        self.resultsTitleLabel.setText(_translate("ModelingWindow", "<h2 style=\'color: #1e3a5f; font-size: 18px; font-weight: bold; text-align: center; margin: 0; padding: 0;\'>Результаты моделирования</h2>"))
-        self.metricsLabel.setText(_translate("ModelingWindow", "<b style=\'color: #2d3748; font-size: 14px;\'>Метрики модели:</b>"))
-        self.metricsTextEdit.setHtml(_translate("ModelingWindow", "<div style=\'color: #718096; font-style: italic; text-align: center; padding: 20px;\'>\n"
-"    Модель еще не построена. Нажмите кнопку \"Построить модель\" для получения результатов.\n"
-"</div>"))
-        self.predictionsLabel.setText(_translate("ModelingWindow", "<b style=\'color: #2d3748; font-size: 14px;\'>Сравнение предсказаний (первые 100 строк):</b>"))
-        self.modelInfoLabel.setText(_translate("ModelingWindow", "Модель: Не построена | Целевая переменная: Не выбрана"))
+        self.resultsTitleLabel.setText(_translate("ModelingWindow", "<h2 style=\'color: #374151; font-size: 18px; font-weight: 600; text-align: center; margin: 0; padding: 0;\'>Результаты моделирования</h2>"))
+        self.metricsLabel.setText(_translate("ModelingWindow", "Метрики модели:"))
+        self.metricsTextEdit.setHtml(_translate("ModelingWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Segoe UI,Arial,sans-serif\'; font-size:13px; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:13px; font-style:italic; color:#6b7280;\">Модель еще не построена. Нажмите кнопку &quot;Построить модель&quot; для получения результатов. </span></p></body></html>"))
+        self.predictionsLabel.setText(_translate("ModelingWindow", "Сравнение предсказаний"))
+        self.modelInfoLabel.setText(_translate("ModelingWindow", "Модель: Не построена | Целевая переменная: Не выбрана | Признаков: 0"))
+        self.saveButton.setText(_translate("ModelingWindow", "Сохранить результаты"))

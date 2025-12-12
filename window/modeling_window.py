@@ -56,6 +56,17 @@ class ModelingWindow(QMainWindow):
         self.task_type = None  # 'regression' или 'classification'
         self.is_classification = False
 
+        # Новые переменные для хранения предсказаний
+        self.y_test_original = None  # Фактические значения
+        self.y_pred_original = None  # Предсказанные значения
+        self.target_column = None  # Имя целевой переменной
+        self.model_built = False  # Флаг построения модели
+
+        # ДОБАВЛЕНО: дополнительные переменные
+        self.current_model_type = None  # Тип текущей модели
+        self.current_selected_features = None  # Выбранные признаки
+        self.current_metrics = None  # Текущие метрики модели
+
         # Настройка интерфейса
         self.setup_ui()
 
@@ -235,6 +246,92 @@ class ModelingWindow(QMainWindow):
         self.ui.showHeatmapButton.clicked.connect(self.show_heatmap)
         self.ui.buildModelButton.clicked.connect(self.build_model)
         self.ui.closeButton.clicked.connect(self.close)
+        self.ui.saveButton.clicked.connect(self.save_results)
+        self.ui.saveButton.setEnabled(False)
+
+    def save_results(self):
+        """Сохранение результатов предсказаний в CSV файл"""
+        if not self.model_built or self.y_test_original is None or self.y_pred_original is None:
+            QMessageBox.warning(self, "Ошибка",
+                                "Модель еще не построена! Постройте модель перед сохранением результатов.")
+            return
+
+        try:
+            # ОБРАБОТКА ДЛЯ PANDAS SERIES
+            if hasattr(self.y_test_original, 'values'):
+                y_test_values = self.y_test_original.values
+            else:
+                y_test_values = self.y_test_original
+
+            if hasattr(self.y_pred_original, 'values'):
+                y_pred_values = self.y_pred_original.values
+            else:
+                y_pred_values = self.y_pred_original
+
+            # Создаем DataFrame с результатами
+            results_df = pd.DataFrame({
+                'target': y_test_values,
+                'predict': y_pred_values
+            })
+
+            # Создаем имя файла на основе исходного файла и даты
+            from datetime import datetime
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            base_name = os.path.splitext(self.filename)[0]
+            default_filename = f"{base_name}_predictions_{timestamp}.csv"
+
+            # Показываем диалог сохранения файла
+            from PyQt6.QtWidgets import QFileDialog
+
+            file_path, _ = QFileDialog.getSaveFileName(
+                self,
+                "Сохранить результаты предсказаний",
+                os.path.join(self.data_folder, default_filename),
+                "CSV файлы (*.csv);;Все файлы (*)"
+            )
+
+            if file_path:
+                # Сохраняем в CSV
+                results_df.to_csv(file_path, index=False, encoding='utf-8-sig')
+
+                # Показываем информационное сообщение
+                success_msg = f"""
+                <div style='font-size: 13px; line-height: 1.5;'>
+                    <h3 style='color: #1e3a5f; text-align: center;'>Результаты сохранены!</h3>
+
+                    <div style='background-color: #f0fff4; padding: 10px; border-radius: 8px; margin: 8px 0;'>
+                        <b>Файл:</b> {os.path.basename(file_path)}<br>
+                        <b>Путь:</b> {file_path}<br>
+                        <b>Количество записей:</b> {len(results_df)}<br>
+                        <b>Размер файла:</b> {os.path.getsize(file_path) / 1024:.1f} КБ
+                    </div>
+
+                    <div style='background-color: #ebf8ff; padding: 8px; border-radius: 6px; margin: 8px 0; font-size: 12px;'>
+                        <b>Структура файла:</b><br>
+                        • <b>target</b> - Фактические значения целевой переменной<br>
+                        • <b>predict</b> - Предсказанные значения моделью
+                    </div>
+                </div>
+                """
+
+                msg_box = QMessageBox(self)
+                msg_box.setWindowTitle("Сохранение завершено")
+                msg_box.setTextFormat(Qt.TextFormat.RichText)
+                msg_box.setText(success_msg)
+                msg_box.setIcon(QMessageBox.Icon.Information)
+                msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+                msg_box.exec()
+
+        except PermissionError:
+            QMessageBox.critical(self, "Ошибка",
+                                 f"Нет прав на запись в файл!\n"
+                                 f"Возможно, файл открыт в другой программе.")
+        except Exception as e:
+            QMessageBox.critical(self, "Ошибка",
+                                 f"Не удалось сохранить результаты: {str(e)}\n\n"
+                                 f"Типы данных:\n"
+                                 f"y_test_original: {type(self.y_test_original)}\n"
+                                 f"y_pred_original: {type(self.y_pred_original)}")
 
     def correlation_ratio(self, categories, values):
         """Вычисляет корреляционное отношение между категориальной и количественной переменными"""
@@ -653,6 +750,18 @@ class ModelingWindow(QMainWindow):
                 y_pred_original = y_pred
                 y_test_original = y_test
 
+            # СОХРАНЯЕМ РЕЗУЛЬТАТЫ ДЛЯ ВОЗМОЖНОСТИ СОХРАНЕНИЯ В ФАЙЛ
+            self.y_test_original = y_test_original
+            self.y_pred_original = y_pred_original
+            self.target_column = target
+            self.model_built = True
+            self.current_model_type = model_type
+            self.current_selected_features = selected_features
+            self.current_metrics = None  # Инициализируем
+
+            # Делаем кнопку сохранения активной
+            self.ui.saveButton.setEnabled(True)
+
             # Вычисляем метрики
             if self.is_classification:
                 if y_train.dtype == 'object':
@@ -662,6 +771,9 @@ class ModelingWindow(QMainWindow):
             else:
                 n_features = X_train.shape[1]
                 metrics = self.calculate_regression_metrics(y_test, y_pred, n_features)
+
+            # Сохраняем метрики для возможности экспорта
+            self.current_metrics = metrics
 
             # Обновляем интерфейс
             if self.is_classification:
@@ -686,30 +798,58 @@ class ModelingWindow(QMainWindow):
 
     def update_predictions_table(self, y_true, y_pred, headers):
         """Обновление таблицы с предсказаниями"""
-        # Создаем DataFrame для отображения
-        df_display = pd.DataFrame({
-            headers[0]: y_true.values if hasattr(y_true, 'values') else y_true,
-            headers[1]: y_pred
-        })
+        # Сохраняем полные данные (не только первые 100 строк)
+        if len(y_true) > 100:
+            # Создаем DataFrame для отображения
+            df_display = pd.DataFrame({
+                headers[0]: y_true.values[:100] if hasattr(y_true, 'values') else y_true[:100],
+                headers[1]: y_pred[:100]
+            })
 
-        # Округляем числовые значения
-        if not self.is_classification:
-            df_display = df_display.round(4)
+            # Создаем модель для таблицы
+            model = QStandardItemModel()
+            model.setHorizontalHeaderLabels(headers)
 
-        # Создаем модель для таблицы
-        model = QStandardItemModel()
-        model.setHorizontalHeaderLabels(headers)
+            # Заполняем данными
+            for i in range(len(df_display)):
+                row_items = [
+                    QStandardItem(f"{df_display.iloc[i, 0]}"),
+                    QStandardItem(f"{df_display.iloc[i, 1]}")
+                ]
+                model.appendRow(row_items)
 
-        # Заполняем данными (первые 100 строк)
-        max_rows = min(100, len(df_display))
-        for i in range(max_rows):
-            row_items = [
-                QStandardItem(f"{df_display.iloc[i, 0]}"),
-                QStandardItem(f"{df_display.iloc[i, 1]}")
+            # Добавляем строку с информацией
+            info_row = [
+                QStandardItem(f"..."),
+                QStandardItem(f"и еще {len(y_true) - 100} записей")
             ]
-            model.appendRow(row_items)
+            model.appendRow(info_row)
 
-        self.ui.predictionsTableView.setModel(model)
+            self.ui.predictionsTableView.setModel(model)
+        else:
+            # Создаем DataFrame для отображения
+            df_display = pd.DataFrame({
+                headers[0]: y_true.values if hasattr(y_true, 'values') else y_true,
+                headers[1]: y_pred
+            })
+
+            # Округляем числовые значения
+            if not self.is_classification:
+                df_display = df_display.round(4)
+
+            # Создаем модель для таблицы
+            model = QStandardItemModel()
+            model.setHorizontalHeaderLabels(headers)
+
+            # Заполняем данными
+            for i in range(len(df_display)):
+                row_items = [
+                    QStandardItem(f"{df_display.iloc[i, 0]}"),
+                    QStandardItem(f"{df_display.iloc[i, 1]}")
+                ]
+                model.appendRow(row_items)
+
+            self.ui.predictionsTableView.setModel(model)
 
         # Настраиваем отображение
         header_view = self.ui.predictionsTableView.horizontalHeader()
@@ -740,7 +880,7 @@ class ModelingWindow(QMainWindow):
                 </div>
                 <div style='font-size: 11px; color: #718096;'>
                     Показывает, какая доля дисперсии зависимой переменной объясняется моделью.<br>
-                    <b>Интерпретация:</b> от 0 до 1. Чем ближе к 1, тем лучше.
+                    <b>Интерпретация:</b> Чем ближе к 1, тем лучше.
                 </div>
             </div>
 
